@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block main %}
+    <form action="/homepage" method="post">
+        <div class="form-group">
+            <table class="table table-hoverable">
+                <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Shares</th>
+                    <th>Price</th>
+                    <th>TOTAL</th>
+                </tr>
+                {% for purchase in my_purchases %}
+                    <tr>
+                        <td>{{my_purchases[purchase]["company_symbol"]}}</td>
+                        <td>{{my_purchases[purchase]["company_name"]}}</td>
+                        <td>{{my_purchases[purchase]["share_amount"]}}</td>
+                        <td>{{my_purchases[purchase]["share_price"]}}</td>
+                        <td>{{my_purchases[purchase]["total_value"]}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td>CASH</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{my_cash}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{total}}</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+{% endblock %}
