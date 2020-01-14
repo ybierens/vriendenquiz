@@ -44,17 +44,20 @@ Session(app)
 db = SQL("sqlite:///quiz.db")
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
+def home():
+    if request.method == "GET":
+        return render_template("home.html")
+
+@app.route("/index")
 @login_required
 def index():
-
     return apology("TODO")
 
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-
    return apology("TODO")
 
 
@@ -88,7 +91,7 @@ def login():
         session["user_id"] = rows[0]["user_id"]
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/index")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:

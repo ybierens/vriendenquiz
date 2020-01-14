@@ -45,3 +45,14 @@ main img
     /* constrain images on small screens */
     max-width: 100%;
 }
+
+header
+{
+    font-family: "Gill Sans", sans-serif;
+}
+
+body
+{
+   background-image: url("Azur Lane.jpg");
+}
+

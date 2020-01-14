@@ -21,7 +21,7 @@ Om de webapplicatie (en, specifieker; de MVP-versie van de webapplicatie) soepel
 1. /mijnquizzes
     * alle quizzes met link om te delen
 1. /quizaanmaken
-* titel en GIF, vragen en bijbehorende antwoorden, foto’s uploaden
+    * titel en GIF, vragen en bijbehorende antwoorden, foto’s uploaden
 1. /quizinvullen
 1. /resultaten
 
