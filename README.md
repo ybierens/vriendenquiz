@@ -1,8 +1,8 @@
-Namen: Rik, Thijs, Yannick & Mijntje <br>
+Namen: Rik, Yannick & Mijntje  <br>
 Cursustitel: Webprogrammeren en databases <br>
 Opdracht: Voorstel webapplicatie <br>
 Groep: IK12 <br>
-Datum: 10/1/12
+Datum: 14/1/12
 
 # Projectvoorstel
 
