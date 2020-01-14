@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Shares</th>
+                <th>Price</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for stock in inventory %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.share_total }}</td>
+                    <td>{{ indexDict[stock.symbol]["price"] | usd }}</td>
+                    <td>{{ (indexDict[stock.symbol]["price"] * stock.share_total) | usd }}</td>
+                </tr>
+            {% endfor %}
+
+        </tbody><tfoot>
+            <tr>
+                <td colspan="3"></td>
+                <td class=bold>{{ cash | usd }}</td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}
