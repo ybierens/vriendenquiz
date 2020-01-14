@@ -21,6 +21,19 @@ Het is de bedoeling dat gebruikers van deze webapplicatie in staat worden gestel
 1. /resultaten
 
 ## Views
+![schets](doc/Homescreen.png)
+![schets](doc/Log_in.png)
+![schets](doc/Maak_account.png)
+![schets](doc/Maak_quiz.png)
+![schets](doc/Maak_quiz_meer.png)
+![schets](doc/Mijn_quiz.png)
+![schets](doc/Mijn_quizzes.png)
+
 
 ## Models
+* Apology scherm
+* Functie die GIFs ophaalt van de API
+* Login vereist functie
 
+## Plugins en frameworks
+* Bootstrap
