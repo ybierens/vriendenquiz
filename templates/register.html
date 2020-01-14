@@ -17,28 +17,4 @@
         </div>
         <button class="btn btn-primary" name = "submit" type="submit">Register</button>
     </form>
-    <script>
-        // check if username is available
-
-
-        var formvar = document.getElementById("formid");
-        formvar.addEventListener("submit", function(prdef) {
-
-            // prevent default action
-            prdef.preventDefault();
-            $.get('/check?username=' + $("#username").val(), function(check) {
-
-                // if username is available
-                if (check == true){
-                    formvar.submit();
-                }
-
-                // alert and reset when username is not available
-                else{
-                    document.getElementById('formid').reset();
-                    alert("This username is already in use");
-                }
-            });
-        });
-    </script>
 {% endblock %}
