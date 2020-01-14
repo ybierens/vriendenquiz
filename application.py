@@ -50,12 +50,6 @@ def index():
 
     return apology("TODO")
 
-@app.route("/cash", methods=["GET", "POST"])
-@login_required
-def cash():
-
-    return apology("TODO")
-
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -64,18 +58,7 @@ def buy():
    return apology("TODO")
 
 
-@app.route("/check", methods=["GET"])
-def check():
-
-    return apology("TODO")
-
-@app.route("/history")
-@login_required
-def history():
-
-    return apology("TODO")
-
-@app.route("/log_in", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
@@ -123,14 +106,8 @@ def logout():
     return redirect("/")
 
 
-@app.route("/quote", methods=["GET", "POST"])
-@login_required
-def quote():
-    """Get stock quote."""
 
-    return apology("TODO")
-
-@app.route("/maak_account", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
 
@@ -172,18 +149,11 @@ def register():
         return render_template("register.html")
 
 
-@app.route("/sell", methods=["GET", "POST"])
-@login_required
-def sell():
-
-    return apology("TODO")
 
 def errorhandler(e):
-    """Handle error"""
     if not isinstance(e, HTTPException):
         e = InternalServerError()
     return apology(e.name, e.code)
-
 
 # Listen for errors
 for code in default_exceptions:
