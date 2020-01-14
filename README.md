@@ -12,7 +12,7 @@ Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over j
 
 ## Schetsen
 
-![schets](quiz1.png)
+![schets](doc/quiz1.png)
 ![schets](quiz2.png)
 ![schets](quiz3.png)
 ![schets](quiz4.png)
