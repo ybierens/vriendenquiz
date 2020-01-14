@@ -140,8 +140,8 @@ def register():
         db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                     username = username, password = generate_password_hash(password, method = 'pbkdf2:sha256', salt_length=8))
 
-        get_id = db.execute("SELECT id FROM users WHERE user_id = :user_id", user_id = session['user_id'])
-        session["user_id"] = get_id[0]['id']
+        # get_id = db.execute("SELECT id FROM users WHERE user_id = :user_id", user_id = session['user_id'])
+        # session["user_id"] = get_id[0]['id']
 
         return redirect("/")
 
