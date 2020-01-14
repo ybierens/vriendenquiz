@@ -75,7 +75,7 @@ def history():
 
     return apology("TODO")
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/log_in", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
@@ -130,7 +130,7 @@ def quote():
 
     return apology("TODO")
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/maak_account", methods=["GET", "POST"])
 def register():
     """Register user"""
 
