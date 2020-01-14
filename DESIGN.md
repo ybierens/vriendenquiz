@@ -23,4 +23,9 @@ Het is de bedoeling dat gebruikers van deze webapplicatie in staat worden gestel
 ## Views
 
 ## Models
+* Apology scherm
+* Functie die GIFs ophaalt van de API
+* Login vereist functie
 
+## Plugins en frameworks
+* Bootstrap
