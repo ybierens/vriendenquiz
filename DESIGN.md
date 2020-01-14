@@ -14,9 +14,13 @@ Het is de bedoeling dat gebruikers van deze webapplicatie in staat worden gestel
 1. /registreren
 1. /inloggen
 1. /mijnquizzes
-2. alle quizzes met link om te delen
+* alle quizzes met link om te delen
 1. /quizaanmaken
+* titel en GIF, vragen en bijbehorende antwoorden, foto’s uploaden
 1. /quizinvullen
 1. /resultaten
 
+## Views
+
+## Models
 
