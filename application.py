@@ -52,7 +52,7 @@ def home():
 @app.route("/index")
 @login_required
 def index():
-    return apology("TODO")
+    return apology("persoonlijke homepage")
 
 
 @app.route("/buy", methods=["GET", "POST"])
