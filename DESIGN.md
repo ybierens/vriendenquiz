@@ -1,4 +1,4 @@
-Namen: Rik, Yannick & Mijntje  <br>
+Namen: Rik, Yannick, Rama & Mijntje  <br>
 Cursustitel: Webprogrammeren en databases <br>
 Opdracht: Technisch ontwerp <br>
 Groep: IK12 <br>
@@ -16,16 +16,23 @@ publieke resultatenpagina. Dit wordt allemaal mogelijk gemaakt door functies te 
 Om de webapplicatie (en, specifieker; de MVP-versie van de webapplicatie) soepel te laten functioneren zijn de volgende webroutes van cruciaal belang;
 
 1. /home
-    * Dit is het eerste scherm waar de gebruiker op terecht komt bij het openen van de webpagina. Een simpele en duidelijke maar aantrekkelijk ontworpen homepagina, vanuit waar
+    * Dit is de eerste pagina waar de gebruiker op terecht komt bij het openen van de webapplicatie. Een simpele en duidelijke maar aantrekkelijk ontworpen homepagina, vanuit waar
     een samenvatting gegeven wordt waar de gebruiker de site voor kan gebruiken, met links naar de inlog- en registreerpagina's.
 1. /registreren
+    * Op dit scherm kunnen gebruikers een nieuw account aanmaken. Als gebruikers zich registreren worden zij via deze route toegevoegd aan de database. Vanaf het moment dat ze toegevoegd zijn
+    aan de database kunnen gebruikers inloggen.
 1. /inloggen
+    * Als gebruikers inloggen leidt deze route naar de index-pagina. Hier zien gebruikers de mogelijkheid om een nieuwe quiz aan te maken, of al hun aangemaakte quizzes te bekijken.
 1. /mijnquizzes
-    * alle quizzes met link om te delen
+    * Via deze route komen gebruikers op een webpagina waar alle quizzes met link om te delen staan weergegeven.
 1. /quizaanmaken
-    * titel en GIF, vragen en bijbehorende antwoorden, foto’s uploaden
+    * Via deze route kunnen gebruikers een quiz aanmaken; titel en GIF kunnen ingevuld worden. Daarnaast kunnen er foto's geüpload worden, waar gebruikers vragen en bijbehorende
+    antwoorden bij verzinnen.
 1. /quizinvullen
+    * Via deze route komen vrienden van de gebruiker op de pagina waar zij de quiz kunnen invullen. Deze vrienden hoeven zelf geen account aan te maken, maar vullen hun naam handmatig in
+    op invulvelden, welke samen met hun uiteindelijke score worden opgeslagen in de database. Na het voltooien van de quiz worden vrienden geredirect naar de resultatenpagina.
 1. /resultaten
+    * Deze route leidt tot de webpagina waar de resultaten van de quiz worden gepubliceerd; de resultaten van iedereen staan weergegeven op een leaderboard.
 
 ## Views
 ![schets](doc/Homescreen.png)
@@ -39,8 +46,12 @@ Om de webapplicatie (en, specifieker; de MVP-versie van de webapplicatie) soepel
 
 ## Models
 * Apology scherm
+    * Hier wordt de gebruiker naar herleid als hij/zij een ongeldige actie uitvoert.
 * Functie die GIFs ophaalt van de API
+    * Deze functie zorgt ervoor dat GIFs geïntegreerd kunnen worden; zo kunnen deze toegevoegd worden als "profielfoto" van een quiz.
 * Login vereist functie
+    * Deze functie zorgt ervoor dat bepaalde webpagina's alleen maar toegankelijk worden onder de voorwaarde dat de gebruiker is ingelogd.
 
 ## Plugins en frameworks
-* Bootstrap
+* Bootstrap plugin voor frontend ontwerp
+* Flask framework voor backend ontwerp
