@@ -16,6 +16,8 @@ publieke resultatenpagina. Dit wordt allemaal mogelijk gemaakt door functies te 
 Om de webapplicatie (en, specifieker; de MVP-versie van de webapplicatie) soepel te laten functioneren zijn de volgende webroutes van cruciaal belang;
 
 1. /home
+    * Dit is het eerste scherm waar de gebruiker op terecht komt bij het openen van de webpagina. Een simpele en duidelijke maar aantrekkelijk ontworpen homepagina, vanuit waar
+    een samenvatting gegeven wordt waar de gebruiker de site voor kan gebruiken, met links naar de inlog- en registreerpagina's.
 1. /registreren
 1. /inloggen
 1. /mijnquizzes
