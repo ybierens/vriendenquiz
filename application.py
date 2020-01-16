@@ -122,12 +122,6 @@ def register():
 
     if request.method == "POST":
 
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username = request.form.get("username"))
-
-        if len(rows) == 1:
-            return apology("this username is already taken", 400)
-
         # insert into database
         db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
                     username = request.form.get("username"), password = generate_password_hash(request.form.get("password"), method = 'pbkdf2:sha256', salt_length=8))
