@@ -131,6 +131,12 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/mijn_quizzes", methods=["GET", "POST"])
+def mijn_quizzes():
+    """ Brengt de gebruiker naar pagina met al zijn gemaakte quizzes """
+    if request.method == "GET":
+        return render_template("mijn_quizzes.html")
+
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):

@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mijn quizzes
+{% endblock %}
+
+{% block main %}
+
+<h1> MIJN QUIZZES </h1>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Quiznaam</th>
+      <th scope="col">Aangemaakt op</th>
+      <th scope="col">Link om te delen</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Hobbyquiz</td>
+      <td>20-08-19</td>
+      <td> <button class="btn btn-primary"> Link </button> </td>
+    </tr>
+    <tr>
+      <td>Kerstquiz</td>
+      <td>26-12-19</td>
+      <td> <button class="btn btn-primary"> Link </button> </td>
+    </tr>
+</table>
+
+{% endblock %}
+
