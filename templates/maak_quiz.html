@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Maak quizzes
+{% endblock %}
+
+{% block main %}
+    <h1> MAAK QUIZ </h1>
+    <form action="/maak_quiz" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="quiz_titel" placeholder="Quiz titel" type="text">
+        </div>
+        <p></p>
+        <button class="btn btn-primary" type="submit">Voeg vragen toe</button>
+    </form>
+{% endblock %}
+

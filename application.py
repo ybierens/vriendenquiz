@@ -141,16 +141,17 @@ def mijn_quizzes():
         return render_template("mijn_quizzes.html")
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
-def maak_quizzes():
+def maak_quiz():
 
     if request.method == "POST":
+
         db.execute("INSERT INTO quizes (quiz_titel, user_id) VALUES (:quiz_titel,:user_id)",
             quiz_titel = request.form.get("quiz_titel"),
             user_id = session["user_id"])
-        return apology("woow")
+        return apology("uwu")
 
     else:
-        return render_template("maak_quizzes.html")
+        return render_template("maak_quiz.html")
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
