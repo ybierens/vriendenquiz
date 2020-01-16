@@ -18,21 +18,59 @@
             <input class="form-control" name="confirmation" placeholder="Confirm" type="password" id="confirmation">
         </div>
         <p id="confirm"></p>
-        <button class="btn btn-primary" name = "submit" type="submit">Register</button>
+        <button class="btn btn-primary" name = "submit1" type="submit">Register</button>
     </form>
 
     <script>
+        var form = document.getElementById("register");
+        form.onsubmit = function () {
+
+             if (!form.username.value || !form.password.value || !form.confirmation.value) {
+
+                if (!form.username.value) {
+                    document.getElementById("username").style.borderColor = "red";
+                    document.getElementById("user_name").innerHTML = "Please fill in username";
+                }
+                else {
+                    document.getElementById("username").style.borderColor = "green";
+                    document.getElementById("user_name").innerHTML = "";
+                }
+                if (!form.password.value) {
+                    document.getElementById("password").style.borderColor = "red";
+                    document.getElementById("pass_word").innerHTML = "Please fill in password";
+                }
+                else {
+                    document.getElementById("password").style.borderColor = "green";
+                    document.getElementById("pass_word").innerHTML = "";
+                }
+                if (!form.confirmation.value) {
+                    document.getElementById("confirmation").style.borderColor = "red";
+                    document.getElementById("confirm").innerHTML = "Please confirm password";
+                }
+                else {
+                    document.getElementById("confirmation").style.borderColor = "green";
+                    document.getElementById("confirm").innerHTML = "";
+                }
+                return false;
+            }
+
+            else if (form.password.value != form.confirmation.value) {
+                alert("passwords don't match");
+                return false;
+            }
+            return true;
+        };
 
         var username = document.querySelector('input[id = "username"]');
-        var form = document.getElementById("register").addEventListener("submit", function(event) {
-                    revent.preventDefault();
+        document.getElementById("register").addEventListener("submit", function(event) {
+            event.preventDefault();
 
             $.get("/check?username=" + username.value, function(data) {
                 if (data == false){
                     alert("username already taken");
                 }
                 else {
-                    form.submit();
+                    $("#register").submit();
                 }
             });
         });

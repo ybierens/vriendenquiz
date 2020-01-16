@@ -57,7 +57,16 @@ def index():
 
 @app.route("/check", methods=["GET"])
 def check():
+    username = request.args.get("username")
 
+    # check all usernames in db, when new username already exists return false
+    names = db.execute("SELECT username FROM users")
+    for name in names:
+        if username == name['username']:
+            return jsonify(False)
+
+    # when not duplicate and at least 1 character return true
+    return jsonify(True)
 
 
 @app.route("/buy", methods=["GET", "POST"])
