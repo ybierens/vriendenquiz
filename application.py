@@ -116,41 +116,23 @@ def register():
 
     if request.method == "POST":
 
-        username = request.form.get("username")
-        password = request.form.get("password")
-        confirmation = request.form.get("confirmation")
-
-        # check if everything is filled in correctly
-        if not username:
-            return apology("must provide username", 400)
-
-        elif not password:
-            return apology("must provide password", 400)
-
-        elif not confirmation:
-            return apology("must confirm password", 400)
-
-        elif password != confirmation:
-            return apology("passwords don't match", 400)
-
         rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username=username)
+                          username = request.form.get("username"))
 
         if len(rows) == 1:
             return apology("this username is already taken", 400)
 
         # insert into database
         db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-                    username = username, password = generate_password_hash(password, method = 'pbkdf2:sha256', salt_length=8))
+                    username = request.form.get("username"), password = generate_password_hash(request.form.get("password"), method = 'pbkdf2:sha256', salt_length=8))
 
-        # get_id = db.execute("SELECT id FROM users WHERE user_id = :user_id", user_id = session['user_id'])
-        # session["user_id"] = get_id[0]['id']
+        get_id = db.execute("SELECT user_id FROM users WHERE username = :username", username = request.form.get("username"))
+        session["user_id"] = get_id[0]['user_id']
 
-        return redirect("/")
+        return redirect("/index")
 
     else:
         return render_template("register.html")
-
 
 
 def errorhandler(e):
