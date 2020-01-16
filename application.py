@@ -142,16 +142,22 @@ def mijn_quizzes():
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
 def maak_quiz():
-
     if request.method == "POST":
-
-        db.execute("INSERT INTO quizes (quiz_titel, user_id) VALUES (:quiz_titel,:user_id)",
+        db.execute("INSERT INTO quizes (quiz_titel, user_id) VALUES (:quiz_titel, :user_id)",
             quiz_titel = request.form.get("quiz_titel"),
             user_id = session["user_id"])
         return apology("uwu")
 
     else:
         return render_template("maak_quiz.html")
+
+@app.route("/maak_vragen", methods=["GET", "POST"])
+def maak_vragen():
+    if request.method == "GET":
+        return render_template("maak_vragen.html")
+    else:
+        return apology("Hey")
+
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
