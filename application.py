@@ -55,6 +55,11 @@ def index():
     return apology("persoonlijke homepage")
 
 
+@app.route("/check", methods=["GET"])
+def check():
+
+
+
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
@@ -70,14 +75,6 @@ def login():
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-
-        # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username", 403)
-
-        # Ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password", 403)
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username",

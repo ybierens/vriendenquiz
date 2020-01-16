@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/register" method="post" id="formid">
+    <form action="/register" method="post" id="register">
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" id = "username" type="text">
         </div>
@@ -22,45 +22,20 @@
     </form>
 
     <script>
-        var form = document.getElementById("formid");
-        form.onsubmit = function() {
 
-            if (!form.username.value || !form.password.value || !form.confirmation.value) {
+        var username = document.querySelector('input[id = "username"]');
+        var form = document.getElementById("register").addEventListener("submit", function(event) {
+                    revent.preventDefault();
 
-                if (!form.username.value) {
-                    document.getElementById("username").style.borderColor = "red";
-                    document.getElementById("user_name").innerHTML = "Please fill in username";
+            $.get("/check?username=" + username.value, function(data) {
+                if (data == false){
+                    alert("username already taken");
                 }
                 else {
-                    document.getElementById("username").style.borderColor = "green";
-                    document.getElementById("user_name").innerHTML = "";
+                    form.submit();
                 }
-                if (!form.password.value) {
-                    document.getElementById("password").style.borderColor = "red";
-                    document.getElementById("pass_word").innerHTML = "Please fill in password";
-                }
-                else {
-                    document.getElementById("password").style.borderColor = "green";
-                    document.getElementById("pass_word").innerHTML = "";
-                }
-                if (!form.confirmation.value) {
-                    document.getElementById("confirmation").style.borderColor = "red";
-                    document.getElementById("confirm").innerHTML = "Please confirm password";
-                }
-                else {
-                    document.getElementById("confirmation").style.borderColor = "green";
-                    document.getElementById("confirm").innerHTML = "";
-                }
-                return false;
-            }
-
-            else if (form.password.value != form.confirmation.value) {
-                alert("passwords don't match");
-                return false;
-            }
-
-            return true;
-        };
+            });
+        });
     </script>
 
 {% endblock %}

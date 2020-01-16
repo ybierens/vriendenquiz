@@ -5,13 +5,46 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
+    <form action="/login" method="post" id="login">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="username">
         </div>
+        <p id="user_name"></p>
         <div class="form-group">
-            <input class="form-control" name="password" placeholder="Password" type="password">
+            <input class="form-control" name="password" placeholder="Password" type="password" id="password">
         </div>
+        <p id="pass_word"></p>
         <button class="btn btn-primary" type="submit">Log In</button>
     </form>
+
+    <script>
+
+        var form = document.getElementById("login");
+        form.onsubmit = function() {
+
+            if (!form.username.value || !form.password.value) {
+
+                if (!form.username.value) {
+                    document.getElementById("username").style.borderColor = "red";
+                    document.getElementById("user_name").innerHTML = "Please fill in your username";
+                    }
+                else {
+                    document.getElementById("username").style.borderColor = "green";
+                    document.getElementById("username").innerHTML = "";
+                }
+
+                if (!form.password.value) {
+                    document.getElementById("password").style.borderColor = "red";
+                    document.getElementById("pass_word").innerHTML = "Please fill in your password";
+                }
+                else {
+                    document.getElementById("password").style.borderColor = "green";
+                    document.getElementById("pass_word").innerHTML = "";
+                }
+                return false;
+            }
+            return true;
+        };
+
+    </script>
 {% endblock %}
