@@ -148,7 +148,7 @@ def maak_quiz():
             user_id = session["user_id"])
 
         rows = db.execute("SELECT quiz_id FROM quizes WHERE user_id = :user_id", user_id=session["user_id"])
-        session["quiz_id"] = rows[0]["quiz_id"]
+        session["quiz_id"] = rows[-1]["quiz_id"]
 
         return redirect("/voeg_vraag_toe")
 
@@ -166,13 +166,6 @@ def voeg_vraag_toe():
 
     else:
         return render_template("voeg_vraag_toe.html")
-
-@app.route("/maak_vragen", methods=["GET", "POST"])
-def maak_vragen():
-    if request.method == "GET":
-        return render_template("maak_vragen.html")
-    else:
-        return apology("Hey")
 
 
 def errorhandler(e):
