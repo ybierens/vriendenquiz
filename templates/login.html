@@ -46,5 +46,20 @@
             return true;
         };
 
+        var username = document.querySelector('input[id = "username"]');
+        var password = document.querySelector('input[id = "password"]');
+        document.getElementById("login").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
+                if (data == false) {
+                    alert("username and/or password incorrect");
+                }
+                else {
+                    $("#login").submit();
+                }
+            });
+        });
+
     </script>
 {% endblock %}

@@ -69,6 +69,20 @@ def check():
     return jsonify(True)
 
 
+@app.route("/logincheck", methods=["GET"])
+def logincheck():
+    username = request.args.get("username")
+    password = request.args.get("password")
+
+    get_hash = db.execute("SELECT * FROM users WHERE username = :username", username = username)
+
+    print(username, password)
+    if check_password_hash(get_hash[0]['password'], password) == True:
+        return jsonify(True)
+    else:
+        return jsonify(False)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
