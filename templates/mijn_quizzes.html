@@ -7,22 +7,33 @@
 {% block main %}
 
 <h1> MIJN QUIZZES </h1>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Quiznaam</th>
-      <th scope="col">Aangemaakt op</th>
-      <th scope="col">Link om te delen</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for quiz in quizes %}
+{% if not quizes %}
+  <h3> Je hebt nog geen quizes, klik op maak quizzes om een quiz aan te maken</h3>
+  <form action="/maak_quiz">
+    <button type="submit">Maak quizzes</button>
+  </form>
+{% else %}
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td>{{quiz['quiz_titel']}}</td>
-        <td>{{quiz['date']}}</td>
-        <td> <button class="btn btn-primary"> Link </button> </td>
+        <th scope="col">Quiznaam</th>
+        <th scope="col">Aangemaakt op</th>
+        <th scope="col">fysieke link</th>
+        <th scope="col">Link om te delen</th>
+        <th scope="col">Verwijder Quiz</th>
       </tr>
-    {% endfor %}
-</table>
-
+    </thead>
+    <tbody>
+      {% for quiz in quizes %}
+        <tr>
+          <td>{{quiz['quiz_titel']}}</td>
+          <td>{{quiz['date']}}</td>
+          <td>/vul_in?quiz_id={{quiz['quiz_id']}}</td>
+          <td> <button class="btn btn-primary"> Link </button> </td>
+          <td> <a href="{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}"> verwijder </a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
 {% endblock %}
