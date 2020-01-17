@@ -134,11 +134,16 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route("/mijn_quizzes", methods=["GET", "POST"])
+
+@app.route("/mijn_quizzes")
+@login_required
 def mijn_quizzes():
     """ Brengt de gebruiker naar pagina met al zijn gemaakte quizzes """
-    if request.method == "GET":
-        return render_template("mijn_quizzes.html")
+
+    quizes = db.execute("SELECT * FROM quizes WHERE user_id = :user_id", user_id = session['user_id'])
+
+    return render_template("mijn_quizzes.html", quizes = quizes)
+
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
 def maak_quiz():

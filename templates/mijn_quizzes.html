@@ -16,17 +16,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Hobbyquiz</td>
-      <td>20-08-19</td>
-      <td> <button class="btn btn-primary"> Link </button> </td>
-    </tr>
-    <tr>
-      <td>Kerstquiz</td>
-      <td>26-12-19</td>
-      <td> <button class="btn btn-primary"> Link </button> </td>
-    </tr>
+    {% for quiz in quizes %}
+      <tr>
+        <td>{{quiz['quiz_titel']}}</td>
+        <td>{{quiz['date']}}</td>
+        <td> <button class="btn btn-primary"> Link </button> </td>
+      </tr>
+    {% endfor %}
 </table>
 
 {% endblock %}
-
