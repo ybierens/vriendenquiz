@@ -187,6 +187,11 @@ def voeg_vraag_toe():
                     answer=request.form.get("answer4"),
                     correct=False)
 
+        if "toevoegen" in request.form:
+            return redirect("/voeg_vraag_toe")
+
+        elif "beeindigen" in request.form:
+            return redirect("/mijn_quizzes")
 
     else:
         return render_template("voeg_vraag_toe.html")
