@@ -164,9 +164,32 @@ def voeg_vraag_toe():
                     quiz_id=session["quiz_id"],
                     question=request.form.get("question"))
 
+        rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
+        session["question_id"] = rows[-1]["question_id"]
+
+        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
+                    question_id=session["question_id"],
+                    answer=request.form.get("answer1"),
+                    correct=True)
+
+        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
+                    question_id=session["question_id"],
+                    answer=request.form.get("answer2"),
+                    correct=False)
+
+        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
+                    question_id=session["question_id"],
+                    answer=request.form.get("answer3"),
+                    correct=False)
+
+        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
+                    question_id=session["question_id"],
+                    answer=request.form.get("answer4"),
+                    correct=False)
+
+
     else:
         return render_template("voeg_vraag_toe.html")
-
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
