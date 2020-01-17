@@ -148,10 +148,27 @@ def maak_quiz():
         db.execute("INSERT INTO quizes (quiz_titel, user_id) VALUES (:quiz_titel,:user_id)",
             quiz_titel = request.form.get("quiz_titel"),
             user_id = session["user_id"])
-        return apology("uwu")
+
+        rows = db.execute("SELECT quiz_id FROM quizes WHERE user_id = :user_id", user_id=session["user_id"])
+        session["quiz_id"] = rows[0]["quiz_id"]
+
+        return redirect("/voeg_vraag_toe")
 
     else:
         return render_template("maak_quiz.html")
+
+@app.route("/voeg_vraag_toe", methods=["GET", "POST"])
+def voeg_vraag_toe():
+
+    if request.method == "POST":
+
+        db.execute("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id,:question)",
+                    quiz_id=session["quiz_id"],
+                    question=request.form.get("question"))
+
+    else:
+        return render_template("voeg_vraag_toe.html")
+
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):

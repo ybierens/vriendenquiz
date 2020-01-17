@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/voeg_vraag_toe" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Vraag" type="text">
+        </div>
+        <button class="btn btn-primary" name = "submit1" type="submit">Voeg vraag toe</button>
+    </form>
+
+{% endblock %}
