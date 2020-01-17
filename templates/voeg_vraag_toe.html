@@ -1,27 +1,41 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Register
+    Voeg vraag toe
 {% endblock %}
 
 {% block main %}
-    <form action="/voeg_vraag_toe" method="post">
-        <div class="form-group">
+<form action="/voeg_vraag_toe" method="post">
+<div class="container">
+  <div class="row justify-content-center">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Voeg een foto toe">
+    <div class="card-body">
+      <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Vraag" type="text">
-        </div>
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="answer1" placeholder="Antwoord 1 | Correct" type="text">
-        </div>
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="answer2" placeholder="Antwoord 2" type="text">
-        </div>
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="answer3" placeholder="Antwoord 3" type="text">
-        </div>
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="answer4" placeholder="Antwoord 4" type="text">
-        </div>
-        <input type="submit" value="toevoegen" name="toevoegen">
-        <input type="submit" value="beeindigen" name="beeindigen">
-    </form>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="form group">
+        <input autocomplete="off" autofocus class="form-control" name="answer1" placeholder="Antwoord 1 | Correct" type="text">
+      </li>
+      <li class="form group">
+        <input autocomplete="off" autofocus class="form-control" name="answer2" placeholder="Antwoord 2" type="text">
+      </li>
+      <li class="form group">
+         <input autocomplete="off" autofocus class="form-control" name="answer3" placeholder="Antwoord 3" type="text">
+      </li>
+      <li class="form group">
+        <input autocomplete="off" autofocus class="form-control" name="answer4" placeholder="Antwoord 4" type="text">
+      </li>
+    </ul>
+  <div class="card-body">
+    <button class= "btn btn=primary" input type="submit" value="toevoegen" name="toevoegen"> Vraag toevoegen </button>
+    <button class="btn btn-primary" input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
+  </div>
+  </div>
+  </div>
+</div>
+</form>
+
 {% endblock %}
