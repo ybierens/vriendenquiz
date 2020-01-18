@@ -76,7 +76,6 @@ def logincheck():
 
     get_hash = db.execute("SELECT * FROM users WHERE username = :username", username = username)
 
-    print(username, password)
     if check_password_hash(get_hash[0]['password'], password) == True:
         return jsonify(True)
     else:
@@ -143,15 +142,15 @@ def register():
         return render_template("register.html")
 
 
-app.route("/mijn_quizzes")
+@app.route("/mijn_quizzes")
 @login_required
 def mijn_quizzes():
     """ Brengt de gebruiker naar pagina met al zijn gemaakte quizzes """
 
     quizes = db.execute("SELECT * FROM quizes WHERE user_id = :user_id", user_id = session['user_id'])
-    print(quizes)
 
     return render_template("mijn_quizzes.html", quizes = quizes)
+
 
 @app.route("/verwijder_quiz")
 @login_required
