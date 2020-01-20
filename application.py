@@ -8,14 +8,21 @@ from tempfile import mkdtemp
 
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
+
 
 from helpers import apology, login_required, lookup, usd, add_up
+
+UPLOAD_FOLDER = 'UPLOAD_FOLDER'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 
 # Configure application
 app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure responses aren't cached
 @app.after_request
@@ -204,14 +211,29 @@ def maak_quiz():
     else:
         return render_template("maak_quiz.html")
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route("/voeg_vraag_toe", methods=["GET", "POST"])
 def voeg_vraag_toe():
 
     if request.method == "POST":
 
-        db.execute("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id,:question)",
+        if 'file' not in request.files:
+            flash("Geen foto bijgevoegd")
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash("Geen foto geselecteerd")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id,:question,:filename)",
                     quiz_id=session["quiz_id"],
-                    question=request.form.get("question"))
+                    question=request.form.get("question"), filename=os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
         session["question_id"] = rows[-1]["question_id"]

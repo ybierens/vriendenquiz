@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block main %}
-<form action="/voeg_vraag_toe" method="post">
+<form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
 <div class="container">
   <div class="row justify-content-center">
   <div class="card bg-light mb-3" style="width: 25rem;">
-    <img class="card-img-top" src="static/Schermopname (89).png" alt="Voeg een foto toe" style="height: 22rem">
+    <input type=file name=file>
     <div class="card-body">
       <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Vraag" type="text">
