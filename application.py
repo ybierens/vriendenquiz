@@ -76,6 +76,9 @@ def logincheck():
 
     get_hash = db.execute("SELECT * FROM users WHERE username = :username", username = username)
 
+    if not get_hash:
+        return jsonify(False)
+
     if check_password_hash(get_hash[0]['password'], password) == True:
         return jsonify(True)
     else:
