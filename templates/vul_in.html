@@ -17,13 +17,15 @@
         {{question['question']}}
       </div>
     </div>
-    <ul class="list-group list-group-flush">
     {% for answer in answers %}
-      <li class="list-group-item form group">
-        <input type="radio" class="form-control" name="answer" value= "answer1"> {{ answer['answer'] }} </input>
-      </li>
+      {% if answer['question_id'] == question['question_id'] %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item form group">
+            <input type="radio" class="form-control" name="answer" value="answer"> {{answer['answer']}} </input>
+          </li>
+        </ul>
+      {% endif %}
     {% endfor %}
-    </ul>
   </div>
   </div>
 </div>
