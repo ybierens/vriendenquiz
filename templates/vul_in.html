@@ -18,18 +18,11 @@
       </div>
     </div>
     <ul class="list-group list-group-flush">
+    {% for answer in answers %}
       <li class="list-group-item form group">
-        <input type="radio" class="form-control" name="answer" value= "answer1">
+        <input type="radio" class="form-control" name="answer" value= "answer1"> {{ answer['answer'] }} </input>
       </li>
-      <li class="list-group-item form group">
-        <input type="radio" class="form-control" name="answer" value= "answer2">
-      </li>
-      <li class="list-group-item form group">
-        <input type="radio" class="form-control" name="answer" value= "answer3">
-      </li>
-      <li class="list-group-item form group">
-        <input type="radio" class="form-control" name="answer" value= "answer4">
-      </li>
+    {% endfor %}
     </ul>
   </div>
   </div>
