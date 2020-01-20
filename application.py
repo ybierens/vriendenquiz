@@ -1,17 +1,11 @@
-# application.py
-
-# Computer Science 50
-# Yannick Bierens
-# Website where you can buy and sell stock.
-
-
-
 import os
+import random
 
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
+
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -167,17 +161,32 @@ def verwijder_quiz():
 
     return redirect("/mijn_quizzes")
 
-@app.route("/vul_in", methods=["GET"])
+@app.route("/vul_in", methods=["GET", "POST"])
 @login_required
 def vul_in():
 
     quiz_id = request.args.get("quiz_id")
-    titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
+
+    titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    random.shuffle(answers)
 
-    return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'], answers = answers)
+
+    if request.method == "POST":
+        participantnaam = request.form.get("participantnaam")
+        for question in questions:
+            print(question)
+            test = request.form.get(question['question_id'])
+            print(test)
+
+        # return redirect("/index")
+        return redirect("/index")
+
+
+    else:
+        return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'], answers = answers)
 
 
 @app.route("/maak_quiz", methods=["GET", "POST"])

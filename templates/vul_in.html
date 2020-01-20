@@ -6,7 +6,7 @@
 
 {% block main %}
 <h2> {{titel}} </h2>
-<form action="" method="post">
+<form action="/vul_in" method="post">
 {% for question in questions %}
 <div class="container">
   <div class="row justify-content-center">
@@ -21,7 +21,7 @@
       {% if answer['question_id'] == question['question_id'] %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item form group">
-            <input type="radio" class="form-control" name="answer" value="answer"> {{answer['answer']}} </input>
+            <input type="radio" class="form-control" name={{question['question_id']}} value={{answer['answer_id']}}> {{answer['answer']}} </input>
           </li>
         </ul>
       {% endif %}
@@ -30,6 +30,11 @@
   </div>
 </div>
 {% endfor %}
+
+<div class="form-group">
+  <input autocomplete="off" autofocus class="form-control" name="participantnaam" placeholder="Naam" type="text">
+</div>
+<button class="btn btn-primary" type="submit" name="submit_button">Stuur</button>
 </form>
 
 {% endblock %}
