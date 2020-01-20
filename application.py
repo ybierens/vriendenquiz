@@ -209,20 +209,12 @@ def voeg_vraag_toe():
                     answer=request.form.get("answer1"),
                     correct=True)
 
-        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
-                    question_id=session["question_id"],
-                    answer=request.form.get("answer2"),
-                    correct=False)
+        for i in range(2,5):
 
-        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
-                    question_id=session["question_id"],
-                    answer=request.form.get("answer3"),
-                    correct=False)
-
-        db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
-                    question_id=session["question_id"],
-                    answer=request.form.get("answer4"),
-                    correct=False)
+            db.execute("INSERT INTO answers (question_id, answer, correct) VALUES(:question_id,:answer,:correct)",
+                        question_id=session["question_id"],
+                        answer=request.form.get("answer" + str(i)),
+                        correct=False)
 
         if "toevoegen" in request.form:
             return redirect("/voeg_vraag_toe")
