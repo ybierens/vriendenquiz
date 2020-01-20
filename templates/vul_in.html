@@ -1,24 +1,40 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Mijn quizzes
+    Vul in
 {% endblock %}
 
 {% block main %}
+<h2> {{titel}} </h2>
+<form action="" method="post">
+{% for question in questions %}
+<div class="container">
+  <div class="row justify-content-center">
+  <div class="card bg-light mb-3" style="width: 25rem;">
+    <img class="card-img-top" src="static/Schermopname (89).png" alt="Voeg een foto toe" style="height: 22rem">
+    <div class="card-body">
+      <div class="form-group">
+        {{question['question']}}
+      </div>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item form group">
+        <input type="radio" class="form-control" name="answer" value= "answer1">
+      </li>
+      <li class="list-group-item form group">
+        <input type="radio" class="form-control" name="answer" value= "answer2">
+      </li>
+      <li class="list-group-item form group">
+        <input type="radio" class="form-control" name="answer" value= "answer3">
+      </li>
+      <li class="list-group-item form group">
+        <input type="radio" class="form-control" name="answer" value= "answer4">
+      </li>
+    </ul>
+  </div>
+  </div>
+</div>
+{% endfor %}
+</form>
 
-<h1> TEST </h1>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Vraag</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for question in questions %}
-        <tr>
-          <td>{{question['question']}}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 {% endblock %}

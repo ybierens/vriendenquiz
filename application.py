@@ -171,10 +171,11 @@ def verwijder_quiz():
 def vul_in():
 
     quiz_id = request.args.get("quiz_id")
+    titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
-    return render_template("vul_in.html", questions = questions)
+    return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'])
 
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
