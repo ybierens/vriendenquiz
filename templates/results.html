@@ -1,24 +1,22 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Homepage
+    Quiz Results
 {% endblock %}
 
 {% block main %}
-    <form action="/index" method="post">
+    <form action="/results/{{quiz_id}}" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
                 <h1>PARTICIPANTS</h1>
                 <tr>
                     <th>Name</th>
-                    <th>Quiz</th>
                     <th>Score</th>
                     <th>Time</th>
                 </tr>
                 {% for part in participants_list %}
                     <tr>
                         <td>{{part["name"]}}</td>
-                        <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
                     </tr>

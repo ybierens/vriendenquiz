@@ -53,7 +53,19 @@ def home():
 @app.route("/index")
 @login_required
 def index():
-    return apology("persoonlijke homepage")
+
+    session["user_id"]
+    my_quizes = db.execute("SELECT * FROM quizes WHERE user_id = :username",username=session["user_id"])
+
+    participants_list = []
+
+    for quiz in my_quizes:
+        for participant in db.execute("SELECT * FROM participants WHERE  quiz_id = :quiz", quiz=quiz['quiz_id']):
+            participant["quizname"] = quiz["quiz_titel"]
+            participants_list.append(participant)
+
+
+    return render_template("index.html", participants_list=participants_list)
 
 
 @app.route("/check", methods=["GET"])
@@ -276,6 +288,26 @@ def voeg_vraag_toe():
 
     else:
         return render_template("voeg_vraag_toe.html")
+
+
+
+@app.route("/results/<quiz_id>", methods=["GET", "POST"])
+@login_required
+def results(quiz_id):
+
+    quiz = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id=quiz_id)[0]
+
+    participants_list = []
+    print(quiz)
+
+    for participant in db.execute("SELECT * FROM participants WHERE quiz_id = :quiz", quiz=quiz_id):
+        participant["quizname"] = quiz["quiz_titel"]
+        participants_list.append(participant)
+
+
+    return render_template("results.html", participants_list=participants_list)
+
+
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
