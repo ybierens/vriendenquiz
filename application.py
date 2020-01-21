@@ -168,12 +168,9 @@ def verwijder_quiz():
 
     return redirect("/mijn_quizzes")
 
-@app.route("/vul_in", methods=["GET", "POST"])
+@app.route("/vul_in/<quiz_id>", methods=["GET", "POST"])
 @login_required
-def vul_in():
-
-    quiz_id = request.args.get("quiz_id")
-
+def vul_in(quiz_id):
 
     titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
@@ -182,18 +179,35 @@ def vul_in():
 
 
     if request.method == "POST":
-        participantnaam = request.form.get("participantnaam")
-        for question in questions:
-            print(question)
-            test = request.form.get(question['question_id'])
-            print(test)
+        if 'submit_button' in request.form:
+
+            participant_name = request.form.get("participantnaam")
+
+            db.execute("INSERT INTO participants (quiz_id, name) VALUES (:quiz_id, :name)", quiz_id = quiz_id, name = participant_name)
+            participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :name", name = participant_name)[-1]["participant_id"]
+
+            final_score = 0
+
+
+            print(answers)
+            for question in questions:
+                answer_input = request.form[str(question['question_id'])]
+                for answer in answers:
+                    if answer['answer_id'] == int(answer_input):
+                        final_score += answer["correct"]
+                db.execute("INSERT INTO responses (participant_id, answer_id) VALUES (:participant_id, :answer_id)", participant_id = participant_id, answer_id = answer_input)
+
+            final_score = final_score / len(questions)
+
+            db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
+                          score = final_score, participant_id = participant_id)
 
         # return redirect("/index")
         return redirect("/index")
 
 
     else:
-        return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'], answers = answers)
+        return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'], answers = answers, quiz_id = quiz_id)
 
 
 @app.route("/maak_quiz", methods=["GET", "POST"])

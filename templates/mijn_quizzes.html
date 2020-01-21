@@ -28,8 +28,8 @@
         <tr>
           <td>{{quiz['quiz_titel']}}</td>
           <td>{{quiz['date']}}</td>
-          <td>/vul_in?quiz_id={{quiz['quiz_id']}}</td>
-          <td> <button type="button" class="btn btn-primary" onclick="window.location.href='{{'/vul_in?quiz_id=%s'%quiz['quiz_id']}}'">Link</button> </td>
+          <td>/vul_in/{{quiz['quiz_id']}}</td>
+          <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Link</button> </td>
           <td> <button type="button" class="btn btn-primary" onclick="window.location.href='{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}'">verwijder</button> </td>
         </tr>
       {% endfor %}
