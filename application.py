@@ -11,7 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
 
-from helpers import apology, login_required, lookup, usd, add_up
+from helpers import apology, login_required, lookup, usd, add_up, get_gif
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -213,9 +213,11 @@ def vul_in(quiz_id):
 @app.route("/maak_quiz", methods=["GET", "POST"])
 def maak_quiz():
     if request.method == "POST":
-        db.execute("INSERT INTO quizes (quiz_titel, user_id) VALUES (:quiz_titel, :user_id)",
+        zoekwoord = request.form["zoekwoord"]
+        gif = get_gif(zoekwoord)
+        db.execute("INSERT INTO quizes (quiz_titel, user_id, gif) VALUES (:quiz_titel, :user_id, :gif)",
             quiz_titel = request.form.get("quiz_titel"),
-            user_id = session["user_id"])
+            user_id = session["user_id"], gif=gif)
 
         rows = db.execute("SELECT quiz_id FROM quizes WHERE user_id = :user_id", user_id=session["user_id"])
         session["quiz_id"] = rows[-1]["quiz_id"]

@@ -16,6 +16,7 @@
   <table class="table table-hover">
     <thead>
       <tr>
+        <th scope="col"> </th>
         <th scope="col">Quiznaam</th>
         <th scope="col">Aangemaakt op</th>
         <th scope="col">fysieke link</th>
@@ -26,6 +27,7 @@
     <tbody>
       {% for quiz in quizes %}
         <tr>
+          <td><img src="{{quiz['gif']}}"></td>
           <td>{{quiz['quiz_titel']}}</td>
           <td>{{quiz['date']}}</td>
           <td>/vul_in/{{quiz['quiz_id']}}</td>

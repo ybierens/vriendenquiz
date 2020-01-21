@@ -68,6 +68,21 @@ def lookup(symbol):
     except (KeyError, TypeError, ValueError):
         return None
 
+def get_gif(zoekwoord):
+    try:
+        endpoint = (f"http://api.giphy.com/v1/gifs/search?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&q={zoekwoord}&start=0&size=1")
+        if not zoekwoord:
+            endpoint = "http://api.giphy.com/v1/gifs/random?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&start=0&size=1"
+        response = requests.get(endpoint)
+        giphy = response.json()
+        if not zoekwoord:
+            gif = giphy['data']['fixed_width_small_url']
+        else:
+            gif = giphy['data'][0]['images']['fixed_width_small']['url']
+        return gif
+    except requests.RequestException:
+        return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+
 
 def usd(value):
     """Format value as USD."""
