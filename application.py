@@ -2,7 +2,7 @@ import os
 import random
 
 from cs50 import SQL
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, send_from_directory, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 
@@ -186,6 +186,7 @@ def vul_in(quiz_id):
 
     titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    print("questions: ", questions)
     answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     random.shuffle(answers)
 
@@ -258,10 +259,11 @@ def voeg_vraag_toe():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filename = (url_for('uploaded_file', filename=filename))
 
         db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id,:question,:filename)",
                     quiz_id=session["quiz_id"],
-                    question=request.form.get("question"), filename=os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    question=request.form.get("question"), filename=filename)
 
         rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
         session["question_id"] = rows[-1]["question_id"]
@@ -289,7 +291,10 @@ def voeg_vraag_toe():
     else:
         return render_template("voeg_vraag_toe.html")
 
-
+@app.route('/UPLOAD_FOLDER/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
 
 @app.route("/results/<quiz_id>", methods=["GET", "POST"])
 @login_required
