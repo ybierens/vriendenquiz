@@ -224,6 +224,7 @@ def vul_in(quiz_id):
 
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
+@login_required
 def maak_quiz():
     if request.method == "POST":
         zoekwoord = request.form["zoekwoord"]
@@ -245,6 +246,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/voeg_vraag_toe", methods=["GET", "POST"])
+@login_required
 def voeg_vraag_toe():
 
     if request.method == "POST":
