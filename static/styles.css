@@ -89,3 +89,28 @@ table
 {
     margin-top: 40px;
 }
+
+#alertoverlay {
+    display: none;
+    opacity: .8;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: #FFF;
+    width: 100%;
+    z-index: 10;
+}
+
+#alertbox {
+    display: none;
+    position: fixed;
+    background: #000;
+    border-radius: 7px;
+    width: 550px;
+    z-index: 10;
+}
+
+#alertbox > div { background: #FFF; margin: 8px; }
+#alertbox > div > #alertboxhead { background: #666; font-size: 19px; padding: 10px; color: #CCC; }
+#alertbox > div > #alertboxbody { background: #333; padding: 20px; color: #FFF; }
+#alertbox > div > #alertboxfoot { background: #666; padding: 10px; text-align: right; }

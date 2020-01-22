@@ -18,6 +18,28 @@
     </form>
 
     <script>
+         function CustomAlert() {
+            this.render = function(message) {
+                var winW = window.innerWidth;
+                var winH = window.innerHeight;
+                var alertoverlay = document.getElementById("alertoverlay");
+                var alertbox = document.getElementById("alertbox");
+                alertoverlay.style.display = "block";
+                alertoverlay.style.height = winH + "px";
+                alertbox.style.left = (winW / 2) - (550 / 2)+ "px";
+                alertbox.style.top = "100px";
+                alertbox.style.display = "block";
+                document.getElementById("alertboxhead").innerHTML = "YOU DID SOMETHING WRONG";
+                document.getElementById("alertboxbody").innerHTML = message;
+                document.getElementById("alertboxfoot").innerHTML = '<button onclick="Alert.ok()"> OK </button>';
+            };
+            this.ok = function() {
+                document.getElementById("alertoverlay").style.display = "none";
+                document.getElementById("alertbox").style.display = "none";
+            };
+
+        }
+        var Alert = new CustomAlert();
 
         var form = document.getElementById("login");
         form.onsubmit = function() {
@@ -53,7 +75,7 @@
 
             $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
                 if (data == false) {
-                    alert("username and/or password incorrect");
+                    Alert.render("username and/or password incorrect");
                 }
                 else {
                     $("#login").submit();
