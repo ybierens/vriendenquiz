@@ -1,9 +1,11 @@
 import requests
 import urllib.parse
 import os
+import random
 
 from flask import redirect, render_template, request, session
 from functools import wraps
+
 
 
 def apology(message, code=400):
@@ -70,7 +72,8 @@ def lookup(symbol):
 
 def get_gif(zoekwoord):
     try:
-        endpoint = (f"http://api.giphy.com/v1/gifs/search?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&q={zoekwoord}&start=0&size=1")
+        randomnummer = random.randint(1,25)
+        endpoint = (f"http://api.giphy.com/v1/gifs/search?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&q={zoekwoord}&limit=25&start=0&size=1")
         if not zoekwoord:
             endpoint = "http://api.giphy.com/v1/gifs/random?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&start=0&size=1"
         response = requests.get(endpoint)
@@ -78,7 +81,7 @@ def get_gif(zoekwoord):
         if not zoekwoord:
             gif = giphy['data']['fixed_width_small_url']
         else:
-            gif = giphy['data'][0]['images']['fixed_width_small']['url']
+            gif = giphy['data'][randomnummer]['images']['fixed_width_small']['url']
         return gif
     except requests.RequestException:
         return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
