@@ -12,7 +12,7 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- https://favicon.io/emoji-favicons/money-mouth-face/ -->
-        <link href="/static/question_mark.png" rel="icon">
+        <link href="/static/IMG_3383.PNG" rel="icon">
 
         <link href="/static/styles.css" rel="stylesheet">
 
@@ -27,15 +27,16 @@
     <body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="nav-item" href="/"> <span class="red">HOME</span></a>
+            <a class="nav-item" href="/"><img src="/static/IMG_3385.PNG" style="height:50px;width:200px;"/></a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/mijn_quizzes">MIJN QUIZZES</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/maak_quiz">MAAK QUIZZES</a></li>
+                        <p></p>
+                        <button1 style="margin:5px;" class="nav-item"><a class="nav-link" href="/mijn_quizzes">MIJN QUIZES</a></button1>
+                        <button1 style="margin:5px;" class="nav-item"><a class="nav-link" href="/maak_quiz">MAAK EEN QUIZ</a></button1>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/logout">LOG UIT</a></li>
