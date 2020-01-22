@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Zoek Quiz
+{% endblock %}
+
+{% block main %}
+    <h1>ZOEK QUIZ</h1>
+    <form action="/zoek_quiz" method="post" id="login">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="quiz_url" placeholder="Type the quiz URL" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Zoek</button>
+    </form>
+{% endblock %}

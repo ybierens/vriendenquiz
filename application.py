@@ -312,6 +312,15 @@ def results(quiz_id):
 
     return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name)
 
+@app.route("/zoek_quiz", methods=["GET", "POST"])
+def zoek_quiz():
+    if request.method == "POST":
+        zoek_quiz = request.form.get("quiz_url")
+        return redirect(zoek_quiz)
+
+    else:
+        return render_template("zoek_quiz.html")
+
 
 
 def errorhandler(e):
