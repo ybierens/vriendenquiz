@@ -303,7 +303,6 @@ def uploaded_file(filename):
                                filename)
 
 @app.route("/results/<quiz_id>", methods=["GET", "POST"])
-@login_required
 def results(quiz_id):
 
     quiz_name = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id=quiz_id)[0]["quiz_titel"]
