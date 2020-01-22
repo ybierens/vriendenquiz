@@ -64,8 +64,11 @@ def index():
             participant["quizname"] = quiz["quiz_titel"]
             participants_list.append(participant)
 
+    top_participants = sorted(participants_list, key=lambda x:x["score"])
+    top_participants.reverse()
 
-    return render_template("index.html", participants_list=participants_list)
+
+    return render_template("index.html", participants_list=participants_list, top_participants=top_participants[:5])
 
 
 @app.route("/check", methods=["GET"])
@@ -310,7 +313,12 @@ def results(quiz_id):
         participants_list.append(participant)
 
 
-    return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name)
+
+    top_participants = sorted(participants_list, key=lambda x:x["score"])
+    top_participants.reverse()
+
+
+    return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name, top_participants=top_participants[:5])
 
 @app.route("/zoek_quiz", methods=["GET", "POST"])
 def zoek_quiz():

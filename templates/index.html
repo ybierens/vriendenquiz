@@ -8,6 +8,22 @@
     <form action="/index" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
+                <h1>TOP 5</h1>
+                <tr>
+                    <th>Name</th>
+                    <th>Quiz</th>
+                    <th>Score</th>
+                    <th>Time</th>
+                </tr>
+                {% for part in top_participants %}
+                    <tr>
+                        <td>{{part["name"]}}</td>
+                        <td>{{part["quizname"]}}</td>
+                        <td>{{part["score"]}}</td>
+                        <td>{{part["time"]}}</td>
+                    </tr>
+                {% endfor %}
+
                 <h1>PARTICIPANTEN</h1>
                 <tr>
                     <th>Name</th>

@@ -8,7 +8,23 @@
     <form action="/results/{{quiz_id}}" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
-                <h1>PARTICIPANTEN {{quiz_name}}</h1>
+                <h1>TOP 5 {{quiz_name}}</h1>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Time</th>
+                </tr>
+                {% for part in top_participants %}
+                    <tr>
+                        <td>{{part["name"]}}</td>
+                        <td>{{part["score"]}}</td>
+                        <td>{{part["time"]}}</td>
+                    </tr>
+                {% endfor %}
+
+                <br><br>
+
+                PARTICIPANTEN {{quiz_name}}
                 <tr>
                     <th>Name</th>
                     <th>Score</th>
