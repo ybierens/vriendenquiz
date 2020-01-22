@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Antwoord
+{% endblock %}
+
+{% block main %}
+<h2> {{titel}} </h2>
+<form action="/vul_in/{{quiz_id}}" method="post">
+{% for question in questions %}
+<div class="container">
+  <div class="row justify-content-center">
+  <div class="card bg-light mb-3" style="width: 25rem;">
+    <img class="card-img-top" src="{{question['filename']}}" alt="{{question['filename']}}" style="height: 22rem">
+    <div class="card-body">
+      <div class="form-group">
+        {{question['question']}}
+      </div>
+    </div>
+    {% for answer in answers %}
+      {% if answer['question_id'] == question['question_id'] %}
+        {% if answer["status"] == 1 %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item form group">
+            {{answer['answer']}}
+          </li>
+        </ul>
+        {% endif %}
+        {% if answer["status"] == 2 %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item form group">
+            &#10060; <b>{{answer['answer']}}</b>
+          </li>
+        </ul>
+        {% endif %}
+        {% if answer["status"] == 3 %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item form group">
+            &#9989; {{answer['answer']}}
+          </li>
+        </ul>
+        {% endif %}
+        {% if answer["status"] == 4 %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item form group">
+            &#9989; <b>{{answer['answer']}}</b>
+          </li>
+        </ul>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

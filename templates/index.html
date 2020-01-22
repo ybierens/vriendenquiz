@@ -21,6 +21,7 @@
                         <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
+                        <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
 
@@ -37,6 +38,7 @@
                         <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
+                        <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
             </table>
