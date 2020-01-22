@@ -1,3 +1,7 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 {% extends "layout.html" %}
 
 {% block title %}
@@ -5,18 +9,21 @@
 {% endblock %}
 
 {% block main %}
+    <body>
+        <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:250px;height:250px;">
+    <h2>Login</h2>
     <form action="/login" method="post" id="login">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" id="username">
+            <input autocomplete="off" autofocus class="inlog" name="username" placeholder="Username" type="text" id="username">
         </div>
         <p id="user_name"></p>
         <div class="form-group">
-            <input class="form-control" name="password" placeholder="Password" type="password" id="password">
+            <input autocomplete class="inlog" name="password" placeholder="Password" type="password" id="password">
         </div>
         <p id="pass_word"></p>
-        <button class="btn btn-primary" type="submit">Log In</button>
+        <button class="login" type="submit">Log In</button>
     </form>
-
+    </body>
     <div id="alertoverlay"></div>
     <div id="alertbox">
         <div>

@@ -48,7 +48,7 @@ db = SQL("sqlite:///quiz.db")
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "GET":
-        return render_template("home.html")
+        return redirect("/index")
 
 @app.route("/index")
 @login_required
