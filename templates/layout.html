@@ -57,8 +57,42 @@
             </header>
         {% endif %}
 
+        <div id="alertoverlay"></div>
+        <div id="alertbox">
+            <div>
+                <div id="alertboxhead"></div>
+                <div id="alertboxbody"></div>
+                <div id="alertboxfoot"></div>
+            </div>
+        </div>
+
         <main class="container p-5">
             {% block main %}{% endblock %}
         </main>
     </body>
+
+    <script>
+        function CustomAlert() {
+            this.render = function(message) {
+                var winW = window.innerWidth;
+                var winH = window.innerHeight;
+                var alertoverlay = document.getElementById("alertoverlay");
+                var alertbox = document.getElementById("alertbox");
+                alertoverlay.style.display = "block";
+                alertoverlay.style.height = winH + "px";
+                alertbox.style.left = (winW / 2) - (550 / 2)+ "px";
+                alertbox.style.top = "100px";
+                alertbox.style.display = "block";
+                document.getElementById("alertboxhead").innerHTML = "YOU DID SOMETHING WRONG";
+                document.getElementById("alertboxbody").innerHTML = message;
+                document.getElementById("alertboxfoot").innerHTML = '<button class="btn btn-primary" onclick="Alert.ok()"> OK </button>';
+            };
+            this.ok = function() {
+                document.getElementById("alertoverlay").style.display = "none";
+                document.getElementById("alertbox").style.display = "none";
+            };
+
+        }
+        var Alert = new CustomAlert();
+    </script>
 </html>

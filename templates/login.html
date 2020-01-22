@@ -27,35 +27,12 @@
     </div>
 
     <script>
-         function CustomAlert() {
-            this.render = function(message) {
-                var winW = window.innerWidth;
-                var winH = window.innerHeight;
-                var alertoverlay = document.getElementById("alertoverlay");
-                var alertbox = document.getElementById("alertbox");
-                alertoverlay.style.display = "block";
-                alertoverlay.style.height = winH + "px";
-                alertbox.style.left = (winW / 2) - (550 / 2)+ "px";
-                alertbox.style.top = "100px";
-                alertbox.style.display = "block";
-                document.getElementById("alertboxhead").innerHTML = "YOU DID SOMETHING WRONG";
-                document.getElementById("alertboxbody").innerHTML = message;
-                document.getElementById("alertboxfoot").innerHTML = '<button onclick="Alert.ok()"> OK </button>';
-            };
-            this.ok = function() {
-                document.getElementById("alertoverlay").style.display = "none";
-                document.getElementById("alertbox").style.display = "none";
-            };
+        document.getElementById("login").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        }
-        var Alert = new CustomAlert();
+             if (!username.value || !password.value) {
 
-        var form = document.getElementById("login");
-        form.onsubmit = function() {
-
-            if (!form.username.value || !form.password.value) {
-
-                if (!form.username.value) {
+                if (!username.value) {
                     document.getElementById("username").style.borderColor = "red";
                     document.getElementById("user_name").innerHTML = "Please fill in your username";
                     }
@@ -64,7 +41,7 @@
                     document.getElementById("username").innerHTML = "";
                 }
 
-                if (!form.password.value) {
+                if (!password.value) {
                     document.getElementById("password").style.borderColor = "red";
                     document.getElementById("pass_word").innerHTML = "Please fill in your password";
                 }
@@ -73,24 +50,17 @@
                     document.getElementById("pass_word").innerHTML = "";
                 }
                 return false;
+             }
+             else {
+                $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
+                    if (data == false) {
+                        Alert.render("username and/or password incorrect");
+                    }
+                    else {
+                        $("#login").submit();
+                    }
+                });
             }
-            return true;
-        };
-
-        var username = document.querySelector('input[id = "username"]');
-        var password = document.querySelector('input[id = "password"]');
-        document.getElementById("login").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
-                if (data == false) {
-                    Alert.render("username and/or password incorrect");
-                }
-                else {
-                    $("#login").submit();
-                }
-            });
         });
-
     </script>
 {% endblock %}
