@@ -330,6 +330,46 @@ def zoek_quiz():
     else:
         return render_template("zoek_quiz.html")
 
+@app.route("/antwoord/<participant_id>", methods=["GET", "POST"])
+@login_required
+def antwoord(participant_id):
+
+    quiz = db.execute("SELECT quiz_id FROM participants WHERE participant_id = :pid", pid=participant_id)[0]["quiz_id"]
+    quizvragen = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz", quiz=quiz)
+
+    mpantwoorden = []
+    for vraag in quizvragen:
+        for mp in db.execute("SELECT * FROM answers WHERE question_id = :question", question=vraag["question_id"]):
+            mpantwoorden.append(mp)
+
+    antwoorden = db.execute("SELECT * FROM responses WHERE participant_id = :pid", pid=participant_id)
+
+
+    # ieder multiplechoice antwoord heeft 1 van 4 statussen
+    # 1: antwoord is fout en niet geselecteerd door de user
+    # 2: antwoord is fout en geselecteerd door de user
+    # 3: antwoord is goed en niet geselecteerd door de user
+    # 4: antwoord is goed en geselecteerd door de user
+
+    for antwoord in mpantwoorden:
+        user_antwoord_id = 0
+        for user_antwoord in antwoorden:
+            if antwoord["answer_id"] == user_antwoord["answer_id"]:
+                user_antwoord_id = user_antwoord["answer_id"]
+
+        if antwoord["answer_id"] == user_antwoord_id and antwoord["correct"] == 1:
+            antwoord["status"] = 4
+        elif antwoord["answer_id"] == user_antwoord_id and antwoord["correct"] == 0:
+            antwoord["status"] = 2
+        elif antwoord["correct"] == 1:
+            antwoord["status"] = 3
+        else:
+            antwoord["status"] = 1
+
+    print(mpantwoorden)
+
+    return render_template("antwoord.html", questions = quizvragen, answers = mpantwoorden)
+
 
 
 def errorhandler(e):
