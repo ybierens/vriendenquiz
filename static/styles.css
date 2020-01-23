@@ -122,16 +122,15 @@ button1
     -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
   background-color: white;
-  color: #0C6980;
-  border: 2px solid #1AC8DB;
+  color: black;
+  border: 2px solid #1DC690;
   border-radius: 12px;
 }
 
 button1:hover
 {
-  background-color: #1AC8DB;
+  background-color: #1DC690;
   color: grey;
-  font color: white;
   border-radius: 12px;
   box-shadow: 5px 5px;
 }
@@ -142,13 +141,13 @@ button2
   transition-duration: 0.4s;
   background-color: white;
   color: #AE388B;
-  border: 2px solid #EC8FD0;
+  border: 2px solid #FF8300;
   border-radius: 12px;
 }
 
 button2:hover
 {
-  background-color: #EC8FD0;
+  background-color: #FF8300;
   color: white;
   --box-shadow-color: grey;
   border-radius: 12px;
@@ -166,8 +165,9 @@ input.voeg[type=text]
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #75E6DA;
+  background-color: #C3CEDA;
   border-radius: 12px;
+  border: 2px solid #C3CEDA;
   color: white;
 }
 
@@ -180,7 +180,7 @@ input.voeg[type=text]:focus
   margin: 8px 0;
   box-sizing: border-box;
   background-color: #F3F6FE;
-  border-color: #2EB5E0;
+  border-color: #C3CEDA;
   border-radius: 12px;
   box-shadow: 10px 10px var(--box-shadow-color);
   color: black;
@@ -388,11 +388,11 @@ button.resultaten
   transition-duration: 0.4s;
     width:70%;
     height: 50px;
-    background-color: #EC8FD0;
+    background-color: #1DC690;
     color: white;
     border-radius: 12px;
     cursor: pointer;
-    border: 2px solid #EC8FD0;
+    border: 2px solid #1DC690;
 }
 
 button.resultaten:hover
@@ -403,7 +403,7 @@ button.resultaten:hover
   color: grey;
   font color: white;
   border-radius: 12px;
-  border: 2px solid #EC8FD0;
+  border: 2px solid #1DC690;
   box-shadow: 5px 5px;
 }
 
