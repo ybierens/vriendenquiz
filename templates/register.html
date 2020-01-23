@@ -5,22 +5,26 @@
 {% endblock %}
 
 {% block main %}
+    <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:250px;height:250px;">
     <form action="/register" method="post" id="register">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" id = "username" type="text">
+            <input autocomplete="off" autofocus class="inlog" name="username" placeholder="Username" id = "username" type="text">
         </div>
         <p id="user_name"></p>
         <div class="form-group">
-            <input class="form-control" name="password" placeholder="Password" type="password" id="password">
+            <input class="inlog" name="password" placeholder="Password" type="password" id="password">
         </div>
         <p id="pass_word"></p>
         <div class="form-group">
-            <input class="form-control" name="confirmation" placeholder="Confirm" type="password" id="confirmation">
+            <input class="inlog" name="confirmation" placeholder="Confirm" type="password" id="confirmation">
         </div>
         <p id="confirm"></p>
-        <button class="btn btn-primary" name = "submit1" type="submit">Register</button>
+        <button class="login" name = "submit1" type="submit">Register</button>
     </form>
-
+    <p></p>
+    <form action="/login">
+    <h>Heeft u al een account? Klik <form action="/register.html"><button class="footer" type="submit">hier</button></form> om in te loggen</h>
+    </form>
     <script>
                 document.getElementById("register").addEventListener("submit", function(event) {
             event.preventDefault();

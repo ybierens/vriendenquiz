@@ -125,7 +125,6 @@ button1
   color: #0C6980;
   border: 2px solid #1AC8DB;
   border-radius: 12px;
-  box-shadow: 5px 5px;
 }
 
 button1:hover
@@ -145,16 +144,15 @@ button2
   color: #AE388B;
   border: 2px solid #EC8FD0;
   border-radius: 12px;
-  box-shadow: 5px 5px;
 }
 
 button2:hover
 {
   background-color: #EC8FD0;
-  color: grey;
-  font color: white;
+  color: white;
+  --box-shadow-color: grey;
   border-radius: 12px;
-  box-shadow: 5px 5px;
+  box-shadow: 5px 5px var(--box-shadow-color);
 }
 
 /* maak quiz */
@@ -168,7 +166,7 @@ input.voeg[type=text]
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  background-color: #2EB5E0;
+  background-color: #75E6DA;
   border-radius: 12px;
   color: white;
 }
@@ -233,7 +231,7 @@ button:hover
     height:50px;
     color: #3D550C;
     background-color: #10A83D;
-    box-shadow: 10px 10px;
+    box-shadow: 5px 5px;
 }
 
 button3
@@ -299,6 +297,7 @@ h2
     width:30%;
     height:50px;
     color: white;
+    cursor: pointer;
     background-color: #10A83D;
     box-shadow: 6px 6px var(--box-shadow-color);
     --box-shadow-color: #3D550C;
@@ -332,3 +331,102 @@ h2
     --box-shadow-color: #ADB3BC;
 }
 
+button.footer
+{
+  background:none;
+border:none;
+margin:0;
+padding:0;
+width: 25px;
+height: 10px;
+}
+
+button.footer:hover
+{
+  background:none;
+  box-shadow: none;
+  text-decoration: underline;
+  cursor: pointer;
+border:none;
+margin:0;
+padding:0;
+width: 25px;
+height: 10px;
+}
+
+/* mijn quizzes */
+
+button.link
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+    width:50%;
+    height: 50px;
+    background-color: #1AC8DB;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid #1AC8DB;
+}
+
+button.link:hover
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: white;
+  color: grey;
+  font color: white;
+  border-radius: 12px;
+  border: 2px solid #1AC8DB;
+  box-shadow: 5px 5px;
+}
+
+button.resultaten
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+    width:70%;
+    height: 50px;
+    background-color: #EC8FD0;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid #EC8FD0;
+}
+
+button.resultaten:hover
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: white;
+  color: grey;
+  font color: white;
+  border-radius: 12px;
+  border: 2px solid #EC8FD0;
+  box-shadow: 5px 5px;
+}
+
+button.verwijder
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+    width:70%;
+    height: 50px;
+    background-color: #F37970;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid #F37970;
+}
+
+button.verwijder:hover
+{
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: white;
+  color: grey;
+  font color: white;
+  border-radius: 12px;
+  border: 2px solid #F37970;
+  box-shadow: 5px 5px;
+}
