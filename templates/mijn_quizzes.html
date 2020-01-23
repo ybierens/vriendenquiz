@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<h1> MIJN QUIZZES </h1>
+<h2> MIJN QUIZZES </h2>
 {% if not quizes %}
   <h3> Je hebt nog geen quizes, klik op maak quizzes om een quiz aan te maken</h3>
   <form action="/maak_quiz">
@@ -28,7 +28,7 @@
     <tbody>
       {% for quiz in quizes %}
         <tr>
-          <td><img src="{{quiz['gif']}}" class="rounded-circle" style="width:60px; height:60px;"></td>
+          <td><img src="{{quiz['gif']}}" class="rounded-circle" style="width:100px; height:100px;"></td>
           <td>{{quiz['quiz_titel']}}</td>
           <td>{{quiz['date']}}</td>
           <td>/vul_in/{{quiz['quiz_id']}}</td>

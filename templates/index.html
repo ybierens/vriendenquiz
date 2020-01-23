@@ -8,7 +8,7 @@
     <form action="/index" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
-                <h1>TOP 5</h1>
+                <h2>TOP 5</h2>
                 <tr>
                     <th>Name</th>
                     <th>Quiz</th>
@@ -26,8 +26,9 @@
                         <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
-
-                ALLE PARTICIPANTEN
+            </table>
+            <table class="table table-hoverable">
+                <h2>ALLE PARTICIPANTEN</h2>
                 <tr>
                     <th>Name</th>
                     <th>Quiz</th>
