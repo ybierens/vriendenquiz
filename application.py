@@ -280,7 +280,8 @@ def voeg_vraag_toe():
                     answer=request.form.get("answer1"),
                     correct=True)
 
-        for i in range(2,5):
+        getal = request.form.get("getal")
+        for i in range(2, int(getal) + 1):
 
             db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id, :answer, :correct)",
                         quiz_id = session["quiz_id"],

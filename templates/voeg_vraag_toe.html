@@ -15,21 +15,26 @@
             <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Vraag" type="text">
       </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item form group">
-        <input autocomplete="off" autofocus class="form-control" name="answer1" placeholder="Antwoord 1 | Correct" type="text">
+    <ul class="list-group list-group-flush" id="voegToe">
+      <li class="list-group-item form group" id="group1">
+        <input autocomplete="off" class="form-control" name="answer1" id="answer1" placeholder="Antwoord 1 | Correct" type="text"/>
       </li>
-      <li class="list-group-item form group">
-        <input autocomplete="off" autofocus class="form-control" name="answer2" placeholder="Antwoord 2" type="text">
+      <li class="list-group-item form group" id="group2">
+        <input autocomplete="off" class="form-control" name="answer2" id="answer2" placeholder="Antwoord 2" type="text"/>
+        <input class="metStyle" type="button" value="verwijder" onclick="weg()" style="display: none;"/>
       </li>
-      <li class="list-group-item form group">
-         <input autocomplete="off" autofocus class="form-control" name="answer3" placeholder="Antwoord 3" type="text">
+      <li class="list-group-item form group" id="group3">
+        <input autocomplete="off" class="form-control" name="answer3" id="answer3" placeholder="Antwoord 3" type="text"/>
+        <input class="btn btn-primary" type="button" value="verwijder" onclick="weg()"/>
       </li>
-      <li class="list-group-item form group">
-        <input autocomplete="off" autofocus class="form-control" name="answer4" placeholder="Antwoord 4" type="text">
+      <li class="list-group-item form group" id="group4">
+        <input autocomplete="off" class="form-control" name="answer4" id="answer4" placeholder="Antwoord 4" type="text"/>
+        <input class="btn btn-primary" type="button" value="verwijder" onclick="weg()"/>
       </li>
     </ul>
+  <input class="btn btn-primary" type="button" value="add answer mogelijkheid" id="add"/>
   <div class="card-body">
+    <input type="number" name="getal" id="getal" min="2" max="8" style="display: none"/>
     <button class="btn btn-primary" input type="submit" value="toevoegen" name="toevoegen"> Vraag toevoegen </button>
     <button class="btn btn-primary" input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
   </div>
@@ -37,5 +42,37 @@
   </div>
 </div>
 </form>
+
+<script>
+  var number = 4;
+    function weg() {
+      var weg = document.getElementById("group" + number);
+        weg.remove();
+        number -= 1;
+        document.getElementById("getal").value = number;
+      }
+
+  $(document).ready(function() {
+    $("#add").click(function() {
+      var clone = $("#group" + number).clone();
+
+      if (number == 8) {
+        Alert.render("Het maximum aantal antwoordmogelijkheden is 8");
+      }
+      else {
+        number += 1;
+        clone.attr("id", "group" + number);
+        clone.find("#answer" + (number - 1)).attr("placeholder", "Antwoord " + number);
+        clone.find("#answer" + (number - 1)).attr("name", "answer" + number);
+        clone.find("#answer" + (number - 1)).attr("id", "answer" + number);
+        clone.find(".metStyle").removeAttr("style");
+        clone.find(".metStyle").attr("class", "btn btn-primary");
+        $("#voegToe").append(clone);
+        document.getElementById("getal").value = number;
+      }
+    });
+  });
+
+</script>
 
 {% endblock %}
