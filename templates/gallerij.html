@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Gallerij
+{% endblock %}
+
+{% block main %}
+
+<h2> MIJN GALLERIJ </h2>
+
+<div class="row">
+
+{% for foto in fotolijst %}
+  <div class="col-md-4">
+    <div class="thumbnail">
+      <a href="{{foto}}">
+        <img src="{{foto}}" alt="{{foto}}" style="width:100%">
+      </a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+
+{% endblock %}

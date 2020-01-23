@@ -372,6 +372,20 @@ def antwoord(participant_id):
     return render_template("antwoord.html", questions = quizvragen, answers = mpantwoorden)
 
 
+@app.route("/gallerij", methods=["GET"])
+@login_required
+def gallerij():
+    gebruikerquizes = db.execute("SELECT quiz_id FROM quizes WHERE user_id=:user_id", user_id=session["user_id"])
+    fotolijsten = []
+    for quiz in gebruikerquizes:
+        fotos = db.execute("SELECT filename FROM questions WHERE quiz_id=:quiz_id", quiz_id=quiz['quiz_id'])
+        fotolijsten.append(fotos)
+    fotolijst = []
+    for element in fotolijsten:
+        for filedict in element:
+            fotolijst.append(filedict['filename'])
+    return render_template("gallerij.html", fotolijst=fotolijst)
+
 
 def errorhandler(e):
     if not isinstance(e, HTTPException):
