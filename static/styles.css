@@ -115,6 +115,7 @@ table
 #alertbox > div > #alertboxbody { background: #333; padding: 20px; color: #FFF; }
 #alertbox > div > #alertboxfoot { background: #666; padding: 10px; text-align: right; }
 
+/* layout.html */
 
 button1
 {
@@ -156,7 +157,7 @@ button2:hover
   box-shadow: 5px 5px;
 }
 
-
+/* maak quiz */
 
 input.voeg[type=text]
 {
@@ -188,6 +189,30 @@ input.voeg[type=text]:focus
   --box-shadow-color: #0C6980;
 }
 
+.maakquiz
+{
+    -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+    width:50%;
+    height: 50px;
+    background-color: #1DC690;
+    color: white;
+    border-radius: 12px;
+}
+
+.maakquiz:hover
+{
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    width:50%;
+    height:50px;
+    color: white;
+    background-color: #10A83D;
+    box-shadow: 6px 6px var(--box-shadow-color);
+    --box-shadow-color: #3D550C;
+}
+
+/*overige knoppen */
 
 button
 {
@@ -240,11 +265,14 @@ button4:hover
   box-shadow: 5px 5px;
 }
 
+/* zet containers en cards in het midden van scherm */
 div1
 {
     margin-left: auto;
     margin-right: auto;
 }
+
+/* login pagina */
 
 h2
 {
@@ -260,7 +288,7 @@ h2
     width:30%;
     height: 50px;
     background-color: #1DC690;
-    color: #3D550C;
+    color: white;
     border-radius: 12px;
 }
 
@@ -270,9 +298,10 @@ h2
     transition-duration: 0.4s;
     width:30%;
     height:50px;
-    color: #3D550C;
+    color: white;
     background-color: #10A83D;
-    box-shadow: 10px 10px;
+    box-shadow: 6px 6px var(--box-shadow-color);
+    --box-shadow-color: #3D550C;
 }
 
 .inlog
@@ -287,3 +316,19 @@ h2
     color: black;
     border-radius: 12px;
 }
+
+.inlog:focus
+{
+    -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  outline: none;
+  background: #D8D7D5 url("/statig/user.png") left no-repeat;
+    padding-left: 17px;
+    width:30%;
+    height: 50px;
+    color: black;
+    border-radius: 12px;
+    box-shadow: 6px 6px var(--box-shadow-color);
+    --box-shadow-color: #ADB3BC;
+}
+
