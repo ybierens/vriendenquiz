@@ -184,7 +184,7 @@ input.voeg[type=text]:focus
   border-radius: 12px;
   box-shadow: 10px 10px var(--box-shadow-color);
   color: black;
-  --box-shadow-color: #0C6980;
+  --box-shadow-color: grey;
 }
 
 .maakquiz
@@ -430,4 +430,11 @@ button.verwijder:hover
   border-radius: 12px;
   border: 2px solid #F37970;
   box-shadow: 5px 5px;
+}
+
+.list-group-item
+{
+  border: none;
+  background: none;
+  margin: 0 0 -25px 0;
 }
