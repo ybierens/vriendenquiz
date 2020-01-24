@@ -264,6 +264,9 @@ def voeg_vraag_toe():
         if file.filename == '':
             flash("Geen foto geselecteerd")
             return redirect(request.url)
+        if not allowed_file(file.filename):
+            flash("Dat bestandstype wordt niet ondersteund!")
+            return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
