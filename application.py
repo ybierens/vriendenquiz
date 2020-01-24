@@ -11,7 +11,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
 
-from helpers import apology, login_required, lookup, usd, add_up, get_gif
+from helpers import login_required, get_gif, percentage, apology
 
 UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
@@ -32,8 +32,6 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# Custom filter
-app.jinja_env.filters["usd"] = usd
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -69,7 +67,7 @@ def index():
     top_participants = sorted(participants_list, key=lambda x:x["score"])
     top_participants.reverse()
 
-    return render_template("index.html", participants_list=participants_list, top_participants=top_participants[:-5])
+    return render_template("index.html", participants_list=percentage(participants_list), top_participants=top_participants[:5])
 
 
 @app.route("/check", methods=["GET"])
@@ -320,7 +318,7 @@ def results(quiz_id):
     top_participants.reverse()
 
 
-    return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name, top_participants=top_participants[:5])
+    return render_template("results.html", participants_list=percentage(participants_list), quiz_name=quiz_name, top_participants=top_participants[:5])
 
 @app.route("/zoek_quiz", methods=["GET", "POST"])
 def zoek_quiz():

@@ -34,6 +34,7 @@
                     <th>Quiz</th>
                     <th>Score</th>
                     <th>Time</th>
+                    <th>Comment</th>
                 </tr>
                 {% for part in participants_list %}
                     <tr>
@@ -41,6 +42,7 @@
                         <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
+                        <td>{{part["comment"]}}</td>
                         <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}

@@ -36,39 +36,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-def add_up(my_stocks):
-    added_up_dict = {}
-    for stock in my_stocks:
-        company_sym = stock["company_symbol"]
-        if company_sym in added_up_dict:
-            added_up_dict[company_sym]["share_amount"] += stock["share_amount"]
-        else:
-            added_up_dict[company_sym] = stock
 
-    return added_up_dict
-
-
-def lookup(symbol):
-    """Look up quote for symbol."""
-
-    # Contact API
-    try:
-        api_key = os.environ.get("API_KEY")
-        response = requests.get(f"https://cloud-sse.iexapis.com/stable/stock/{urllib.parse.quote_plus(symbol)}/quote?token={api_key}")
-        response.raise_for_status()
-    except requests.RequestException:
-        return None
-
-    # Parse response
-    try:
-        quote = response.json()
-        return {
-            "name": quote["companyName"],
-            "price": float(quote["latestPrice"]),
-            "symbol": quote["symbol"]
-        }
-    except (KeyError, TypeError, ValueError):
-        return None
 
 def get_gif(zoekwoord):
     try:
@@ -87,6 +55,8 @@ def get_gif(zoekwoord):
         return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
 
 
-def usd(value):
-    """Format value as USD."""
-    return f"${value:,.2f}"
+def percentage(answer_list):
+    for answer in answer_list:
+        answer["score"] = str(answer["score"] * 100) + "%"
+
+    return answer_list
