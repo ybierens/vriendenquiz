@@ -60,6 +60,7 @@ def index():
     for quiz in my_quizes:
         for participant in db.execute("SELECT * FROM participants WHERE  quiz_id = :quiz", quiz=quiz['quiz_id']):
             participant["quizname"] = quiz["quiz_titel"]
+            print(participant["comment"])
             participants_list.append(participant)
 
     participants_list.reverse()
@@ -187,7 +188,6 @@ def vul_in(quiz_id):
 
     quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
-    print("questions: ", questions)
     answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     random.shuffle(answers)
 
@@ -200,14 +200,13 @@ def vul_in(quiz_id):
         if 'submit_button' in request.form:
 
             participant_name = request.form.get("participantnaam")
+            opmerking = request.form.get("opmerking")
 
-            db.execute("INSERT INTO participants (quiz_id, name) VALUES (:quiz_id, :name)", quiz_id = quiz_id, name = participant_name)
+            db.execute("INSERT INTO participants (quiz_id, name, comment) VALUES (:quiz_id, :name, :comment)", quiz_id = quiz_id, name = participant_name, comment=opmerking)
             participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :name", name = participant_name)[-1]["participant_id"]
 
             final_score = 0
 
-
-            print(answers)
             for question in questions:
                 answer_input = request.form[str(question['question_id'])]
                 for answer in answers:
@@ -325,7 +324,7 @@ def results(quiz_id):
     top_participants.reverse()
 
 
-    return render_template("results.html", participants_list=percentage(participants_list), quiz_name=quiz_name, top_participants=top_participants[:5])
+    return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name, top_participants=top_participants[:5])
 
 @app.route("/zoek_quiz", methods=["GET", "POST"])
 def zoek_quiz():
@@ -372,7 +371,6 @@ def antwoord(participant_id):
         else:
             antwoord["status"] = 1
 
-    print(mpantwoorden)
 
     return render_template("antwoord.html", questions = quizvragen, answers = mpantwoorden)
 

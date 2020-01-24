@@ -12,13 +12,19 @@
                 <tr>
                     <th>Name</th>
                     <th>Score</th>
-                    <th>Time</th>
+                    <th>Tijd</th>
+                    <th>Opmerking</th>
                 </tr>
                 {% for part in top_participants %}
                     <tr>
                         <td>{{part["name"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
+                        {% if part["comment"] == None %}
+                            <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
+                        {% else%}
+                            <td>{{part["comment"]}}</td>
+                        {% endif %}
                         <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
@@ -26,15 +32,21 @@
             <table class="table table-hoverable">
                 <h2>PARTICIPANTEN {{quiz_name}}</h2>
                 <tr>
-                    <th>Name</th>
+                    <th>Naam</th>
                     <th>Score</th>
-                    <th>Time</th>
+                    <th>Tijd</th>
+                    <th>Opmerking</th>
                 </tr>
                 {% for part in participants_list %}
                     <tr>
                         <td>{{part["name"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
+                        {% if part["comment"] == None %}
+                            <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
+                        {% else%}
+                            <td>{{part["comment"]}}</td>
+                        {% endif %}
                         <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
