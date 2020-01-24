@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Eindscherm
+{% endblock %}
+
+{% block main %}
+<h2> {{titel}} </h2>
+<form action="/vul_in" method="post">
+    </br></br></br></br>
+    <td><img src="{{gif}}" class="rounded-circle" style="width:200px; height:200px;"></td>
+    </br></br>
+    <h2>{{dankwoord}}</h2>
+
+
+{% endblock %}

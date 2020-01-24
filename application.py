@@ -183,14 +183,17 @@ def verwijder_quiz():
     return redirect("/mijn_quizzes")
 
 @app.route("/vul_in/<quiz_id>", methods=["GET", "POST"])
-@login_required
 def vul_in(quiz_id):
 
-    titel = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     print("questions: ", questions)
     answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     random.shuffle(answers)
+
+    titel = quiz_data[0]["quiz_titel"]
+    gif = quiz_data[0]["gif"]
+    dankwoord = quiz_data[0]["dankwoord"]
 
 
     if request.method == "POST":
@@ -217,12 +220,12 @@ def vul_in(quiz_id):
             db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
                           score = final_score, participant_id = participant_id)
 
-        # return redirect("/index")
-        return redirect("/index")
+
+        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord)
 
 
     else:
-        return render_template("vul_in.html", questions = questions, titel = titel[0]['quiz_titel'], answers = answers, quiz_id = quiz_id)
+        return render_template("vul_in.html", questions = questions, titel = titel, answers = answers, quiz_id = quiz_id)
 
 
 @app.route("/maak_quiz", methods=["GET", "POST"])
@@ -231,9 +234,10 @@ def maak_quiz():
     if request.method == "POST":
         zoekwoord = request.form["zoekwoord"]
         gif = get_gif(zoekwoord)
-        db.execute("INSERT INTO quizes (quiz_titel, user_id, gif) VALUES (:quiz_titel, :user_id, :gif)",
+        db.execute("INSERT INTO quizes (quiz_titel, user_id, gif, dankwoord) VALUES (:quiz_titel, :user_id, :gif, :dankwoord)",
             quiz_titel = request.form.get("quiz_titel"),
-            user_id = session["user_id"], gif=gif)
+            user_id = session["user_id"], gif=gif,
+            dankwoord = request.form.get("dankwoord"))
 
         rows = db.execute("SELECT quiz_id FROM quizes WHERE user_id = :user_id", user_id=session["user_id"])
         session["quiz_id"] = rows[-1]["quiz_id"]
@@ -383,6 +387,13 @@ def gallerij():
         for filedict in element:
             fotolijst.append(filedict['filename'])
     return render_template("gallerij.html", fotolijst=fotolijst)
+
+@app.route("/eindscherm/<quiz_id>", methods=["GET", "POST"])
+def eindscherm(quiz_id):
+
+    gif = db.execute("SELECT gif FROM quizes WHERE quiz_id = :quiz_id", quiz_id=quiz_id)[0]["gif"]
+
+    return render_template("eindscherm.html", gif=gif)
 
 
 def errorhandler(e):
