@@ -8,7 +8,7 @@
     <form action="/results/{{quiz_id}}" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
-                <h1>TOP 5 {{quiz_name}}</h1>
+                <h2>TOP 5 {{quiz_name}}</h2>
                 <tr>
                     <th>Name</th>
                     <th>Score</th>
@@ -22,10 +22,9 @@
                         <td> <button type="button" class="btn btn-primary" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
-
-                <br><br>
-
-                PARTICIPANTEN {{quiz_name}}
+            </table>
+            <table class="table table-hoverable">
+                <h2>PARTICIPANTEN {{quiz_name}}</h2>
                 <tr>
                     <th>Name</th>
                     <th>Score</th>
