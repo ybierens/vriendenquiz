@@ -22,7 +22,7 @@
                         <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
-                        {% if part["comment"] == None %}
+                        {% if part["comment"] == "" %}
                             <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
                         {% else%}
                             <td>{{part["comment"]}}</td>
@@ -46,7 +46,7 @@
                         <td>{{part["quizname"]}}</td>
                         <td>{{part["score"]}}</td>
                         <td>{{part["time"]}}</td>
-                        {% if part["comment"] == None %}
+                        {% if part["comment"] == "" %}
                             <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
                         {% else%}
                             <td>{{part["comment"]}}</td>

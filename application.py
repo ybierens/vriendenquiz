@@ -60,7 +60,6 @@ def index():
     for quiz in my_quizes:
         for participant in db.execute("SELECT * FROM participants WHERE  quiz_id = :quiz", quiz=quiz['quiz_id']):
             participant["quizname"] = quiz["quiz_titel"]
-            print(participant["comment"])
             participants_list.append(participant)
 
     participants_list.reverse()
@@ -216,11 +215,19 @@ def vul_in(quiz_id):
 
             final_score = final_score / len(questions)
 
+
             db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
                           score = final_score, participant_id = participant_id)
 
+            alle_scores = db.execute("SELECT score FROM participants WHERE  quiz_id = :quiz", quiz=quiz_id)
 
-        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord)
+            nieuw_score_dict = {"score":final_score, "name":participant_name}
+            alle_scores.append(nieuw_score_dict)
+            scores_op_volgorde = sorted(alle_scores, key=lambda x:x["score"])
+            scores_op_volgorde.reverse()
+            positie = scores_op_volgorde.index(nieuw_score_dict)
+
+        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=final_score)
 
 
     else:
