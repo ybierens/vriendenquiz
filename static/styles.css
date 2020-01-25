@@ -438,3 +438,33 @@ button.verwijder:hover
   background: none;
   margin: 0 0 -25px 0;
 }
+
+#wrapper
+{
+ text-align:center;
+ margin:0 auto;
+ padding:0px;
+ width:995px;
+}
+#output_image
+{
+ max-width:180px;
+}
+
+.custom-file-upload {
+    position: relative;
+    width: 300px;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border: 1px dashed #BBB;
+    text-align: center;
+    background-color: #DDD;
+    cursor: pointer;
+}
+
+
+
+input[type="file"] {
+    display: none;
+}

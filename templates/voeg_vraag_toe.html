@@ -6,8 +6,17 @@
 
 {% block main %}
 <form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
-    <input type=file name=file>
-      <div class="form-group">
+
+<img id="output_image"/>
+ <br>
+ <br>
+<label class="custom-file-upload">
+  <input type=file name=file accept="image/*" onchange="preview_image(event)"/>
+   Klik om een foto toe te voegen
+</label>
+
+
+    <div class="form-group">
             <input autocomplete="off" autofocus class="voeg" style=width:48%; name="question" placeholder="Vraag" type="text">
     </div>
     <ul class="list-group list-group-flush" id="voegToe">
@@ -64,6 +73,17 @@
       }
     });
   });
+
+  function preview_image(event)
+  {
+    var reader = new FileReader();
+    reader.onload = function()
+    {
+    var output = document.getElementById('output_image');
+    output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
 
 </script>
 
