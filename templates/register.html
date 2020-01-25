@@ -6,24 +6,25 @@
 
 {% block main %}
     <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:250px;height:250px;filter:invert(100%);">
+    <h2> Maak account aan </h2>
+    <hr class="mt-2 mb-5">
     <form action="/register" method="post" id="register">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="inlog" name="username" placeholder="Username" id = "username" type="text">
+            <input autocomplete="off" autofocus class="inlog" name="username" placeholder="Gebruikersnaam" id = "username" type="text">
         </div>
         <p id="user_name"></p>
         <div class="form-group">
-            <input class="inlog" name="password" placeholder="Password" type="password" id="password">
+            <input class="inlog" name="password" placeholder="Wachtwoord" type="password" id="password">
         </div>
         <p id="pass_word"></p>
         <div class="form-group">
-            <input class="inlog" name="confirmation" placeholder="Confirm" type="password" id="confirmation">
+            <input class="inlog" name="confirmation" placeholder="Bevestig wachtwoord" type="password" id="confirmation">
         </div>
         <p id="confirm"></p>
-        <button class="login" name = "submit1" type="submit">Register</button>
+        <button class="login" name = "submit1" type="submit">Maak account aan</button>
     </form>
     <p></p>
-    <form action="/login">
-    <h>Heeft u al een account? Klik <form action="/register.html"><button class="footer" type="submit">hier</button></form> om in te loggen</h>
+    <h>Heeft u al een account? Klik <a href="/login">hier</a> om in te loggen</h>
     </form>
     <script>
                 document.getElementById("register").addEventListener("submit", function(event) {

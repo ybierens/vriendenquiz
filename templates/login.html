@@ -9,32 +9,46 @@
 {% endblock %}
 
 {% block main %}
-    <body>
-        <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:250px;height:250px;filter:invert(100%);">
-    <h2>Login</h2>
-    <form action="/login" method="post" id="login">
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="inlog" name="username" placeholder="Username" type="text" id="username">
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex p-2">
+            <h3 class="homepage"> Een foto zegt niet alleen meer dan duizend woorden, <br> een foto kan ook meer dan duizend vragen stellen! </h3>
         </div>
-        <p id="user_name"></p>
-        <div class="form-group">
-            <input autocomplete class="inlog" name="password" placeholder="Password" type="password" id="password">
-        </div>
-        <p id="pass_word"></p>
-        <button class="login" type="submit">Log In</button>
-    </form>
-    <form action="/register">
-    <h>Nog geen account? Klik <form action="/register.html"><button class="footer" type="submit">hier</button></form> om een account aan te maken</h>
-    </form>
-    </body>
-    <div id="alertoverlay"></div>
-    <div id="alertbox">
-        <div>
-            <div id="alertboxhead"></div>
-            <div id="alertboxbody"></div>
-            <div id="alertboxfoot"></div>
+        <div class="col-md-auto">
+            <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:250px;height:250px;filter:invert(100%);">
+            <h2>Login</h2>
+            <hr class="mt-2 mb-5">
+            <form action="/login" method="post" id="login">
+                <div class="form-group">
+                    <input style="width: 200px;" autocomplete="off" autofocus class="inlog" name="username" placeholder="Gebruikersnaam" type="text" id="username">
+                </div>
+                <p id="user_name"></p>
+                <div class="form-group">
+                    <input style="width: 200px;" autocomplete class="inlog" name="password" placeholder="Wachtwoord" type="password" id="password">
+                </div>
+                <p id="pass_word"></p>
+                <button class="login" type="submit">Log In</button>
+            </form>
+            <font size="2">Nog geen account? <br>Maak <a href="/register">hier</a> een account aan!</font>
+            <div id="alertoverlay"></div>
+            <div id="alertbox">
+                <div>
+                    <div id="alertboxhead"></div>
+                    <div id="alertboxbody"></div>
+                    <div id="alertboxfoot"></div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
 
     <script>
         document.getElementById("login").addEventListener("submit", function(event) {

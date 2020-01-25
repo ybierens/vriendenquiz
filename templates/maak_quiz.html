@@ -6,13 +6,14 @@
 
 {% block main %}
     <h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter: invert(100%);"> MAAK QUIZ </h2>
+    <hr class="mt-2 mb-5">
     <p></p>
     <p></p>
     <form action="/maak_quiz" method="post">
         <div class="form-group">
             <input autocomplete="off" autofocus class="voeg" name="quiz_titel" placeholder="Quiz titel" type="text">
             <input autocomplete="off" autofocus class="voeg" name="zoekwoord" placeholder="Voeg een gif toe (optioneel)" type="text">
-            <input autocomplete="off" autofocus class="voeg" name="dankwoord" placeholder="Voeg een danktwoord toe (optioneel)" type="text">
+            <input autocomplete="off" autofocus class="voeg" name="dankwoord" placeholder="Voeg een dankwoord toe (optioneel)" type="text">
 
         </div>
         <button class="maakquiz" type="submit">Voeg vragen toe</button>

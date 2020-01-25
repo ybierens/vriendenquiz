@@ -6,20 +6,26 @@
 
 {% block main %}
 
+
+<div class="container">
+
 <h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter: invert(100%);"> MIJN GALLERIJ </h2>
 
-<div class="row">
+  <hr class="mt-2 mb-5">
 
-{% for foto in fotolijst %}
-  <div class="col-md-4">
-    <div class="thumbnail">
-      <a href="{{foto}}">
-        <img src="{{foto}}" alt="{{foto}}" style="width:100%">
+  <div class="row text-center text-lg-left">
+  {% for foto in fotolijst %}
+    <div class="col-lg-3 col-md-4 col-6">
+      <a href="#" class="d-block mb-4 h-100">
+            <img class="img-fluid img-thumbnail" src="{{foto}}" alt="", style="width: 280px; height: 230px;">
       </a>
     </div>
+  {% endfor %}
+
   </div>
-{% endfor %}
+
 </div>
+
 
 
 {% endblock %}
