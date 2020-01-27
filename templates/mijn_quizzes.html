@@ -20,7 +20,7 @@
         <th scope="col"> </th>
         <th scope="col">Quiznaam</th>
         <th scope="col">Aangemaakt op</th>
-        <th scope="col">Quiz Code</th>
+        <th scope="col">fysieke link</th>
         <th scope="col">Link om te delen</th>
         <th scope="col">Resultaten</th>
         <th scope="col">Verwijder Quiz</th>
@@ -32,7 +32,7 @@
           <td><img src="{{quiz['gif']}}" class="rounded-circle" style="width:100px; height:100px;"></td>
           <td>{{quiz['quiz_titel']}}</td>
           <td>{{quiz['date']}}</td>
-          <td>{{quiz['quiz_id']}}</td>
+          <td>/vul_in/{{quiz['quiz_id']}}</td>
           <td> <button class="link" onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Link</button></td>
           <td> <button class="resultaten" onclick="window.location.href='/results/{{quiz['quiz_id']}}'">Zie Resultaten</button></td>
           <td> <button class="verwijder" onclick="window.location.href='{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}'">Verwijder</button></td>
