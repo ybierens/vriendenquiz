@@ -58,7 +58,7 @@
 
                 if (!username.value) {
                     document.getElementById("username").style.borderColor = "red";
-                    document.getElementById("user_name").innerHTML = "Please fill in your username";
+                    document.getElementById("user_name").innerHTML = "Vul een gebruikersnaam in";
                     }
                 else {
                     document.getElementById("username").style.borderColor = "green";
@@ -67,7 +67,7 @@
 
                 if (!password.value) {
                     document.getElementById("password").style.borderColor = "red";
-                    document.getElementById("pass_word").innerHTML = "Please fill in your password";
+                    document.getElementById("pass_word").innerHTML = "Vul een wachtwoord in";
                 }
                 else {
                     document.getElementById("password").style.borderColor = "green";
@@ -78,7 +78,7 @@
              else {
                 $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
                     if (data == false) {
-                        Alert.render("username and/or password incorrect");
+                        Alert.render("Gebruikersnaam/wachtwoord incorrect");
                     }
                     else {
                         $("#login").submit();
