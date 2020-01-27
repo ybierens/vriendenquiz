@@ -470,6 +470,7 @@ input[type="file"] {
     display: none;
 }
 
+<<<<<<< HEAD
 /* gallerij */
 
 .img-thumbnail
@@ -485,4 +486,13 @@ input[type="file"] {
   transition-duration: 0.4s;
   color: grey;
   box-shadow: 8px 8px;
+=======
+.img
+{
+    width: 500px;
+    height: 500px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+>>>>>>> 5e54c9c9d287284c3a2f804164dedc7ee6a472f7
 }
