@@ -188,29 +188,6 @@ input.voeg[type=text]:focus
   --box-shadow-color: grey;
 }
 
-.maakquiz
-{
-    -webkit-transition-duration: 0.4s;
-  transition-duration: 0.4s;
-    width:50%;
-    height: 50px;
-    background-color: #1DC690;
-    color: white;
-    border-radius: 12px;
-}
-
-.maakquiz:hover
-{
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    width:50%;
-    height:50px;
-    color: white;
-    background-color: #10A83D;
-    box-shadow: 6px 6px var(--box-shadow-color);
-    --box-shadow-color: #3D550C;
-}
-
 /*overige knoppen */
 
 button
@@ -301,9 +278,9 @@ h2
     outline: none;
     color: white;
     cursor: pointer;
-    background-color: #10A83D;
+    background-color: #1DC690;
     box-shadow: 6px 6px var(--box-shadow-color);
-    --box-shadow-color: #3D550C;
+    --box-shadow-color: grey;
 }
 
 .inlog
@@ -366,6 +343,7 @@ button.link
   transition-duration: 0.4s;
     width:50%;
     height: 50px;
+    outline: none;
     background-color: #1AC8DB;
     color: white;
     border-radius: 12px;
@@ -377,20 +355,22 @@ button.link:hover
 {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
-  background-color: white;
-  color: grey;
-  font color: white;
+  background-color: #1AC8DB;
+  outline: none;
+  color: white;
   border-radius: 12px;
+  --box-shadow-color: grey;
   border: 2px solid #1AC8DB;
-  box-shadow: 5px 5px;
+  box-shadow: 5px 5px var(--box-shadow-color);
 }
 
 button.resultaten
 {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
-    width:70%;
+    width: 140px;
     height: 50px;
+    outline: none;
     background-color: #1DC690;
     color: white;
     border-radius: 12px;
@@ -402,23 +382,25 @@ button.resultaten:hover
 {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
-  background-color: white;
-  color: grey;
-  font color: white;
+  background-color: #1DC690;
+  outline: none;
+  color: white;
   border-radius: 12px;
+  --box-shadow-color: grey;
   border: 2px solid #1DC690;
-  box-shadow: 5px 5px;
+  box-shadow: 5px 5px var(--box-shadow-color);
 }
 
 button.verwijder
 {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
-    width:70%;
+    width:50px;
     height: 50px;
+    outline: none;
     background-color: #F37970;
     color: white;
-    border-radius: 12px;
+    border-radius: 360px;
     cursor: pointer;
     border: 2px solid #F37970;
 }
@@ -427,12 +409,13 @@ button.verwijder:hover
 {
   -webkit-transition-duration: 0.4s;
   transition-duration: 0.4s;
-  background-color: white;
-  color: grey;
-  font color: white;
-  border-radius: 12px;
+  background-color: #F37970;
+  color: white;
+  outline: none;
+  --box-shadow-color: grey;
+  border-radius: 360px;
   border: 2px solid #F37970;
-  box-shadow: 5px 5px;
+  box-shadow: 5px 5px var(--box-shadow-color);
 }
 
 .list-group-item
@@ -486,6 +469,7 @@ input[type="file"] {
   transition-duration: 0.4s;
   color: grey;
   box-shadow: 8px 8px;
+}
 =======
 .img
 {
@@ -495,4 +479,23 @@ input[type="file"] {
     background-repeat: no-repeat;
     background-size: cover;
 >>>>>>> 5e54c9c9d287284c3a2f804164dedc7ee6a472f7
+}
+
+.vraag-toevoegen
+{
+    -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  background-color: #1DC690;
+  color: white;
+  border: 2px solid #1DC690;
+  border-radius: 12px;
+}
+
+.vraag-toevoegen:hover
+{
+  background-color: #1DC690;
+  color: white;
+  --box-shadow-color: grey;
+  border-radius: 12px;
+  box-shadow: 5px 5px var(--box-shadow-color);
 }

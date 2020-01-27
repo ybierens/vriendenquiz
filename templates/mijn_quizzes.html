@@ -9,10 +9,7 @@
 <h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter:invert(100%);"> MIJN QUIZZES </h2>
 <hr class="mt-2 mb-5">
 {% if not quizes %}
-  <h3> Je hebt nog geen quizes, klik op maak quizzes om een quiz aan te maken</h3>
-  <form action="/maak_quiz">
-    <button class="btn btn-primary" type="submit">Maak quizzes</button>
-  </form>
+  <h3> Je hebt nog geen quizzes, klik <a href="/maak_quiz">hier</a> om een quiz aan te maken</h3>
 {% else %}
   <table class="table table-hover">
     <thead>
@@ -21,7 +18,7 @@
         <th scope="col">Quiznaam</th>
         <th scope="col">Aangemaakt op</th>
         <th scope="col">Quiz Code</th>
-        <th scope="col">Link om te delen</th>
+        <th scope="col">Quiz Invullen</th>
         <th scope="col">Resultaten</th>
         <th scope="col">Verwijder Quiz</th>
       </tr>
@@ -33,12 +30,30 @@
           <td>{{quiz['quiz_titel']}}</td>
           <td>{{quiz['date']}}</td>
           <td>{{quiz['quiz_id']}}</td>
-          <td> <button class="link" onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Link</button></td>
-          <td> <button class="resultaten" onclick="window.location.href='/results/{{quiz['quiz_id']}}'">Zie Resultaten</button></td>
-          <td> <button class="verwijder" onclick="window.location.href='{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}'">Verwijder</button></td>
+          <td> <button class="link" onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Vul in</button></td>
+          <td> <button class="resultaten" onclick="window.location.href='/results/{{quiz['quiz_id']}}'">Zie resultaten</button></td>
+          <td> <button class="verwijder" onclick="window.location.href='{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}'">-</button></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 {% endif %}
+
+  <script>
+  function copy() {
+    /* Get the text field */
+    var copyText = document.getElementById("myInput");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+</script>
+
 {% endblock %}

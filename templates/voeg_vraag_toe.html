@@ -15,32 +15,33 @@
    Klik om een foto toe te voegen
 </label>
 
-
-    <div class="form-group">
-            <input autocomplete="off" autofocus class="voeg" style=width:48%; name="question" placeholder="Vraag" type="text">
+<form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
+    <input type=file name=file>
+      <div class="form-group">
+            <input autocomplete="off" autofocus class="voeg" style=width:48%;color:grey; name="question" placeholder="Vraag" type="text">
     </div>
     <ul class="list-group list-group-flush" id="voegToe">
       <li class="list-group-item form group" id="group1">
-        <input autocomplete="off" class="voeg" style=background-color:#B4F8C8; name="answer1" id="answer1" placeholder="Antwoord 1 | Correct" type="text"/>
+        <input autocomplete="off" class="voeg" style=background-color:#B4F8C8;color:grey; name="answer1" id="answer1" placeholder="Antwoord 1 | Correct" type="text"/>
       </li>
       <li class="list-group-item form group" id="group2">
-        <input autocomplete="off" class="voeg" style=background-color:#FBE7C6; name="answer2" id="answer2" placeholder="Antwoord 2" type="text"/>
-        <input class="metStyle" type="button" value="-" onclick="weg()" style="display: none;"/>
+        <input autocomplete="off" class="voeg" style=background-color:#FBE7C6;color:grey; name="answer2" id="answer2" placeholder="Antwoord 2" type="text"/>
+        <input class="verwijder" type="button" value="-" onclick="weg()" style="display: none;"/>
       </li>
       <li class="list-group-item form group" id="group3">
-        <input autocomplete="off" class="voeg" style=margin-left:55px;background-color:#FBE7C6; name="answer3" id="answer3" placeholder="Antwoord 3" type="text"/>
-        <input class="btn btn-primary" type="button" value="-" style=margin-left:10px;background-color:#F37970;border-radius:360px;color:white;width:40px;height:40px;border-color:#F37970; onclick="weg()"/>
+        <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="answer3" id="answer3" placeholder="Antwoord 3" type="text"/>
+        <button class="verwijder" type="button" style=margin-left:10px; onclick="weg()">-</button>
       </li>
       <li class="list-group-item form group" id="group4">
-        <input autocomplete="off" class="voeg" style=margin-left:55px;background-color:#FBE7C6; name="answer4" id="answer4" placeholder="Antwoord 4" type="text"/>
-        <input class="btn btn-primary" type="button" value="-" style=margin-left:10px;background-color:#F37970;border-radius:360px;color:white;width:40px;height:40px;border-color:#F37970; onclick="weg()"/>
+        <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="answer4" id="answer4" placeholder="Antwoord 4" type="text"/>
+        <button class="verwijder" type="button" style=margin-left:10px; onclick="weg()">-</button>
       </li>
     </ul>
-  <input class="btn btn-primary" style=background-color:#1DC690;border-radius:360px;color:white;width:40px;height:40px;border-color:#1DC690; type="button" value="+" id="add"/>
+  <button class="verwijder" style=background-color:#1DC690;border-color:#1DC690;  type="button" id="add">+</button>
   <div class="card-body">
     <input type="number" name="getal" id="getal" value="4" min="2" max="8" style="display: none"/>
-    <button class="login" input type="submit" value="toevoegen" name="toevoegen"> Vraag toevoegen </button>
-    <button class="login" input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
+    <button class="vraag-toevoegen" style=width:25%; input type="submit" value="toevoegen" name="toevoegen"> Vraag toevoegen </button>
+    <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
   </div>
 </form>
 
@@ -84,6 +85,7 @@
     }
     reader.readAsDataURL(event.target.files[0]);
   }
+
 
 </script>
 
