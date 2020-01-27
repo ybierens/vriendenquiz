@@ -41,18 +41,21 @@ def login_required(f):
 def get_gif(zoekwoord):
     try:
         randomnummer = random.randint(1,25)
-        endpoint = (f"http://api.giphy.com/v1/gifs/search?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&q={zoekwoord}&limit=25&start=0&size=1")
+        if zoekwoord:
+            endpoint = (f"http://api.giphy.com/v1/gifs/search?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&q={zoekwoord}&limit=25&start=0&size=1")
+            response = requests.get(endpoint)
+            giphy = response.json()
+            if len(giphy['data']) < 25:
+                return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+            else:
+                gif = giphy['data'][randomnummer]['images']['fixed_width_small']['url']
+                return gif
         if not zoekwoord:
-            endpoint = "http://api.giphy.com/v1/gifs/random?api_key=aZlzaSFlPht6xjDQHEmQyfGpH7d758cp&start=0&size=1"
-        response = requests.get(endpoint)
-        giphy = response.json()
-        if not zoekwoord:
-            gif = giphy['data']['fixed_width_small_url']
-        else:
-            gif = giphy['data'][randomnummer]['images']['fixed_width_small']['url']
-        return gif
+            return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
     except requests.RequestException:
         return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+
+
 
 
 def percentage(answer_list):
