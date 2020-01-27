@@ -100,6 +100,21 @@ def logincheck():
         return jsonify(False)
 
 
+@app.route("/quizcheck/<quiz>", methods=["GET", "POST"])
+def quizcheck(quiz):
+
+    #quiz = request.args.get("quiz")
+
+    quiz_zoek = db.execute("SELECT * FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz)
+
+    if quiz_zoek:
+        return jsonify(True)
+
+    else:
+        return jsonify(False)
+
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -107,8 +122,20 @@ def login():
     # Forget any user_id
     session.clear()
 
+
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+        print("1")
+
+        if 'quiz_zoek_knop' in request.form:
+
+
+            quiz_id = str(request.form.get("quiz_zoek_input"))
+
+            quiz_url = "/vul_in/"+quiz_id
+
+            return redirect(quiz_url)
+
 
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username",
@@ -333,14 +360,6 @@ def results(quiz_id):
 
     return render_template("results.html", participants_list=participants_list, quiz_name=quiz_name, top_participants=top_participants[:5])
 
-@app.route("/zoek_quiz", methods=["GET", "POST"])
-def zoek_quiz():
-    if request.method == "POST":
-        zoek_quiz = request.form.get("quiz_url")
-        return redirect(zoek_quiz)
-
-    else:
-        return render_template("zoek_quiz.html")
 
 @app.route("/antwoord/<participant_id>", methods=["GET", "POST"])
 @login_required
