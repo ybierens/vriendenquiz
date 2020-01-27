@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mijn Account
+{% endblock %}
+
+{% block main %}
+<form action="/verander_gebruikersnaam" method="post">
+    <input autocomplete="off" autofocus class="inlog" name="nieuw" placeholder="Nieuwe gebruikersnaam" type="text"><br><br>
+    <button class="login" type="submit" name="verander">Verander</button>
+</form>
+
+
+{% endblock %}
