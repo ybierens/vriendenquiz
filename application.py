@@ -1,5 +1,6 @@
 import os
 import random
+import pyperclip
 
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, send_from_directory, url_for
@@ -422,7 +423,10 @@ def gallerij():
 
 @app.route("/mijn_account", methods=["GET", "POST"])
 def mijn_account():
-    return render_template("mijn_account.html")
+
+    username = fotos = db.execute("SELECT username FROM users WHERE user_id=:user_id", user_id=session['user_id'])[0]["username"]
+
+    return render_template("mijn_account.html", username=username)
 
 
 @app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
@@ -441,15 +445,17 @@ def verander_gebruikersnaam():
 @app.route("/verander_wachtwoord", methods=["GET", "POST"])
 def verander_wachtwoord():
     if request.method == "POST":
+        nieuw = request.form.get("nieuw")
 
-        hasht = generate_password_hash(nieuw, method = 'pbkdf2:sha256', salt_length=8)
+        gehasht = generate_password_hash(nieuw, method = 'pbkdf2:sha256', salt_length=8)
 
-        db.execute("UPDATE users SET password = :password WHERE user_id = :user_id", username=hasht, user_id = session["user_id"])
+        db.execute("UPDATE users SET password = :password WHERE user_id = :user_id", password=gehasht, user_id = session["user_id"])
 
         return redirect("/mijn_account")
 
     else:
-        return render_template("verander_wachtworod.html")
+        return render_template("verander_wachtwoord.html")
+
 
 
 def errorhandler(e):

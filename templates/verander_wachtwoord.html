@@ -1,11 +1,55 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Mijn Account
+    Verander wachtwoord
 {% endblock %}
 
 {% block main %}
-<button class="login" onclick="window.location.href='/verander_wachtwoord'">Verander wachtwoord</button></br></br>
-<button class="login" onclick="window.location.href='/verander_gebruikersnaam'">Verander gebruikersnaam</button>
+<form action="/verander_wachtwoord" method="post" id="wachtwoord">
+    <div class="form-group">
+            <input class="inlog" name="nieuw" placeholder="Nieuw wachtwoord" type="password" id="nieuw_id">
+        </div>
+        <p id="leeg1"></p>
+        <div class="form-group">
+            <input class="inlog" name="bevestig" placeholder="Bevestig wachtwoord" type="password" id="bevestig_id">
+        </div>
+        <p id="leeg2"></p>
+        <p id="niet_hetzelfde"></p>
+        <button class="login" name = "verander" type="submit">Verander</button>
+    </form>
+</form>
+
+<script>
+        document.getElementById("wachtwoord").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+
+             if (!nieuw_id.value) {
+
+                document.getElementById("nieuw_id").style.borderColor = "red";
+                document.getElementById("leeg1").innerHTML = "Vul je nieuwe wachtwoord in";
+
+                }
+
+            else if (!bevestig_id.value) {
+
+                document.getElementById("bevestig_id").style.borderColor = "red";
+                document.getElementById("leeg2").innerHTML = "Bevestig je nieuwe wachtwoord";
+
+                }
+
+            else if (nieuw_id.value != bevestig_id.value) {
+
+                document.getElementById("nieuw_id").style.borderColor = "red";
+                document.getElementById("bevestig_id").style.borderColor = "red";
+                document.getElementById("niet_hetzelfde").innerHTML = "De 2 velden komen niet overeen";
+
+                }
+
+             else {
+                $("#wachtwoord").submit();
+            }
+        });
+    </script>
 
 {% endblock %}
