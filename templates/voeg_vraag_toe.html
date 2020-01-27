@@ -16,77 +16,179 @@
 </label>
 
 <form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
-    <input type=file name=file>
+  <div id="questions">
+    <div class="container" id="card0" style="display: none">
+      <input type="file" name="file"/>
       <div class="form-group">
-            <input autocomplete="off" autofocus class="voeg" style=width:48%;color:grey; name="question" placeholder="Vraag" type="text">
+        <input autocomplete="off" autofocus class="voeg" style=width:48%;color:grey; name="card0_question" id="card0_question" placeholder="Vraag" type="text">
+      </div>
+      <ul class="list-group list-group-flush" id="card0_list">
+        <li class="list-group-item form group" id="card0_group1">
+          <input autocomplete="off" class="voeg" style=background-color:#B4F8C8;color:grey; name="card0_answer1" id="card0_answer1" placeholder="Correcte Antwoord" type="text"/>
+          <input class="btn btn-primary" type="button" value="verwijder" onclick="ant.weg('card0', '1')" id="card0_button1" style="display: none;"/>
+        </li>
+        <li class="list-group-item form group" id="card0_group2">
+          <input autocomplete="off" class="voeg" style=background-color:#FBE7C6;color:grey; name="card0_answer2" id="card0_answer2" placeholder="Antwoord" type="text"/>
+          <input class="btn btn-primary" type="button" value="verwijder" onclick="ant.weg('card0', '2')" id="card0_button2" style="display: none;"/>
+        </li>
+        <li class="list-group-item form group" id="card0_group3">
+          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="card0_answer3" id="card0_answer3" placeholder="Antwoord" type="text"/>
+          <button class="verwijder" type="button" style=margin-left:10px; onclick="ant.weg('card0', '3')" id="card0_button3">-</button>
+        </li>
+        <li class="list-group-item form group" id="card0_group4">
+          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="card0_answer4 "id="card0_answer4" placeholder="Antwoord" type="text"/>
+          <button class="verwijder" type="button" style=margin-left:10px; onclick="ant.weg('card0', '4')" id="card0_button4">-</button>
+        </li>
+      </ul>
+      <button class="verwijder" style=background-color:#1DC690;border-color:#1DC690;  type="button" onclick="ant.erbij('card0')" id="card0_extra">+</button>
+      <div class="card-body">
+        <input type="number" name="card0_getal" id="card0_getal" value="4" min="2" max="8" style="display: none;"/>
+        <button class="vraag-toevoegen" style=background-color:#1DC690;border-color:#1DC690; type="button" onclick="verwijder('0')" id="card0_verwijder"> Verwijder Vraag </button>
+      </div>
     </div>
-    <ul class="list-group list-group-flush" id="voegToe">
-      <li class="list-group-item form group" id="group1">
-        <input autocomplete="off" class="voeg" style=background-color:#B4F8C8;color:grey; name="answer1" id="answer1" placeholder="Antwoord 1 | Correct" type="text"/>
-      </li>
-      <li class="list-group-item form group" id="group2">
-        <input autocomplete="off" class="voeg" style=background-color:#FBE7C6;color:grey; name="answer2" id="answer2" placeholder="Antwoord 2" type="text"/>
-        <input class="metStyle" type="button" value="-" onclick="weg()" style="display: none;"/>
-      </li>
-      <li class="list-group-item form group" id="group3">
-        <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="answer3" id="answer3" placeholder="Antwoord 3" type="text"/>
-        <button class="verwijder" type="button" style=margin-left:10px; onclick="weg()">-</button>
-      </li>
-      <li class="list-group-item form group" id="group4">
-        <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="answer4" id="answer4" placeholder="Antwoord 4" type="text"/>
-        <button class="verwijder" type="button" style=margin-left:10px; onclick="weg()">-</button>
-      </li>
-    </ul>
-  <button class="verwijder" style=background-color:#1DC690;border-color:#1DC690;  type="button" id="add">+</button>
-  <div class="card-body">
-    <input type="number" name="getal" id="getal" value="4" min="2" max="8" style="display: none"/>
-    <button class="vraag-toevoegen" style=width:25%; input type="submit" value="toevoegen" name="toevoegen"> Vraag toevoegen </button>
-    <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
   </div>
+  <input type="number" name="getal_vragen" id="getal_vragen" value="0" min="0" style="display: none"/>
+  <button class="vraag-toevoegen" style=width:25%; type="button" name="toevoegen" id="extra_question"> Vraag toevoegen </button>
+  <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
 </form>
 
 <script>
-  var number = 4;
-    function weg() {
-      var weg = document.getElementById("group" + number);
-        weg.remove();
-        number -= 1;
-        document.getElementById("getal").value = number;
-      }
+ function antwoord() {
 
-  $(document).ready(function() {
-    $("#add").click(function() {
-      var clone = $("#group" + number).clone();
+    this.weg = function(card, param) {
+      var weg = document.getElementById(card + "_group" + param);
+      weg.remove();
+      var number = parseInt(document.getElementById(card + "_getal").value, 10);
+      if (number > Number(param)) {
+        for (var i = (Number(param) + 1); i <= number; i++) {
+          var groep = document.getElementById(card + "_group" + i);
+          groep.setAttribute("id", card + "_group" + (i-1));
+          var answer = document.getElementById(card + "_answer" + i);
+          answer.setAttribute("name", card + "_answer" + (i-1));
+          answer.setAttribute("id", card + "_answer" + (i-1));
+          var button = document.getElementById(card + "_button" + i);
+          button.setAttribute("onclick", "ant.weg('" + card + "', '" + (i-1) + "')");
+          button.setAttribute("id", card + "_button" + (i-1));
+        }
+      }
+      number -= 1;
+      document.getElementById(card + "_getal").value = number;
+    };
+
+    this.erbij = function(card) {
+      var number = parseInt(document.getElementById(card + "_getal").value, 10);
 
       if (number == 8) {
-        Alert.render("Het maximum aantal antwoordmogelijkheden is 8");
+        Alert.render("Het maximum aantal antwoord mogelijkheden is 8");
       }
+
       else {
         number += 1;
-        clone.attr("id", "group" + number);
-        clone.find("#answer" + (number - 1)).attr("placeholder", "Antwoord " + number);
-        clone.find("#answer" + (number - 1)).attr("name", "answer" + number);
-        clone.find("#answer" + (number - 1)).attr("id", "answer" + number);
-        clone.find(".metStyle").removeAttr("style");
-        clone.find(".metStyle").attr("class", "btn btn-primary");
-        $("#voegToe").append(clone);
-        document.getElementById("getal").value = number;
-      }
-    });
-  });
+        var nieuw = document.createElement("LI");
+        nieuw.setAttribute("id", card + "_group" + number);
+        nieuw.setAttribute("class", "list-group-item form group");
 
-  function preview_image(event)
-  {
-    var reader = new FileReader();
-    reader.onload = function()
-    {
-    var output = document.getElementById('output_image');
-    output.src = reader.result;
+        var tekst = document.createElement("input");
+        tekst.setAttribute("type", "text");
+        tekst.setAttribute("id", card + "_answer" + number);
+        tekst.setAttribute("name", card + "_answer" + number);
+        tekst.setAttribute("class", "voeg");
+        tekst.setAttribute("autocomplete", "off");
+        tekst.setAttribute("placeholder", "Antwoord");
+        tekst.setAttribute("style", "margin-left:63px;background-color:#FBE7C6;color:grey;");
+        nieuw.appendChild(tekst);
+
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("onclick", "ant.weg('" + card + "', '" + number + "')");
+        button.setAttribute("class", "verwijder");
+        button.setAttribute("id", card + "_button" + number);
+        button.setAttribute("style", "margin-left:10px;");
+        button.innerHTML= "-";
+        nieuw.appendChild(button);
+        document.getElementById(card + "_list").appendChild(nieuw);
+
+        document.getElementById(card + "_getal").value = number;
+      }
+    };
+  }
+  var ant = new antwoord();
+
+  function verwijder(param) {
+    var verwijder = document.getElementById("card" + param);
+    verwijder.remove();
+    var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
+
+    if (card_number > Number(param)){
+      for (var i = (Number(param) + 1); i <= card_number; i++) {
+        var card = document.getElementById("card" + i);
+        card.setAttribute("id", "card" + (i-1));
+        var vraag = document.getElementById("card" + i + "_question");
+        vraag.setAttribute("name", "card" + (i-1) + "_question");
+        vraag.setAttribute("name", "id" + (i-1) + "_question");
+        var lijst = document.getElementById("card" + i + "_list");
+        lijst.setAttribute("id", "card" + (i-1) + "_list");
+
+        var number = parseInt(document.getElementById("card" + param + "_getal").value, 10);
+        for (var j = 1; j <= number; j++); {
+          var groep = document.getElementById("card" + i + "_group" + j);
+          groep.setAttribute("id", "card" + (i-1) + "_group" + j);
+          var answer = document.getElementById("card" + i + "_answer" + j);
+          answer.setAttribute("id", "card" + (i-1) + "_answer" + j);
+          answer.setAttribute("id", "card" + (i-1) + "_answer" + j);
+          var button = document.getElementById("card" + i + "_button" + j);
+          button.setAttribute("onclick", "ant.weg('card" + (i-1) + "', '" + j + "')");
+          button.setAttribute("id", "card" + (i-1) + "_button" + j);
+        }
+
+        var extra = document.getElementById("card" + i + "_extra");
+        extra.setAttribute("onclick", "ant.erbij('card" + (i-1) + "')");
+        extra.setAttriubte("id", "card" + (i-1) + "_extra");
+
+        var getal = document.getElementById("card" + i + "_getal");
+        getal.setAttribute("name", "card" + (i-1) + "_getal");
+        getal.setAttribute("id", "card" + (i-1) + "_getal");
+
+        var del = document.getElementById("card" + i + "_verwijder");
+        del.setAttribute("onclick", "verwijder('" + (i-1) + "')");
+        del.setAttribute("id", "card" + (i-1) + "_verwijder");
+      }
     }
-    reader.readAsDataURL(event.target.files[0]);
+    card_number -= 1;
+    document.getElementById("getal_vragen").value = card_number;
   }
 
 
+  $(document).ready(function() {
+    $("#extra_question").click(function() {
+      var clone = $("#card0").clone();
+      var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
+      card_number += 1;
+      clone.removeAttr("style");
+      clone.attr("id", "card" + card_number);
+      clone.find("#card0_question").attr("name", "card" + card_number + "_question");
+      clone.find("#card0_question").attr("id", "card" + card_number + "_question");
+      clone.find("#card0_list").attr("id", "card" + card_number + "_list");
+
+      for (var i = 1; i < 5; i++) {
+        clone.find("#card0_group" + i).attr("id", "card" + card_number + "_group" + i);
+        clone.find("#card0_answer" + i).attr("name", "card" + card_number + "_answer" + i);
+        clone.find("#card0_answer" + i).attr("id", "card" + card_number + "_answer" + i);
+        clone.find("#card0_button" + i).attr("onclick", "ant.weg('card" + card_number + "', '" + i + "')");
+        clone.find("#card0_button" + i).attr("id", "card" + card_number + "_button" + i);
+      }
+
+      clone.find("#card0_getal").attr("name", "card" + card_number + "_getal");
+      clone.find("#card0_getal").attr("id", "card" + card_number + "_getal");
+      clone.find("#card0_extra").attr("onclick", "ant.erbij('card" + card_number + "')");
+      clone.find("#card0_extra").attr("id", "card" + card_number + "_extra");
+      clone.find("#card0_verwijder").attr("onclick", "verwijder('" + card_number + "')");
+      clone.find("#card0_verwijder").attr("id", "card" + card_number + "_verwijder");
+
+      document.getElementById("getal_vragen").value = card_number;
+      $("#questions").append(clone);
+    });
+  });
 </script>
 
 {% endblock %}

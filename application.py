@@ -290,42 +290,46 @@ def voeg_vraag_toe():
 
     if request.method == "POST":
 
-        if 'file' not in request.files:
-            flash("Geen foto bijgevoegd")
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash("Geen foto geselecteerd")
-            return redirect(request.url)
-        if not allowed_file(file.filename):
-            flash("Dat bestandstype wordt niet ondersteund!")
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            filename = (url_for('uploaded_file', filename=filename))
+#        if 'file' not in request.files:
+ #           flash("Geen foto bijgevoegd")
+  #          return redirect(request.url)
+   #     file = request.files['file']
+    #    if file.filename == '':
+     #       flash("Geen foto geselecteerd")
+      #      return redirect(request.url)
+#        if not allowed_file(file.filename):
+ #           flash("Dat bestandstype wordt niet ondersteund!")
+  #          return redirect(request.url)
+   #     if file and allowed_file(file.filename):
+    #        filename = secure_filename(file.filename)
+     #       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      #      filename = (url_for('uploaded_file', filename=filename))
 
-        db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id,:question,:filename)",
-                    quiz_id=session["quiz_id"],
-                    question=request.form.get("question"), filename=filename)
+        questions = request.form.get("getal_vragen")
+        for i in range(1, (int(questions) + 1)):
 
-        rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
-        session["question_id"] = rows[-1]["question_id"]
+            db.execute("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id, :question)",
+                        quiz_id=session["quiz_id"],
+                        question=request.form.get("card" + str(i) + "_question"))
 
-        db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id,:answer,:correct)",
-                    quiz_id = session["quiz_id"],
-                    question_id=session["question_id"],
-                    answer=request.form.get("answer1"),
-                    correct=True)
+            rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
+            session["question_id"] = rows[-1]["question_id"]
 
-        getal = request.form.get("getal")
-        for i in range(2, int(getal) + 1):
-
-            db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id, :answer, :correct)",
+            db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id,:answer,:correct)",
                         quiz_id = session["quiz_id"],
                         question_id=session["question_id"],
-                        answer=request.form.get("answer" + str(i)),
-                        correct=False)
+                        answer=request.form.get("card" + str(i) + "_answer1"),
+                        correct=True)
+
+            getal = request.form.get("card" + str(i) + "_getal")
+            for j in range(2, int(getal) + 1):
+
+                db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id, :answer, :correct)",
+                            quiz_id = session["quiz_id"],
+                            question_id=session["question_id"],
+                            answer=request.form.get("card" + str(i) + "_answer" + str(j)),
+                            correct=False)
+
 
         if "toevoegen" in request.form:
             return redirect("/voeg_vraag_toe")
