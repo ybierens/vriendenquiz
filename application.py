@@ -227,7 +227,7 @@ def vul_in(quiz_id):
             scores_op_volgorde.reverse()
             positie = scores_op_volgorde.index(nieuw_score_dict)
 
-        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=final_score)
+        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=final_score*100)
 
 
     else:
@@ -396,12 +396,6 @@ def gallerij():
             fotolijst.append(filedict['filename'])
     return render_template("gallerij.html", fotolijst=fotolijst)
 
-@app.route("/eindscherm/<quiz_id>", methods=["GET", "POST"])
-def eindscherm(quiz_id):
-
-    gif = db.execute("SELECT gif FROM quizes WHERE quiz_id = :quiz_id", quiz_id=quiz_id)[0]["gif"]
-
-    return render_template("eindscherm.html", gif=gif)
 
 
 def errorhandler(e):
