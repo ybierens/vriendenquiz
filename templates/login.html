@@ -14,10 +14,10 @@
     <div class="row">
         <div class="col d-flex p-2">
             <form action="/login" method="post" id="quiz_zoek">
-                <h3 class="homepage"> Een foto zegt niet alleen meer dan duizend woorden, <br> een foto kan ook meer dan duizend vragen stellen! </h3>
-                <input autocomplete="off" autofocus class="form-control" name="quiz_zoek_input" placeholder="Quiz Code" type="text" id="quiz_zoek_input">
+                <h3 class="homepage"> Een foto zegt niet alleen meer dan duizend woorden, <br> een foto kan ook meer dan duizend vragen stellen! <br><br> </h3>
+                    <input autocomplete="off" autofocus class="inlog" name="quiz_zoek_input" placeholder="Zoek quiz via Quiz Code" type="text" id="quiz_zoek_input">
                 <p id="quiz_zoek_missing"></p>
-                <button class="btn btn-primary" type="submit">Start</button>
+                <button class="login" type="submit">Start Quiz</button>
             </form>
         </div>
         <div class="col-md-auto">
@@ -76,7 +76,7 @@
                 return false;
              }
              else {
-                $.get("/logincheck?username=" + username.value + "&password=" + password.value, function(data) {
+                $.get("/logincheck?gebruikersnaam=" + username.value + "&wachtwoord=" + password.value, function(data) {
                     if (data == false) {
                         Alert.render("Gebruikersnaam/wachtwoord incorrect");
                     }

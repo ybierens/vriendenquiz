@@ -44,71 +44,104 @@ Session(app)
 db = SQL("sqlite:///quiz.db")
 
 
+
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.method == "GET":
         return redirect("/index")
 
+
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/index")
 @login_required
 def index():
 
-    session["user_id"]
-    my_quizes = db.execute("SELECT * FROM quizes WHERE user_id = :username",username=session["user_id"])
+    mijn_quizes = db.execute("SELECT * FROM quizes WHERE user_id = :username",username=session["user_id"])
 
-    participants_list = []
+    participanten_lijst = []
 
-    for quiz in my_quizes:
+    # haal voor alle quizes van de ingelogde user de participanten op en voeg de quiznaam toe
+    for quiz in mijn_quizes:
         for participant in db.execute("SELECT * FROM participants WHERE  quiz_id = :quiz", quiz=quiz['quiz_id']):
             participant["quizname"] = quiz["quiz_titel"]
-            participants_list.append(participant)
+            participanten_lijst.append(participant)
 
-    participants_list.reverse()
+    participanten_lijst.reverse()
 
-    top_participants = sorted(participants_list, key=lambda x:x["score"])
-    top_participants.reverse()
+    # haal de top 5 scores uit alle participanten
+    top_participanten = sorted(participanten_lijst, key=lambda x:x["score"])
+    top_participanten.reverse()
 
-    return render_template("index.html", participants_list=percentage(participants_list), top_participants=top_participants[:5])
+    return render_template("index.html", participanten_lijst=percentage(participanten_lijst), top_participanten=top_participanten[:5])
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/check", methods=["GET"])
 def check():
-    username = request.args.get("username")
 
-    # check all usernames in db, when new username already exists return false
-    names = db.execute("SELECT username FROM users")
-    for name in names:
-        if username == name['username']:
-            return jsonify(False)
+    gebruikersnaam = request.args.get("username")
 
-    # when not duplicate and at least 1 character return true
+    # zoek in database of er al een gebruiker is met die gebruikersnaam
+    gebruikers = db.execute("SELECT user_id FROM users WHERE username = :gebruikersnaam", gebruikersnaam = gebruikersnaam)
+
+    # return False als er al een gebruiker is met die gebruikersnaam
+    if gebruikers:
+        return jsonify(False)
+
     return jsonify(True)
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/logincheck", methods=["GET"])
 def logincheck():
-    username = request.args.get("username")
-    password = request.args.get("password")
 
-    get_hash = db.execute("SELECT * FROM users WHERE username = :username", username = username)
+    gebruikersnaam = request.args.get("gebruikersnaam")
+    wachtwoord= request.args.get("wachtwoord")
 
-    if not get_hash:
+    # haal gebruikersnaamgegevens uit de database
+    gebruikersnaam_db = db.execute("SELECT * FROM users WHERE username = :gebruikersnaam", gebruikersnaam = gebruikersnaam)
+
+    # return false als de gebruikersnaam niet in de database zit
+    if not gebruikersnaam_db:
         return jsonify(False)
 
-    if check_password_hash(get_hash[0]['password'], password) == True:
+    # return true als het wachtwoord klopt
+    if check_password_hash(gebruikersnaam_db[0]['password'], wachtwoord) == True:
         return jsonify(True)
+
     else:
         return jsonify(False)
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/quizcheck/<quiz>", methods=["GET", "POST"])
 def quizcheck(quiz):
 
-    #quiz = request.args.get("quiz")
+    # check of de quiz in onze database zit
+    quiz_db = db.execute("SELECT * FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz)
 
-    quiz_zoek = db.execute("SELECT * FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz)
 
-    if quiz_zoek:
+    if quiz_db:
         return jsonify(True)
 
     else:
@@ -118,36 +151,35 @@ def quizcheck(quiz):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in"""
 
-    # Forget any user_id
+    # vergeet user_id
     session.clear()
 
-
-    # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
-        print("1")
-        print(request.form.get('quiz_zoek_input'))
-        if 'quiz_zoek_input' in request.form:
 
+        # check of er een code is ingevuld om te zoeken naar een quiz
+        if 'quiz_zoek_input' in request.form:
 
             quiz_id = str(request.form.get("quiz_zoek_input"))
 
+            # maak de url van die quiz
             quiz_url = "/vul_in/"+quiz_id
 
             return redirect(quiz_url)
 
 
-        # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username=request.form.get("username"))
+        gebruikersnaam = request.form.get("username")
+        wachtwoord = request.form.get("password")
 
-        # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+        # haal gebruikersnaamgegevens uit database
+        gebruikersnaam_db = db.execute("SELECT * FROM users WHERE username = :username", username=gebruikersnaam)
 
-        # Remember which user has logged in
-        session["user_id"] = rows[0]["user_id"]
+        # check dat het wachtwoord klopt
+        if len(gebruikersnaam_db) != 1 or not check_password_hash(gebruikersnaam_db[0]["password"], wachtwoord):
+            return apology("verkeerde gebruikersnaam en/of wachtwoord", 403)
+
+        # sla op welke user is ingelogd
+        session["user_id"] = gebruikersnaam_db[0]["user_id"]
 
         # Redirect user to home page
         return redirect("/index")
