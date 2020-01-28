@@ -9,24 +9,24 @@
         <div class="form-group">
             <table class="table table-hoverable">
                 {% if top_participanten %}
-                <h2>TOP 5 {{quiz_name}}</h2>
+                <h2>TOP 5 {{quiz_naam}}</h2>
                 <tr>
                     <th>Name</th>
                     <th>Score</th>
                     <th>Tijd</th>
                     <th>Opmerking</th>
                 </tr>
-                {% for part in top_participants %}
+                {% for participant in top_participanten %}
                     <tr>
-                        <td>{{part["name"]}}</td>
-                        <td>{{part["score"]}}</td>
-                        <td>{{part["time"]}}</td>
-                        {% if part["comment"] == "" %}
+                        <td>{{participant["name"]}}</td>
+                        <td>{{participant["score"]}}</td>
+                        <td>{{participant["time"]}}</td>
+                        {% if participant["comment"] == "" %}
                             <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
                         {% else%}
-                            <td>{{part["comment"]}}</td>
+                            <td>{{participant["comment"]}}</td>
                         {% endif %}
-                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
+                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{participant['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
             </table>
@@ -38,17 +38,17 @@
                     <th>Tijd</th>
                     <th>Opmerking</th>
                 </tr>
-                {% for part in participants_list %}
+                {% for participant in participanten_lijst %}
                     <tr>
-                        <td>{{part["name"]}}</td>
-                        <td>{{part["score"]}}</td>
-                        <td>{{part["time"]}}</td>
-                        {% if part["comment"] == "" %}
+                        <td>{{participant["name"]}}</td>
+                        <td>{{participant["score"]}}</td>
+                        <td>{{participant["time"]}}</td>
+                        {% if participant["comment"] == "" %}
                             <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
                         {% else%}
-                            <td>{{part["comment"]}}</td>
+                            <td>{{participant["comment"]}}</td>
                         {% endif %}
-                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Zie Antwoorden</button></td>
+                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{participant['participant_id']}}'">Zie Antwoorden</button></td>
                     </tr>
                 {% endfor %}
             </table>
@@ -56,5 +56,5 @@
     </form>
     {% else %}
       <br><br><br><br><h2>Deze quiz heeft nog geen participanten</h2><br>
-  {% endif %}
+    {% endif %}
 {% endblock %}

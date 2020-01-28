@@ -7,43 +7,43 @@
 {% block main %}
 <h2> {{titel}} </h2>
 <form action="/vul_in/{{quiz_id}}" method="post">
-{% for question in questions %}
+{% for vraag in quizvragen %}
 <div class="container">
   <div class="row justify-content-center">
   <div class="card bg-light mb-3" style="width: 25rem;">
-    <img class="card-img-top" src="{{question['filename']}}" alt="{{question['filename']}}" style="height: 22rem">
+    <img class="card-img-top" src="{{vraag['filename']}}" alt="{{vraag['filename']}}" style="height: 22rem">
     <div class="card-body">
       <div class="form-group">
-        {{question['question']}}
+        {{vraag['question']}}
       </div>
     </div>
-    {% for answer in answers %}
-      {% if answer['question_id'] == question['question_id'] %}
-        {% if answer["status"] == 1 %}
+    {% for antwoord in antwoorden %}
+      {% if antwoord['question_id'] == vraag['question_id'] %}
+        {% if antwoord["status"] == 1 %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item form group">
-            {{answer['answer']}}
+            {{antwoord['answer']}}
           </li>
         </ul>
         {% endif %}
-        {% if answer["status"] == 2 %}
+        {% if antwoord["status"] == 2 %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item form group">
-            &#10060; <b>{{answer['answer']}}</b>
+            &#10060; <b>{{antwoord['answer']}}</b>
           </li>
         </ul>
         {% endif %}
-        {% if answer["status"] == 3 %}
+        {% if antwoord["status"] == 3 %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item form group">
-            &#9989; {{answer['answer']}}
+            &#9989; {{antwoord['answer']}}
           </li>
         </ul>
         {% endif %}
-        {% if answer["status"] == 4 %}
+        {% if antwoord["status"] == 4 %}
         <ul class="list-group list-group-flush">
           <li class="list-group-item form group">
-            &#9989; <b>{{answer['answer']}}</b>
+            &#9989; <b>{{antwoord['answer']}}</b>
           </li>
         </ul>
         {% endif %}
