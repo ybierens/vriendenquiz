@@ -8,6 +8,7 @@
     <form action="/results/{{quiz_id}}" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
+                {% if top_participanten %}
                 <h2>TOP 5 {{quiz_name}}</h2>
                 <tr>
                     <th>Name</th>
@@ -53,4 +54,7 @@
             </table>
         </div>
     </form>
+    {% else %}
+      <br><br><br><br><h2>Deze quiz heeft nog geen participanten</h2><br>
+  {% endif %}
 {% endblock %}

@@ -149,6 +149,11 @@ def quizcheck(quiz):
 
 
 
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -168,11 +173,11 @@ def login():
             return redirect(quiz_url)
 
 
-        gebruikersnaam = request.form.get("username")
-        wachtwoord = request.form.get("password")
+        gebruikersnaam = request.form.get("gebruikersnaam")
+        wachtwoord = request.form.get("wachtwoord")
 
         # haal gebruikersnaamgegevens uit database
-        gebruikersnaam_db = db.execute("SELECT * FROM users WHERE username = :username", username=gebruikersnaam)
+        gebruikersnaam_db = db.execute("SELECT * FROM users WHERE username = :gebruikersnaam", gebruikersnaam=gebruikersnaam)
 
         # check dat het wachtwoord klopt
         if len(gebruikersnaam_db) != 1 or not check_password_hash(gebruikersnaam_db[0]["password"], wachtwoord):
@@ -184,35 +189,50 @@ def login():
         # Redirect user to home page
         return redirect("/index")
 
-    # User reached route via GET (as by clicking a link or via redirect)
+    # render het login scherm
     else:
         return render_template("login.html")
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/logout")
 def logout():
-    """Log user out"""
 
-    # Forget any user_id
+    # vergeet user_id
     session.clear()
 
-    # Redirect user to login form
     return redirect("/")
 
 
 
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
 
     if request.method == "POST":
 
-        # insert into database
-        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)",
-                    username = request.form.get("username"), password = generate_password_hash(request.form.get("password"), method = 'pbkdf2:sha256', salt_length=8))
+        # haal wachtwoord uit form en hash het
+        wachtwoord_hash = generate_password_hash(request.form.get("wachtwoord"), method = 'pbkdf2:sha256', salt_length=8)
+        gebruikersnaam = request.form.get("gebruikersnaam")
 
-        get_id = db.execute("SELECT user_id FROM users WHERE username = :username", username = request.form.get("username"))
-        session["user_id"] = get_id[0]['user_id']
+        # zet gebruiker in database
+        db.execute("INSERT INTO users (username, password) VALUES (:gebruikersnaam, :wachtwoord)",
+            gebruikersnaam = gebruikersnaam, wachtwoord = wachtwoord_hash)
+
+        # haal het toegewezen user_id op
+        user_id = db.execute("SELECT user_id FROM users WHERE username = :gebruikersnaam", gebruikersnaam = gebruikersnaam)
+
+        # sla user_id op in session voor later gebruik
+        session["user_id"] = user_id[0]['user_id']
 
         return redirect("/index")
 
@@ -220,34 +240,63 @@ def register():
         return render_template("register.html")
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/mijn_quizzes")
 @login_required
 def mijn_quizzes():
-    """ Brengt de gebruiker naar pagina met al zijn gemaakte quizzes """
 
+    # haal alle quizzen van de gebruiker op uit de database
     quizes = db.execute("SELECT * FROM quizes WHERE user_id = :user_id", user_id = session['user_id'])
 
     return render_template("mijn_quizzes.html", quizes = quizes)
 
 
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/verwijder_quiz")
 @login_required
 def verwijder_quiz():
 
+    # haal quiz_id op van de quiz die verwijderd gaat worden
     quiz_id = request.args.get("quiz_id")
 
-    db.execute("DELETE FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    # verwijder alle ingevulde antwoorden voor alle participanten van de quiz
+    for participant_id in db.execute("SELECT participant_id FROM participants WHERE quiz_id = :quiz_id", quiz_id = quiz_id):
+        db.execute("DELETE FROM responses WHERE participant_id = :participant_id", participant_id = participant_id["participant_id"])
+
+    # verwijder alle participanten, vragen, antwoorden en de quiz zelf
+    db.execute("DELETE FROM participants WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     db.execute("DELETE FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     db.execute("DELETE FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    db.execute("DELETE FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
     return redirect("/mijn_quizzes")
 
+
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
 @app.route("/vul_in/<quiz_id>", methods=["GET", "POST"])
 def vul_in(quiz_id):
 
+    # haal alle data van de quiz op
     quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+
+    # doe de antwoorden in random volgorde
     random.shuffle(answers)
 
     titel = quiz_data[0]["quiz_titel"]
@@ -256,36 +305,53 @@ def vul_in(quiz_id):
 
 
     if request.method == "POST":
-        if 'submit_button' in request.form:
 
-            participant_name = request.form.get("participantnaam")
-            opmerking = request.form.get("opmerking")
+        # haal de ingevulde naam en opmerking op
+        participant_name = request.form.get("participantnaam")
+        opmerking = request.form.get("opmerking")
 
-            db.execute("INSERT INTO participants (quiz_id, name, comment) VALUES (:quiz_id, :name, :comment)", quiz_id = quiz_id, name = participant_name, comment=opmerking)
-            participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :name", name = participant_name)[-1]["participant_id"]
+        # zet de participant in de database
+        db.execute("INSERT INTO participants (quiz_id, name, comment) VALUES (:quiz_id, :name, :comment)",
+        quiz_id = quiz_id, name = participant_name, comment=opmerking)
 
-            final_score = 0
+        # haal het toegewezen participant_id op
+        participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :name AND quiz_id = :quiz_id",
+        name = participant_name, quiz_id = quiz_id)[0]["participant_id"]
 
-            for question in questions:
-                answer_input = request.form[str(question['question_id'])]
-                for answer in answers:
-                    if answer['answer_id'] == int(answer_input):
-                        final_score += answer["correct"]
-                db.execute("INSERT INTO responses (participant_id, answer_id) VALUES (:participant_id, :answer_id)", participant_id = participant_id, answer_id = answer_input)
+        # zet de ingevulde antwoorden in de database, en bereken de score
+        final_score = 0
 
-            final_score = final_score / len(questions)
+        for question in questions:
+            answer_input = request.form[str(question['question_id'])]
+            for answer in answers:
+                if answer['answer_id'] == int(answer_input):
+                    final_score += answer["correct"]
+
+            db.execute("INSERT INTO responses (participant_id, answer_id) VALUES (:participant_id, :answer_id)",
+                participant_id = participant_id, answer_id = answer_input)
 
 
-            db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
-                          score = final_score, participant_id = participant_id)
+        final_score = final_score / len(questions)
 
-            alle_scores = db.execute("SELECT score FROM participants WHERE  quiz_id = :quiz", quiz=quiz_id)
 
-            nieuw_score_dict = {"score":final_score, "name":participant_name}
-            alle_scores.append(nieuw_score_dict)
-            scores_op_volgorde = sorted(alle_scores, key=lambda x:x["score"])
-            scores_op_volgorde.reverse()
-            positie = scores_op_volgorde.index(nieuw_score_dict) + 1
+        # zet de score in de database bij de participant
+        db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
+            score = final_score, participant_id = participant_id)
+
+
+        # haal de score van de andere participanten van deze quiz op
+        alle_scores = db.execute("SELECT score FROM participants WHERE  quiz_id = :quiz", quiz=quiz_id)
+
+        # voeg een dictionary met de score van de participant toe aan een lijst van alle scores
+        nieuw_score_dict = {"score":final_score, "name":participant_name}
+        alle_scores.append(nieuw_score_dict)
+
+        # sorteer de lijst op score
+        scores_op_volgorde = sorted(alle_scores, key=lambda x:x["score"])
+        scores_op_volgorde.reverse()
+
+        # bereken de positie van de huidige participant
+        positie = scores_op_volgorde.index(nieuw_score_dict) + 1
 
         return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=final_score*100)
 
@@ -294,12 +360,16 @@ def vul_in(quiz_id):
         return render_template("vul_in.html", questions = questions, titel = titel, answers = answers, quiz_id = quiz_id)
 
 
+
 @app.route("/maak_quiz", methods=["GET", "POST"])
 @login_required
 def maak_quiz():
     if request.method == "POST":
-        zoekwoord = request.form["zoekwoord"]
-        gif = get_gif(zoekwoord)
+
+        # zoek de gif
+        gif = get_gif(request.form["zoekwoord"])
+
+        # zet de quiz data in de database
         db.execute("INSERT INTO quizes (quiz_titel, user_id, gif, dankwoord) VALUES (:quiz_titel, :user_id, :gif, :dankwoord)",
             quiz_titel = request.form.get("quiz_titel"),
             user_id = session["user_id"], gif=gif,

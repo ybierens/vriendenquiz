@@ -6,11 +6,9 @@
 
 {% block main %}
 
-<h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter:invert(100%);"> MIJN QUIZZES </h2>
+<h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter:invert(100%);"> MIJN QUIZZEN </h2>
 <hr class="mt-2 mb-5">
-{% if not quizes %}
-  <h3> Je hebt nog geen quizzes, klik <a href="/maak_quiz">hier</a> om een quiz aan te maken</h3>
-{% else %}
+{% if quizes %}
   <table class="table table-hover">
     <thead>
       <tr>
@@ -37,7 +35,11 @@
       {% endfor %}
     </tbody>
   </table>
-{% endif %}
+  {% else %}
+      <br><br><br><br><h2>Je hebt nog geen quizzen</h2><br>
+      <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
+  {% endif %}
+
 
   <script>
   function copy() {

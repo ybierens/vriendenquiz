@@ -8,6 +8,7 @@
     <form action="/index" method="post">
         <div class="form-group">
             <table class="table table-hoverable">
+                {% if top_participanten %}
                 <h2>TOP 5</h2>
                 <tr>
                     <th>Naam</th>
@@ -57,4 +58,8 @@
             </table>
         </div>
     </form>
+    {% else %}
+        <br><br><br><br><h2>Je hebt nog geen participanten</h2><br>
+        <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
+    {% endif %}
 {% endblock %}
