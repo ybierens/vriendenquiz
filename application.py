@@ -1,6 +1,5 @@
 import os
 import random
-import pyperclip
 
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, send_from_directory, url_for
