@@ -413,27 +413,23 @@ def voeg_vraag_toe():
 
     if request.method == "POST":
 
-#        if 'file' not in request.files:
- #           flash("Geen foto bijgevoegd")
-  #          return redirect(request.url)
-   #     file = request.files['file']
-    #    if file.filename == '':
-     #       flash("Geen foto geselecteerd")
-      #      return redirect(request.url)
-#        if not allowed_file(file.filename):
- #           flash("Dat bestandstype wordt niet ondersteund!")
-  #          return redirect(request.url)
-   #     if file and allowed_file(file.filename):
-    #        filename = secure_filename(file.filename)
-     #       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-      #      filename = (url_for('uploaded_file', filename=filename))
-
         questions = request.form.get("getal_vragen")
         for i in range(1, (int(questions) + 1)):
 
-            db.execute("INSERT INTO questions (quiz_id, question) VALUES (:quiz_id, :question)",
+            file = request.files["card" + str(i) + "_file"]
+            if not allowed_file(file.filename):
+                flash("Dat bestandstype wordt niet ondersteund!")
+                return redirect(request.url)
+
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                filename = (url_for('uploaded_file', filename=filename))
+
+            db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id, :question, :filename)",
                         quiz_id=session["quiz_id"],
-                        question=request.form.get("card" + str(i) + "_question"))
+                        question=request.form.get("card" + str(i) + "_question"),
+                        filename=filename)
 
             rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
             session["question_id"] = rows[-1]["question_id"]
