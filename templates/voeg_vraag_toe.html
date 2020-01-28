@@ -6,11 +6,14 @@
 
 {% block main %}
 
-
 <form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data id="stuur_in" onsubmit="return check()">
   <div id="questions">
     <div class="container" id="card0" style="display: none">
-      <input type="file" name="file"/>
+      <img scr="" id="card0_output_image"/> </br> </br>
+      <label class="custom-file-upload">
+        <input type=file name="card0_file" id="card0_file" accept="image/*" onchange="preview_image('event', '0')"/>
+        Klik om een foto toe te voegen
+      </label>
       <div class="form-group">
         <input autocomplete="off" autofocus class="voeg" style=width:48%;color:grey; name="card0_question" id="card0_question" placeholder="Vraag" type="text">
       </div>
@@ -115,6 +118,13 @@
       for (var i = (Number(param) + 1); i <= card_number; i++) {
         var card = document.getElementById("card" + i);
         card.setAttribute("id", "card" + (i-1));
+        var img = document.getElementById("card" + i + "_output_image");
+        img.setAttribute("name", "card" + (i-1) + "_output_image");
+        img.setAttribute("id", "card" + (i-1) + "_output_image");
+        var file = documengt.getElementById("card" + i + "_file");
+        file.setAttribute("name", "card" + (i-1) + "_file");
+        img.setAttribute("onchange", "preview_image('event', '" + i + "')");
+        file.setAttribute("id", "card" + (i-1) + "_file");
         var vraag = document.getElementById("card" + i + "_question");
         vraag.setAttribute("name", "card" + (i-1) + "_question");
         vraag.setAttribute("name", "id" + (i-1) + "_question");
@@ -160,6 +170,10 @@
     }
 
     for (var i = 1; i <= card_number; i++) {
+      if (!document.getElementById("card" + i + "_file").value) {
+        Alert.render("Voeg een foto bij elke vraag");
+        return flase;
+      }
       if (!document.getElementById("card" + i + "_question").value) {
         document.getElementById("card" + i + "_question").borderColor = "red";
         check += 1;
@@ -181,6 +195,20 @@
       return false;
     }
   }
+  function preview_image(event, param) {
+    var input = document.getElementById("card" + param + "_file");
+    var file = input.files[0];
+
+    if (file) {
+      var reader = new FileReader();
+      reader.addEventListener("load", function() {
+        var img = document.getElementById("card" + param + "_output_image");
+        img.setAttribute("src", this.result);
+      });
+      reader.readAsDataURL(file);
+    }
+  }
+
 
   $(document).ready(function() {
     $("#extra_question").click(function() {
@@ -189,6 +217,11 @@
       card_number += 1;
       clone.removeAttr("style");
       clone.attr("id", "card" + card_number);
+      clone.find("#card0_output_image").attr("name", "card" + card_number + "_output_image");
+      clone.find("#card0_output_image").attr("id", "card" + card_number + "_output_image");
+      clone.find("#card0_file").attr("name", "card" + card_number + "_file");
+      clone.find("#card0_file").attr("onchange", "preview_image('event', '" + card_number + "')");
+      clone.find("#card0_file").attr("id", "card" + card_number + "_file");
       clone.find("#card0_question").attr("name", "card" + card_number + "_question");
       clone.find("#card0_question").attr("id", "card" + card_number + "_question");
       clone.find("#card0_list").attr("id", "card" + card_number + "_list");
