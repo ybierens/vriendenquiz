@@ -5,17 +5,9 @@
 {% endblock %}
 
 {% block main %}
-<form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
 
-<img id="output_image"/>
- <br>
- <br>
-<label class="custom-file-upload">
-  <input type=file name=file accept="image/*" onchange="preview_image(event)"/>
-   Klik om een foto toe te voegen
-</label>
 
-<form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data>
+<form action="/voeg_vraag_toe" method="post" enctype=multipart/form-data id="stuur_in" onsubmit="return check()">
   <div id="questions">
     <div class="container" id="card0" style="display: none">
       <input type="file" name="file"/>
@@ -49,7 +41,7 @@
   </div>
   <input type="number" name="getal_vragen" id="getal_vragen" value="0" min="0" style="display: none"/>
   <button class="vraag-toevoegen" style=width:25%; type="button" name="toevoegen" id="extra_question"> Vraag toevoegen </button>
-  <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; input type="submit" value="beeindigen" name="beeindigen"> Quiz insturen </button>
+  <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; type="submit" name="beeindigen"> Quiz insturen </button>
 </form>
 
 <script>
@@ -158,6 +150,37 @@
     document.getElementById("getal_vragen").value = card_number;
   }
 
+  function check() {
+    var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
+    var check = 0;
+
+    if (card_number == 0) {
+      Alert.render("Elke quiz moet minimaal 1 vraag hebben");
+      return false;
+    }
+
+    for (var i = 1; i <= card_number; i++) {
+      if (!document.getElementById("card" + i + "_question").value) {
+        document.getElementById("card" + i + "_question").borderColor = "red";
+        check += 1;
+      }
+
+      var number = parseInt(document.getElementById("card" + i + "_getal").value, 10);
+      for (var j = 1; j <= number; j++) {
+        if (!document.getElementById("card" + i + "_answer" + j).value) {
+          document.getElementById("card" + i + "_answer" + j).borderColor = "red";
+          check += 1;
+        }
+      }
+    }
+    if (check == 0) {
+      return true;
+    }
+    else {
+      Alert.render("vul alle vragen/antwoorden in");
+      return false;
+    }
+  }
 
   $(document).ready(function() {
     $("#extra_question").click(function() {
@@ -189,6 +212,7 @@
       $("#questions").append(clone);
     });
   });
+
 </script>
 
 {% endblock %}

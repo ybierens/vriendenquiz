@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Mijn Account
+{% endblock %}
+
+{% block main %}
+<h2>{{username}}</h2>
+<br><br>
+<button class="login" onclick="window.location.href='/verander_wachtwoord'">Verander wachtwoord</button></br></br>
+<button class="login" onclick="window.location.href='/verander_gebruikersnaam'">Verander gebruikersnaam</button>
+
+{% endblock %}

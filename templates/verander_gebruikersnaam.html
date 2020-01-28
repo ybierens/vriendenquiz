@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Verander gebruikersnaam
+{% endblock %}
+
+{% block main %}
+<form action="/verander_gebruikersnaam" method="post" id="username">
+    <input autocomplete="off" autofocus class="inlog" name="nieuw" placeholder="Nieuwe gebruikersnaam" type="text" id="nieuw_id">
+    <p id="leeg"></p>
+    <button class="login" type="submit" name="verander">Verander</button>
+</form>
+
+<script>
+        document.getElementById("username").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+
+             if (!nieuw_id.value) {
+
+                document.getElementById("nieuw_id").style.borderColor = "red";
+                document.getElementById("leeg").innerHTML = "Vul je nieuwe gebruikersnaam in";
+
+                }
+
+             else {
+                $("#username").submit();
+            }
+        });
+    </script>
+
+{% endblock %}

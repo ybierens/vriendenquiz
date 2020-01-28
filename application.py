@@ -1,5 +1,6 @@
 import os
 import random
+import pyperclip
 
 from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, send_from_directory, url_for
@@ -418,6 +419,42 @@ def gallerij():
         for filedict in element:
             fotolijst.append(filedict['filename'])
     return render_template("gallerij.html", fotolijst=fotolijst)
+
+
+@app.route("/mijn_account", methods=["GET", "POST"])
+def mijn_account():
+
+    username = fotos = db.execute("SELECT username FROM users WHERE user_id=:user_id", user_id=session['user_id'])[0]["username"]
+
+    return render_template("mijn_account.html", username=username)
+
+
+@app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
+def verander_gebruikersnaam():
+    if request.method == "POST":
+        nieuw= request.form.get("nieuw")
+
+        db.execute("UPDATE users SET username = :username WHERE user_id = :user_id", username=nieuw, user_id = session["user_id"])
+
+        return redirect("/mijn_account")
+
+    else:
+        return render_template("verander_gebruikersnaam.html")
+
+
+@app.route("/verander_wachtwoord", methods=["GET", "POST"])
+def verander_wachtwoord():
+    if request.method == "POST":
+        nieuw = request.form.get("nieuw")
+
+        gehasht = generate_password_hash(nieuw, method = 'pbkdf2:sha256', salt_length=8)
+
+        db.execute("UPDATE users SET password = :password WHERE user_id = :user_id", password=gehasht, user_id = session["user_id"])
+
+        return redirect("/mijn_account")
+
+    else:
+        return render_template("verander_wachtwoord.html")
 
 
 
