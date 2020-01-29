@@ -48,10 +48,17 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-
+# deze route stuurt een foto vanaf de directory
 @app.route('/UPLOAD_FOLDER/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+
+# deze route redirect je naar login als je de server start
+@app.route("/", methods=["GET", "POST"])
+def home():
+    return redirect("/index")
 
 
 
