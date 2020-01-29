@@ -12,7 +12,7 @@ Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over j
 
 ## Applicatie
 
-![screenshot](doc/application.png)
+<img src="doc/application.png" alt="test image size" height="50%" width="50%">
 
 ## Features
 1. Account aanmaken om quizzes in op te slaan
