@@ -31,6 +31,7 @@ Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over j
 1. Je kan van iedereen zien wat ze precies hebben ingevuld
 1. Je kan alle foto's zien die je hebt toegevoegd aan je quizzen
 1. Je kan je gebruikersnaam en wachtwoord aanpassen
+2. Je kan een quiz delen via whattsapp
 
 ## Minimum viable product features
 1. Quiz creëren door foto's te uploaden en hierbij passende vragen en antwoorden in te voeren

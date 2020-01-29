@@ -62,12 +62,6 @@ def home():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # check of een gebruikersnaam beschikbaar is
 @app.route("/check", methods=["GET"])
 def check():
@@ -84,12 +78,6 @@ def check():
     return jsonify(True)
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # check of iemand kan inloggen met wat is ingevuld
 @app.route("/logincheck", methods=["GET"])
@@ -113,12 +101,6 @@ def logincheck():
         return jsonify(False)
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # de login route, checkt of je mag inloggen met de ingevulde informatie
 @app.route("/login", methods=["GET", "POST"])
@@ -163,12 +145,6 @@ def login():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # log uit route
 @app.route("/logout")
 def logout():
@@ -179,12 +155,6 @@ def logout():
     return redirect("/index")
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # registreer route, checkt of een gebruikersnaam al in gebruik is, en zet het in de database
 @app.route("/register", methods=["GET", "POST"])
@@ -217,12 +187,6 @@ def register():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # de homepage route als je bent ingelogd, laat de top 5 participanten en alle participanten zien
 @app.route("/index")
 @login_required
@@ -252,12 +216,6 @@ def index():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # route die checkt of de quiz waarnaar gezocht wordt bestaat
 @app.route("/quizcheck/<quiz>", methods=["GET", "POST"])
 def quizcheck(quiz):
@@ -274,13 +232,6 @@ def quizcheck(quiz):
 
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # route die alle aangemaakte quizzen van de gebruiker ophaalt
 @app.route("/mijn_quizzes")
 @login_required
@@ -292,12 +243,6 @@ def mijn_quizzes():
     return render_template("mijn_quizzes.html", quizes = quizes)
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # route die een quiz verwijdert
 @app.route("/verwijder_quiz")
@@ -320,12 +265,6 @@ def verwijder_quiz():
     return redirect("/mijn_quizzes")
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # route die alle vragen van een quiz laat zien, en alle data opslaat als die quiz is ingevuld
 @app.route("/vul_in/<quiz_id>", methods=["GET", "POST"])
@@ -409,11 +348,6 @@ def vul_in(quiz_id):
                                 aantal_vragen = len(vragen), eerste_id = eerste_id, gebruiker = gebruiker)
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # de route waarin je een quiz maakt voordat je de vragen gaat toevoegen
 @app.route("/maak_quiz", methods=["GET", "POST"])
@@ -499,12 +433,6 @@ def voeg_vraag_toe():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # de route die alle participanten van een quiz laat zien
 @app.route("/results/<quiz_id>", methods=["GET", "POST"])
 @login_required
@@ -526,12 +454,6 @@ def results(quiz_id):
     return render_template("results.html", participanten_lijst=participanten_lijst, quiz_naam=quiz_naam, top_participanten=top_participanten[:5])
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # de route die laat zien wat een participant heeft ingevuld bij een quiz
 @app.route("/antwoord/<participant_id>", methods=["GET", "POST"])
@@ -578,14 +500,6 @@ def antwoord(participant_id):
 
 
 
-
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # de route die alle foto's in je quizzen laat zien
 @app.route("/gallerij", methods=["GET"])
 @login_required
@@ -605,12 +519,6 @@ def gallerij():
 
 
 
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
-
 # de route die de pagina waarop je je gegevens kan aanpassen laat zien
 @app.route("/mijn_account", methods=["GET", "POST"])
 def mijn_account():
@@ -623,13 +531,6 @@ def mijn_account():
     return render_template("mijn_account.html", gebruiker=gebruiker, profielfoto=profielfoto)
 
 
-
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # de route waarin je je gebruikersnaam kan aanpassen
 @app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
@@ -648,12 +549,6 @@ def verander_gebruikersnaam():
         return render_template("verander_gebruikersnaam.html")
 
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 # de route waarin je je profielfoto kan aanpassen
 @app.route("/verander_profielfoto", methods=["GET", "POST"])
@@ -675,12 +570,6 @@ def verander_profielfoto():
     else:
         return render_template("verander_profielfoto.html")
 
-
-#################
-#               #
-#  GEREFACTORD  #
-#               #
-#################
 
 
 # de route waarin je je wachtwoord kan aanpassen
