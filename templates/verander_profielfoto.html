@@ -19,6 +19,7 @@
 
 <script>
 
+    // checkt of foto is geupload
     function check() {
         if (!document.getElementById("profielfoto").value) {
             Alert.render("kies een profielfoto");
@@ -27,20 +28,23 @@
         return true;
     }
 
-
+    // laat een preview van de foto zien
     function preview_image(event) {
-    var input = document.getElementById("profielfoto");
-    var file = input.files[0];
 
-    if (file) {
-      var reader = new FileReader();
-      reader.addEventListener("load", function() {
-        var img = document.getElementById("profiel");
-        img.setAttribute("src", this.result);
-      });
-      reader.readAsDataURL(file);
+        // selecteer de foto
+        var input = document.getElementById("profielfoto");
+        var file = input.files[0];
+
+        // als de foto bestaat, laat de foto zien aan de gebruiker
+        if (file) {
+            var reader = new FileReader();
+            reader.addEventListener("load", function() {
+            var img = document.getElementById("profiel");
+            img.setAttribute("src", this.result);
+        });
+        reader.readAsDataURL(file);
+        }
     }
-  }
 
 
 </script>
