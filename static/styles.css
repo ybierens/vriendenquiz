@@ -467,8 +467,6 @@ input[type="file"] {
   box-shadow: 5px 5px var(--box-shadow-color);
 }
 
-
-
 .smallfont {
   font-size: x-small;
 }
@@ -476,7 +474,6 @@ input[type="file"] {
 .largefont {
   font-size: x-large;
 }
-
 
 .grid-container {
   display: grid;
@@ -536,7 +533,8 @@ div.vraag
 div.antwoord
 {
   background-color: #E4E5E8;
-  border-color: #E4E5E8;
+  border-radius: 12px;
+  border: 2px solid #2EB5E0;
   height: 50px;
   margin-top: -15px;
   transition: background 0.25s linear;
@@ -546,7 +544,8 @@ div.antwoord
 div.antwoord:hover
 {
   background-color:white;
-  border-color: white;
+  border-radius: 12px;
+  border: 2px solid #2EB5E0;
   color: #E4E5E8;
   box-shadow: 5px 5px;
   transition: background 0.25s linear;
@@ -572,5 +571,10 @@ input[type="radio"]:checked ~ div.antwoord
 }
 
 .rounded-circle {
-  border: 2px solid #1DC690
+  object-fit: cover;
+  border: 2px solid #1DC690;
+  border-radius: 50%;
+  width:200px;
+  height:200px;
+  overflow: hidden;
 }
