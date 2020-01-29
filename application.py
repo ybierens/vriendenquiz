@@ -548,30 +548,35 @@ def antwoord(participant_id):
             mp_antwoorden.append(mp)
 
 
+    # zet bij ieder antwoord erbij of dat het antwoord is wat de user had geselecteerd
+    for mp_antwoord in mp_antwoorden:
+        mp_antwoord["user_antwoord"] = False
+        for user_antwoord in antwoorden:
+            if mp_antwoord["answer_id"] == user_antwoord["answer_id"]:
+                mp_antwoord["user_antwoord"] = True
+
+
     # ieder multiplechoice antwoord heeft 1 van 4 statussen
     # 1: antwoord is fout en niet geselecteerd door de user
     # 2: antwoord is fout en geselecteerd door de user
     # 3: antwoord is goed en niet geselecteerd door de user
     # 4: antwoord is goed en geselecteerd door de user
 
-
+    # voeg de status aan het antwoord toe
     for mp_antwoord in mp_antwoorden:
-        for user_antwoord in antwoorden:
-            if mp_antwoord["answer_id"] == user_antwoord["answer_id"]:
-                user_antwoord_id = user_antwoord["answer_id"]
-
-        # voeg de status aan het antwoord toe
-        if mp_antwoord["answer_id"] == user_antwoord_id and mp_antwoord["correct"] == 1:
-            mp_antwoord["status"] = 4
-        elif mp_antwoord["answer_id"] == user_antwoord_id and mp_antwoord["correct"] == 0:
-            mp_antwoord["status"] = 2
-        elif mp_antwoord["correct"] == 1:
-            mp_antwoord["status"] = 3
-        else:
+        if mp_antwoord["user_antwoord"] == False and mp_antwoord["correct"] == 0:
             mp_antwoord["status"] = 1
+        elif mp_antwoord["user_antwoord"] == True and mp_antwoord["correct"] == 0:
+            mp_antwoord["status"] = 2
+        elif mp_antwoord["user_antwoord"] == False and mp_antwoord["correct"] == 1:
+            mp_antwoord["status"] = 3
+        elif mp_antwoord["user_antwoord"] == True and mp_antwoord["correct"] == 1:
+            mp_antwoord["status"] = 4
 
 
     return render_template("antwoord.html", quizvragen = quizvragen, antwoorden = mp_antwoorden)
+
+
 
 
 
