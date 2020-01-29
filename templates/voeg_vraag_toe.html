@@ -20,32 +20,32 @@
       </div>
       <ul class="list-group list-group-flush" id="card0_list">
         <li class="list-group-item form group" id="card0_group1">
-          <input autocomplete="off" class="voeg" style=background-color:#B4F8C8;color:grey; name="card0_answer1" id="card0_answer1" placeholder="Correcte Antwoord" type="text"/>
+          <input autocomplete="off" class="voeg" style=background-color:#B1D8B7;color:grey;border-color:#B1D8B7; name="card0_answer1" id="card0_answer1" placeholder="Correct Antwoord" type="text"/>
           <input class="btn btn-primary" type="button" value="verwijder" onclick="ant.weg('card0', '1')" id="card0_button1" style="display: none;"/>
         </li>
         <li class="list-group-item form group" id="card0_group2">
-          <input autocomplete="off" class="voeg" style=background-color:#FBE7C6;color:grey; name="card0_answer2" id="card0_answer2" placeholder="Antwoord" type="text"/>
+          <input autocomplete="off" class="voeg" style=background-color:#F8AFA6;color:grey;border-color:#F8AFA6; name="card0_answer2" id="card0_answer2" placeholder="Fout antwoord" type="text"/>
           <input class="btn btn-primary" type="button" value="verwijder" onclick="ant.weg('card0', '2')" id="card0_button2" style="display: none;"/>
         </li>
         <li class="list-group-item form group" id="card0_group3">
-          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="card0_answer3" id="card0_answer3" placeholder="Antwoord" type="text"/>
+          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#F8AFA6;color:grey;border-color:#F8AFA6; name="card0_answer3" id="card0_answer3" placeholder="Fout antwoord" type="text"/>
           <button class="verwijder" type="button" style=margin-left:10px; onclick="ant.weg('card0', '3')" id="card0_button3">-</button>
         </li>
         <li class="list-group-item form group" id="card0_group4">
-          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#FBE7C6;color:grey; name="card0_answer4 "id="card0_answer4" placeholder="Antwoord" type="text"/>
+          <input autocomplete="off" class="voeg" style=margin-left:63px;background-color:#F8AFA6;color:grey;border-color:#F8AFA6; name="card0_answer4 "id="card0_answer4" placeholder="Fout antwoord" type="text"/>
           <button class="verwijder" type="button" style=margin-left:10px; onclick="ant.weg('card0', '4')" id="card0_button4">-</button>
         </li>
       </ul>
       <button class="verwijder" style=background-color:#1DC690;border-color:#1DC690;  type="button" onclick="ant.erbij('card0')" id="card0_extra">+</button>
       <div class="card-body">
         <input type="number" name="card0_getal" id="card0_getal" value="4" min="2" max="8" style="display: none;"/>
-        <button class="vraag-toevoegen" style=background-color:#1DC690;border-color:#1DC690; type="button" onclick="verwijder('0')" id="card0_verwijder"> Verwijder Vraag </button>
+        <button class="vraag-toevoegen" style=background-color:#F37970;border-color:#F37970; type="button" onclick="verwijder('0')" id="card0_verwijder"> Verwijder Vraag </button>
       </div>
     </div>
   </div>
   <input type="number" name="getal_vragen" id="getal_vragen" value="0" min="0" style="display: none"/>
   <button class="vraag-toevoegen" style=width:25%; type="button" name="toevoegen" id="extra_question"> Vraag toevoegen </button>
-  <button class="vraag-toevoegen" style=width:25%;background-color:#FF8300;border-color:#FF8300; type="submit" name="beeindigen"> Quiz insturen </button>
+  <button class="vraag-toevoegen" style=width:25%; type="submit" name="beeindigen"> Quiz insturen </button>
 </form>
 
 <script>

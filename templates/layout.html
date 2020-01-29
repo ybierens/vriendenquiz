@@ -36,7 +36,7 @@
                     <ul class="navbar-nav mr-auto mt-2">
                         <p></p>
                         <button1 style="margin:8px;" class="nav-item"><a class="nav-link" style=color:white; href="/mijn_quizzes">MIJN QUIZZES</a></button1>
-                        <button2 style="margin:8px;" class="nav-item"><a class="nav-link" href="/maak_quiz">MAAK EEN QUIZ</a></button2>
+                        <button2 style="margin:8px;" class="nav-item"><a class="nav-link" style=color:white;  href="/maak_quiz">MAAK EEN QUIZ</a></button2>
                         <button1 style="margin:8px;" class="nav-item"><a class="nav-link" style=color:white; href="/gallerij">MIJN GALLERIJ</a></button2>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
@@ -86,9 +86,9 @@
                 alertbox.style.left = (winW / 2) - (550 / 2)+ "px";
                 alertbox.style.top = "100px";
                 alertbox.style.display = "block";
-                document.getElementById("alertboxhead").innerHTML = "YOU DID SOMETHING WRONG";
+                document.getElementById("alertboxhead").innerHTML = '<h2 style=color:white;>"Foutje! Kan gebeuren"</h2>';
                 document.getElementById("alertboxbody").innerHTML = message;
-                document.getElementById("alertboxfoot").innerHTML = '<button class="btn btn-primary" onclick="Alert.ok()"> OK </button>';
+                document.getElementById("alertboxfoot").innerHTML = '<button class="btn resultaten" onclick="Alert.ok()"> OK </button>';
             };
             this.ok = function() {
                 document.getElementById("alertoverlay").style.display = "none";
