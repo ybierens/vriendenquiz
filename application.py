@@ -598,6 +598,7 @@ def gallerij():
 
 # de route die de pagina waarop je je gegevens kan aanpassen laat zien
 @app.route("/mijn_account", methods=["GET", "POST"])
+@login_required
 def mijn_account():
 
     # haal de gebruikersnaam van de gebruiker op
@@ -615,6 +616,7 @@ def mijn_account():
 
 # de route waarin je je gebruikersnaam kan aanpassen
 @app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
+@login_required
 def verander_gebruikersnaam():
     if request.method == "POST":
 
@@ -638,6 +640,7 @@ def verander_gebruikersnaam():
 
 # de route waarin je je wachtwoord kan aanpassen
 @app.route("/verander_wachtwoord", methods=["GET", "POST"])
+@login_required
 def verander_wachtwoord():
     if request.method == "POST":
 
