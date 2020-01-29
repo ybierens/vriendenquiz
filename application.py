@@ -443,7 +443,6 @@ def results(quiz_id):
     quiz_naam = db.execute("SELECT quiz_titel FROM quizes WHERE quiz_id = :quiz_id", quiz_id=quiz_id)[0]["quiz_titel"]
     participanten_lijst = db.execute("SELECT * FROM participants WHERE quiz_id = :quiz_id", quiz_id=quiz_id)
 
-    print(participanten_lijst)
     # draai de participantenlijst om zodat de meest recenten bovenaan komen
     participanten_lijst.reverse()
 
