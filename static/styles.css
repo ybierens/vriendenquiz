@@ -499,3 +499,39 @@ input[type="file"] {
   border-radius: 12px;
   box-shadow: 5px 5px var(--box-shadow-color);
 }
+
+
+
+.smallfont {
+  font-size: x-small;
+}
+
+.largefont {
+  font-size: x-large;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto 1fr 1.5fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "Account Top-5 Alle-deelnemers";
+}
+
+.Account {
+  grid-area: Account;
+  position: relative;
+  left: -40px;
+}
+
+.Top-5 {
+  grid-area: Top-5;
+  position: relative;
+  left: 20px;
+}
+
+.Alle-deelnemers {
+  grid-area: Alle-deelnemers;
+  position: relative;
+  left: 40px;
+}
