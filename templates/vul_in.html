@@ -7,36 +7,37 @@
 {% block main %}
 <h2> <img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter: invert(100%);"> {{titel}} </h2>
 <form action="/vul_in/{{quiz_id}}" method="post" id="quiz_invullen" onsubmit="return check()">
-{% for question in questions %}
-<div class="container">
-  <div class="row justify-content-center">
-  <div class="card bg-light mb-3" style="width: 25rem;">
-    <img class="card-img-top" src="{{question['filename']}}" alt="{{question['filename']}}" style="height: 22rem">
-    <div class="card-body">
-      <div class="form-group">
-        {{question['question']}}
+  <input type="number" id="aantal_vragen" value="{{aantal_vragen}}"style="display: none;">
+  <input type="number" id="eerste_vraag" value="{{eerste_id}}" style="display: none;">
+  {% for question in questions %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="card bg-light mb-3" style="width: 25rem;">
+          <img class="card-img-top" src="{{question['filename']}}" alt="{{question['filename']}}" style="height: 22rem"/>
+          <div class="card-body">
+            <div class="form-group">
+              {{question['question']}}
+            </div>
+          </div>
+          {% for answer in answers %}
+            {% if answer['question_id'] == question['question_id'] %}
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item form group">
+                  <input type="radio" class="form-control" name={{question['question_id']}} value={{answer['answer_id']}}> {{answer['answer']}} </input>
+                </li>
+              </ul>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     </div>
-    {% for answer in answers %}
-      {% if answer['question_id'] == question['question_id'] %}
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item form group">
-            <input type="radio" class="form-control" name={{question['question_id']}} value={{answer['answer_id']}}> {{answer['answer']}} </input>
-          </li>
-        </ul>
-      {% endif %}
-    {% endfor %}
+  {% endfor %}
+  <div class="form-group">
+    <input autocomplete="off" autofocus class="form-control" name="participantnaam" id="participantnaam" placeholder="Naam" type="text">
+    <p id="geen_naam"></p>
+    <input autocomplete="off" autofocus class="form-control" name="opmerking" placeholder="Opmerking (optioneel)" type="text">
   </div>
-  </div>
-</div>
-{% endfor %}
-
-<div class="form-group">
-  <input autocomplete="off" autofocus class="form-control" name="participantnaam" id="participantnaam" placeholder="Naam" type="text">
-  <p id="geen_naam"></p>
-  <input autocomplete="off" autofocus class="form-control" name="opmerking" placeholder="Opmerking (optioneel)" type="text">
-</div>
-<button class="btn btn-primary" type="submit" name="submit_button">Stuur</button>
+  <button class="btn btn-primary" type="submit" name="submit_button">Stuur</button>
 </form>
 
 
@@ -48,6 +49,22 @@
       document.getElementById("geen_naam").innerHTML = "Vul je naam in";
       Alert.render("Vul je naam in");
       return false;
+    }
+
+    var aantal_vragen = parseInt(document.getElementById("aantal_vragen").value, 10);
+    var eerste_vraag = parseInt(document.getElementById("eerste_vraag").value, 10);
+    for (var i = eerste_vraag; i < (eerste_vraag + aantal_vragen); i++) {
+      var aantal_ant = document.getElementsByName(i).length;
+      var count = 0;
+      for (var j = 0; j < aantal_ant; j++) {
+        if (document.getElementsByName(i)[j].checked) {
+          count += 1;
+        }
+      }
+      if (count == 0) {
+        Alert.render("Beantwoord alle vragen");
+        return false;
+      }
     }
     return true;
   }
