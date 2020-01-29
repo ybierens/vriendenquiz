@@ -39,23 +39,4 @@
       <br><br><br><br><h2>Je hebt nog geen quizzen</h2><br>
       <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
   {% endif %}
-
-
-  <script>
-  function copy() {
-    /* Get the text field */
-    var copyText = document.getElementById("myInput");
-
-    /* Select the text field */
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-
-    /* Alert the copied text */
-    alert("Copied the text: " + copyText.value);
-  }
-</script>
-
 {% endblock %}
