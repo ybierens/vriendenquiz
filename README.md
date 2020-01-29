@@ -10,14 +10,9 @@ Datum: 29/01/2020
 
 Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over jezelf en deel je deze met je vrienden. Wie weet het meest en is jouw beste vriend? En wat is nou een betere manier om de kennis van je vrienden te meten dan een foto? *After all, a picture says a thousand words…* Wie beantwoord de meeste vragen goed binnen jouw vriendengroep en is de **BESTE VRIEND**?
 
-## Applicatie screenshots
+## Applicatie
 
-![screenshot](doc/screenshot1.png)
-![screenshot](doc/screenshot2.png)
-![screenshot](doc/screenshot3.png)
-![screenshot](doc/screenshot4.png)
-![screenshot](doc/screenshot5.png)
-
+![screenshot](doc/application.png =200x)
 
 ## Features
 1. Account aanmaken om quizzes in op te slaan
