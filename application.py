@@ -17,14 +17,14 @@ UPLOAD_FOLDER = 'UPLOAD_FOLDER'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 
-# Configure application
+# maak applicatie
 app = Flask(__name__)
 
-# Ensure templates are auto-reloaded
+# zorg ervoor dat templates automatisch herladen
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Ensure responses aren't cached
+# zorg ervoor dat antwoorden niet worden gecashed
 @app.after_request
 def after_request(response):
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
@@ -32,22 +32,14 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
-# Configure session to use filesystem (instead of signed cookies)
+# zorg ervoor dat session filesystem gebruikt (in plaats van signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Configure CS50 Library to use SQLite database
+# zorg ervoor dat de CS50 library SQLite database gebruikt
 db = SQL("sqlite:///quiz.db")
-
-
-
-@app.route("/", methods=["GET", "POST"])
-def home():
-    if request.method == "GET":
-        return redirect("/index")
 
 
 
@@ -68,6 +60,8 @@ def uploaded_file(filename):
 #  GEREFACTORD  #
 #               #
 #################
+
+# check of een gebruikersnaam beschikbaar is
 @app.route("/check", methods=["GET"])
 def check():
 
@@ -89,6 +83,8 @@ def check():
 #  GEREFACTORD  #
 #               #
 #################
+
+# check of iemand kan inloggen met wat is ingevuld
 @app.route("/logincheck", methods=["GET"])
 def logincheck():
 
@@ -116,6 +112,8 @@ def logincheck():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de login route, checkt of je mag inloggen met de ingevulde informatie
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -135,18 +133,19 @@ def login():
             return redirect(quiz_url)
 
 
+        # anders wil je gebruiker inloggen
         gebruikersnaam = request.form.get("gebruikersnaam")
         wachtwoord = request.form.get("wachtwoord")
 
         # haal gebruikersnaamgegevens uit database
-        gebruikersnaam_db = db.execute("SELECT * FROM users WHERE username = :gebruikersnaam", gebruikersnaam=gebruikersnaam)
+        gebruiker_db = db.execute("SELECT * FROM users WHERE username = :gebruikersnaam", gebruikersnaam=gebruikersnaam)
 
         # check dat het wachtwoord klopt
-        if len(gebruikersnaam_db) != 1 or not check_password_hash(gebruikersnaam_db[0]["password"], wachtwoord):
+        if gebruiker_db is False or not check_password_hash(gebruiker_db[0]["password"], wachtwoord):
             return apology("verkeerde gebruikersnaam en/of wachtwoord", 403)
 
         # sla op welke user is ingelogd
-        session["user_id"] = gebruikersnaam_db[0]["user_id"]
+        session["user_id"] = gebruiker_db[0]["user_id"]
 
         # Redirect user to home page
         return redirect("/index")
@@ -162,13 +161,15 @@ def login():
 #  GEREFACTORD  #
 #               #
 #################
+
+# log uit route
 @app.route("/logout")
 def logout():
 
     # vergeet user_id
     session.clear()
 
-    return redirect("/")
+    return redirect("/index")
 
 
 
@@ -177,6 +178,8 @@ def logout():
 #  GEREFACTORD  #
 #               #
 #################
+
+# registreer route, checkt of een gebruikersnaam al in gebruik is, en zet het in de database
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -185,6 +188,10 @@ def register():
         # haal wachtwoord uit form en hash het
         wachtwoord_hash = generate_password_hash(request.form.get("wachtwoord"), method = 'pbkdf2:sha256', salt_length=8)
         gebruikersnaam = request.form.get("gebruikersnaam")
+
+        # check of de gebruikersnaam al in gebruik is
+        if db.execute("SELECT user_id FROM users WHERE username = :gebruikersnaam", gebruikersnaam = gebruikersnaam) is True:
+            return apology("deze gebruikersnaam wordt al gebruikt", 403)
 
         # zet gebruiker in database
         db.execute("INSERT INTO users (username, password) VALUES (:gebruikersnaam, :wachtwoord)",
@@ -208,6 +215,8 @@ def register():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de homepage route als je bent ingelogd, laat de top 5 participanten en alle participanten zien
 @app.route("/index")
 @login_required
 def index():
@@ -237,6 +246,8 @@ def index():
 #  GEREFACTORD  #
 #               #
 #################
+
+# route die checkt of de quiz waarnaar gezocht wordt bestaat
 @app.route("/quizcheck/<quiz>", methods=["GET", "POST"])
 def quizcheck(quiz):
 
@@ -258,6 +269,8 @@ def quizcheck(quiz):
 #  GEREFACTORD  #
 #               #
 #################
+
+# route die alle aangemaakte quizzen van de gebruiker ophaalt
 @app.route("/mijn_quizzes")
 @login_required
 def mijn_quizzes():
@@ -274,6 +287,8 @@ def mijn_quizzes():
 #  GEREFACTORD  #
 #               #
 #################
+
+# route die een quiz verwijdert
 @app.route("/verwijder_quiz")
 @login_required
 def verwijder_quiz():
@@ -300,6 +315,8 @@ def verwijder_quiz():
 #  GEREFACTORD  #
 #               #
 #################
+
+# route die alle vragen van een quiz laat zien, en alle data opslaat als die quiz is ingevuld
 @app.route("/vul_in/<quiz_id>", methods=["GET", "POST"])
 def vul_in(quiz_id):
 
@@ -380,6 +397,8 @@ def vul_in(quiz_id):
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route waarin je een quiz maakt voordat je de vragen gaat toevoegen
 @app.route("/maak_quiz", methods=["GET", "POST"])
 @login_required
 def maak_quiz():
@@ -468,6 +487,8 @@ def voeg_vraag_toe():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route die alle participanten van een quiz laat zien
 @app.route("/results/<quiz_id>", methods=["GET", "POST"])
 @login_required
 def results(quiz_id):
@@ -494,6 +515,8 @@ def results(quiz_id):
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route die laat zien wat een participant heeft ingevuld bij een quiz
 @app.route("/antwoord/<participant_id>", methods=["GET", "POST"])
 @login_required
 def antwoord(participant_id):
@@ -540,6 +563,8 @@ def antwoord(participant_id):
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route die alle foto's in je quizzen laat zien
 @app.route("/gallerij", methods=["GET"])
 @login_required
 def gallerij():
@@ -563,6 +588,8 @@ def gallerij():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route die de pagina waarop je je gegevens kan aanpassen laat zien
 @app.route("/mijn_account", methods=["GET", "POST"])
 def mijn_account():
 
@@ -578,6 +605,8 @@ def mijn_account():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route waarin je je gebruikersnaam kan aanpassen
 @app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
 def verander_gebruikersnaam():
     if request.method == "POST":
@@ -599,6 +628,8 @@ def verander_gebruikersnaam():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route waarin je je wachtwoord kan aanpassen
 @app.route("/verander_wachtwoord", methods=["GET", "POST"])
 def verander_wachtwoord():
     if request.method == "POST":
@@ -617,7 +648,7 @@ def verander_wachtwoord():
         return render_template("verander_wachtwoord.html")
 
 
-
+# handelt de errors af
 def errorhandler(e):
     if not isinstance(e, HTTPException):
         e = InternalServerError()
