@@ -15,6 +15,7 @@
     document.getElementById("username").addEventListener("submit", function(event) {
         event.preventDefault();
 
+        // check of nieuwe username is ingevuld
         if (!nieuw_id.value) {
 
             document.getElementById("nieuw_id").style.borderColor = "red";
@@ -22,11 +23,16 @@
 
         }
         else {
+
+            // haalt data op bij server
             $.get("/check?username=" + nieuw_id.value, function(data) {
 
+                // als data false is alert gebruiker
                 if (data == false){
                     Alert.render("username already taken");
                 }
+
+                // submit nieuwe username
                 else {
                     $("#username").submit();
                 }
