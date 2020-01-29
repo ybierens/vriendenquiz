@@ -212,7 +212,8 @@ def index():
     top_participanten = sorted(participanten_lijst, key=lambda x:x["score"])
     top_participanten.reverse()
 
-    return render_template("index.html", participanten_lijst=percentage(participanten_lijst), top_participanten=top_participanten[:5], profielfoto=profielfoto, gebruikersnaam=gebruikersnaam)
+    return render_template("index.html", participanten_lijst=percentage(participanten_lijst),
+            top_participanten=top_participanten[:5], profielfoto=profielfoto, gebruikersnaam=gebruikersnaam)
 
 
 

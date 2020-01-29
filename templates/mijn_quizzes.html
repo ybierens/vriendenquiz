@@ -14,7 +14,6 @@
       <tr>
         <th scope="col"> </th>
         <th scope="col">Quiznaam</th>
-        <th scope="col">Aangemaakt op</th>
         <th scope="col">Quiz Code</th>
         <th scope="col">Quiz Invullen</th>
         <th scope="col">Quiz Delen</th>
@@ -27,7 +26,6 @@
         <tr>
           <td><img src="{{quiz['gif']}}" class="rounded-circle" style="width:100px; height:100px;"></td>
           <td>{{quiz['quiz_titel']}}</td>
-          <td>{{quiz['date']}}</td>
           <td>{{quiz['quiz_id']}}</td>
           <td> <button class="link" style=width:75px; onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Vul in</button></td>
           <td> <button class="link" style=width:100px; onclick="window.location.href='whatsapp://send?text=http://1fc4e366-4130-443e-a19c-fb0c5b952919-ide.cs50.xyz/vul_in/{{quiz['quiz_id']}}'" data-action="share/whatsapp/share">Deel via Whatsapp</a></td>

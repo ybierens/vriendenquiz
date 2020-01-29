@@ -7,6 +7,7 @@
 {% block main %}
 <h2><img class="card-img-top" src="/static/IMG_3383.PNG" alt="Card image cap" style="width:60px;height:60px;filter: invert(100%);"> {{titel}} </h2>
 <h2 style=font-size:1em;>Deze quiz is gemaakt door {{gebruiker}}</h2>
+<hr class="mt-2 mb-5">
 {% if vragen %}
   <form action="/vul_in/{{quiz_id}}" method="post" id="quiz_invullen" onsubmit="return check()">
     <div class="form-group">
