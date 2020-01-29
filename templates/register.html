@@ -27,11 +27,14 @@
     <h>Heeft u al een account? Klik <a href="/login">hier</a> om in te loggen</h>
     </form>
     <script>
-                document.getElementById("register").addEventListener("submit", function(event) {
+
+        document.getElementById("register").addEventListener("submit", function(event) {
             event.preventDefault();
 
+            // checkt of een van de input velden niet is ingevuld
             if (!username.value || !password.value || !confirmation.value) {
 
+                // checkt of username niet is ingevuld
                 if (!username.value) {
                     document.getElementById("username").style.borderColor = "red";
                     document.getElementById("user_name").innerHTML = "Vul een gebruikersnaam in";
@@ -40,6 +43,8 @@
                     document.getElementById("username").style.borderColor = "green";
                     document.getElementById("user_name").innerHTML = "";
                 }
+
+                // checkt of password niet is ingevuld
                 if (!password.value) {
                     document.getElementById("password").style.borderColor = "red";
                     document.getElementById("pass_word").innerHTML = "Vul een wachtwoord in";
@@ -48,6 +53,8 @@
                     document.getElementById("password").style.borderColor = "green";
                     document.getElementById("pass_word").innerHTML = "";
                 }
+
+                // checkt of password confirmatie niet is ingevuld
                 if (!confirmation.value) {
                     document.getElementById("confirmation").style.borderColor = "red";
                     document.getElementById("confirm").innerHTML = "Bevestig wachtwoord";
@@ -59,15 +66,22 @@
                 return false;
             }
 
+            // checkt of password en password confirmatie gelijk zijn
             else if (password.value != confirmation.value) {
                 Alert.render("Wachtwoorden komen niet overeen");
                 return false;
             }
             else {
+
+                // haalt data op van server
                 $.get("/check?username=" + username.value, function(data) {
+
+                    // als data false is alert gebruiker
                     if (data == false){
                         Alert.render("Gebruikersnaam is al genomen");
                     }
+
+                    // submit register
                     else {
                         $("#register").submit();
                     }
