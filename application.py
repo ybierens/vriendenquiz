@@ -201,8 +201,8 @@ def register():
             return apology("deze gebruikersnaam wordt al gebruikt", 403)
 
         # zet gebruiker in database
-        db.execute("INSERT INTO users (username, password) VALUES (:gebruikersnaam, :wachtwoord)",
-            gebruikersnaam = gebruikersnaam, wachtwoord = wachtwoord_hash)
+        db.execute("INSERT INTO users (username, password, profielfoto) VALUES (:gebruikersnaam, :wachtwoord, :profielfoto)",
+            gebruikersnaam = gebruikersnaam, wachtwoord = wachtwoord_hash, profielfoto = "https://media.giphy.com/media/jUhLKT7fN9yiHNRuqO/giphy.gif")
 
         # haal het toegewezen user_id op
         user_id = db.execute("SELECT user_id FROM users WHERE username = :gebruikersnaam", gebruikersnaam = gebruikersnaam)
