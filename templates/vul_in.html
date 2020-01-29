@@ -28,9 +28,10 @@
               <ul class="list-group list-group-flush">
               <li class="list-group-item form-group">
                   <input type="radio" class="form-control" name={{question['question_id']}} id={{answer['answer_id']}} value={{answer['answer_id']}}>
-                  <label for={{answer['answer_id']}}>{{answer['answer']}}</label>
+                  <div class="card antwoord" for={{answer['answer_id']}}>
+                    <label for={{answer['answer_id']}}>{{answer['answer']}}</label>
+                  </div>
                   </input>
-                  <div class="check"></div>
               </li>
             </ul>
             {% endif %}
