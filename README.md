@@ -21,17 +21,14 @@ Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over j
 
 ## Features
 1. Account aanmaken om quizzes in op te slaan
-1. Nieuwe quiz aanmaken door foto's te uploaden en hier vragen (en eventueel tips) bij te schrijven
-1. De mogelijkheid om GIFs toe te voegen aan de quiz
+1. Nieuwe quiz aanmaken met een naam, gif en dankwoord
+1. Aan je nieuw aangemaakte quiz kan je zoveel vragen als je wilt toevoegen, met ieder zoveel multiple choice antwoorden als je wilt. Aan iedere vraag kan je een foto toevoegen
 1. Wachtwoord/pincode toevoegen aan quiz
-1. De quiz delen (via Facebook/email/link o.i.d.)
-1. De quiz doen
-1. Flash/finale-ronde met tijdsdruk als optie
-1. Tips ontvangen tijdens de quiz als optie
-1. Beschrijving toevoegen aan de vraag
-1. De scorelijsten inzien met het wachtwoord/de pincode
-1. Inzien welke vrienden welke vragen fout hadden
-1. De scorelijsten delen (via Facebook/email/link o.i.d.)
+1. De quiz invullen, aan het einde kan je een opmerking achterlaten
+1. Na het invullen zie je meteen je score en je positie in de ranglijst
+1. Je kan van alle quizzen zien wie de hoogste score heeft
+1. Je kan per quiz zien we de hoogste score heeft
+1. Je kan van iedereen zien wat ze precies hebben ingevuld
 
 ## Minimum viable product features
 1. Quiz creëren door foto's te uploaden en hierbij passende vragen en antwoorden in te voeren
