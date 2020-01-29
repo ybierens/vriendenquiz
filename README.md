@@ -10,28 +10,30 @@ Datum: 29/01/2020
 
 Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over jezelf en deel je deze met je vrienden. Wie weet het meest en is jouw beste vriend? En wat is nou een betere manier om de kennis van je vrienden te meten dan een foto? *After all, a picture says a thousand words…* Wie beantwoord de meeste vragen goed binnen jouw vriendengroep en is de **BESTE VRIEND**?
 
-## Schetsen
+## Applicatie screenshots
 
-![schets](doc/quiz1.png)
-![schets](doc/quiz2.png)
-![schets](doc/quiz3.png)
-![schets](doc/quiz4.png)
-![schets](doc/quiz5.png)
+![screenshot](doc/screenshot1.png)
+![screenshot](doc/screenshot2.png)
+![screenshot](doc/screenshot3.png)
+![screenshot](doc/screenshot4.png)
+![screenshot](doc/screenshot5.png)
 
 
 ## Features
 1. Account aanmaken om quizzes in op te slaan
 1. Nieuwe quiz aanmaken met een naam, gif en dankwoord
 1. Aan je nieuw aangemaakte quiz kan je zoveel vragen als je wilt toevoegen, met ieder zoveel multiple choice antwoorden als je wilt. Aan iedere vraag moet je een foto toevoegen
-1. Iedere quiz van je vinden via een code of via een URL
+1. Iedere quiz kan je vinden via een code of via een URL
 1. Je kan een quiz invullen, aan het einde kan je een opmerking achterlaten
-1. Na het invullen zie je meteen je score en je positie in de ranglijst, en kan je zien wat je fout had
+1. Na het invullen zie je meteen je score en je positie in de ranglijst, en kan je zien wat je fout had en wat eigenlijk goed is
 1. Je kan van alle quizzen zien wie de hoogste score heeft
 1. Je kan per quiz zien we de hoogste score heeft
 1. Je kan van iedereen zien wat ze precies hebben ingevuld
 1. Je kan alle foto's zien die je hebt toegevoegd aan je quizzen
+1. je kan quizzen verwijderen
 1. Je kan je gebruikersnaam en wachtwoord aanpassen
-2. Je kan een quiz delen via whattsapp
+1. Je kan een profielfoto aan je gebruiker toevoegen
+1. Je kan een quiz delen via Whatsapp
 
 ## Minimum viable product features
 1. Quiz creëren door foto's te uploaden en hierbij passende vragen en antwoorden in te voeren
