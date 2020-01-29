@@ -17,6 +17,7 @@
         <th scope="col">Aangemaakt op</th>
         <th scope="col">Quiz Code</th>
         <th scope="col">Quiz Invullen</th>
+        <th scope="col">Quiz Delen</th>
         <th scope="col">Resultaten</th>
         <th scope="col">Verwijder Quiz</th>
       </tr>
@@ -29,6 +30,7 @@
           <td>{{quiz['date']}}</td>
           <td>{{quiz['quiz_id']}}</td>
           <td> <button class="link" onclick="window.location.href='/vul_in/{{quiz['quiz_id']}}'">Vul in</button></td>
+          <td> <button class="link" onclick="window.location.href='whatsapp://send?text=http://1fc4e366-4130-443e-a19c-fb0c5b952919-ide.cs50.xyz/vul_in/{{quiz['quiz_id']}}'" data-action="share/whatsapp/share">Deel via Whatsapp</a></td>
           <td> <button class="resultaten" onclick="window.location.href='/results/{{quiz['quiz_id']}}'">Zie resultaten</button></td>
           <td> <button class="verwijder" onclick="window.location.href='{{'/verwijder_quiz?quiz_id=%s'%quiz['quiz_id']}}'">-</button></td>
         </tr>
