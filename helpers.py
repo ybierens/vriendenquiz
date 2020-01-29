@@ -7,28 +7,17 @@ from flask import redirect, render_template, request, session
 from functools import wraps
 
 
-
+# de pagina die gelaad wordt als er iets fout gaat
 def apology(message, code=400):
-    """Render message as an apology to user."""
     def escape(s):
-        """
-        Escape special characters.
-
-        https://github.com/jacebrowning/memegen#special-characters
-        """
         for old, new in [("-", "--"), (" ", "-"), ("_", "__"), ("?", "~q"),
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
 
-
+# de route voor als je naar een pagina wilt gaan waarvoor je ingelogd moet zijn
 def login_required(f):
-    """
-    Decorate routes to require login.
-
-    http://flask.pocoo.org/docs/1.0/patterns/viewdecorators/
-    """
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if session.get("user_id") is None:
@@ -37,7 +26,7 @@ def login_required(f):
     return decorated_function
 
 
-
+# functie waarmee een gif wordt opgehaald
 def get_gif(zoekwoord):
     try:
         randomnummer = random.randint(1,25)
@@ -56,8 +45,7 @@ def get_gif(zoekwoord):
         return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
 
 
-
-
+# zet een commagetal om naar een percentage
 def percentage(answer_list):
     for answer in answer_list:
         answer["score"] = str(answer["score"] * 100) + "%"
