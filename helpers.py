@@ -14,7 +14,7 @@ def apology(message, code=400):
                          ("%", "~p"), ("#", "~h"), ("/", "~s"), ("\"", "''")]:
             s = s.replace(old, new)
         return s
-    return render_template("apology.html", top=code, bottom=escape(message)), code
+    return redirect("/")
 
 # de route voor als je naar een pagina wilt gaan waarvoor je ingelogd moet zijn
 def login_required(f):
