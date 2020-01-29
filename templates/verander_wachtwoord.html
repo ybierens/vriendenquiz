@@ -23,30 +23,27 @@
         document.getElementById("wachtwoord").addEventListener("submit", function(event) {
             event.preventDefault();
 
-
-             if (!nieuw_id.value) {
-
+            // checkt of nieuwe wachtwoord is ingevuld
+            if (!nieuw_id.value) {
                 document.getElementById("nieuw_id").style.borderColor = "red";
                 document.getElementById("leeg1").innerHTML = "Vul je nieuwe wachtwoord in";
+            }
 
-                }
-
+            // checkt of nieuwe wachtwoord bevestiging is ingevuld
             else if (!bevestig_id.value) {
-
                 document.getElementById("bevestig_id").style.borderColor = "red";
                 document.getElementById("leeg2").innerHTML = "Bevestig je nieuwe wachtwoord";
-
                 }
 
+            // checkt of nieuwe wachtwoord en de bevestiging gelijk zijn
             else if (nieuw_id.value != bevestig_id.value) {
-
                 document.getElementById("nieuw_id").style.borderColor = "red";
                 document.getElementById("bevestig_id").style.borderColor = "red";
                 document.getElementById("niet_hetzelfde").innerHTML = "De 2 velden komen niet overeen";
+            }
 
-                }
-
-             else {
+            // submit nieuwe wachtwoord
+            else {
                 $("#wachtwoord").submit();
             }
         });
