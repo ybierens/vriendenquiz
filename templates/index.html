@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+{% if participanten_lijst %}
     <form action="/index" method="post">
         <div class="form-group">
             <div class="grid-container">
@@ -12,6 +13,7 @@
                     <h2> {{gebruikersnaam}} </h2> <br>
                     <img src="{{profielfoto}}" class="rounded-circle" style="width:200px; height:200px;">
                 </div>
+
                 <div class="Top-5">
                     <table class="table table-hoverable">
                         <h2 class="largefont">TOP 5</h2>
@@ -56,10 +58,16 @@
                     </tr>
                 {% endfor %}
             </table>
-                </div>
-            </div>
-                </div>
-                </form>
+        </div>
+    </div>
+    </div>
+    </form>
+    {% else %}
+    <div class="form-group">
+        <br><br><br><br><h2>Je hebt nog geen quizzen</h2><br>
+        <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
+    </div>
+    {% endif %}
 
 
 {% endblock %}
