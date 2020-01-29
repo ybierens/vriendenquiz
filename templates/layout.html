@@ -75,21 +75,32 @@
     </body>
 
     <script>
+
+        // deze functie roept een zelf gemaakte alert aan
         function CustomAlert() {
+
+            // render laat alert zien en maakt pagina onbruiker
             this.render = function(message) {
+                //
                 var winW = window.innerWidth;
                 var winH = window.innerHeight;
                 var alertoverlay = document.getElementById("alertoverlay");
                 var alertbox = document.getElementById("alertbox");
+
+                // plek van de alert
                 alertoverlay.style.display = "block";
                 alertoverlay.style.height = winH + "px";
                 alertbox.style.left = (winW / 2) - (550 / 2)+ "px";
                 alertbox.style.top = "100px";
                 alertbox.style.display = "block";
+
+                // tekst van de alert
                 document.getElementById("alertboxhead").innerHTML = '<h2 style=color:white;>"Foutje! Kan gebeuren"</h2>';
                 document.getElementById("alertboxbody").innerHTML = message;
                 document.getElementById("alertboxfoot").innerHTML = '<button class="btn resultaten" onclick="Alert.ok()"> OK </button>';
             };
+
+            // waneer gebruiker ok button klikt kan de user de pagina weer gebruiken
             this.ok = function() {
                 document.getElementById("alertoverlay").style.display = "none";
                 document.getElementById("alertbox").style.display = "none";
