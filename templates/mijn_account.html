@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block main %}
-<h2>{{gebruiker}}</h2>
-<br><br>
-<img src="{{profielfoto}}" class="rounded-circle" style="width:200px; height:200px;"><br><br>
-<button class="login" onclick="window.location.href='/verander_profielfoto'">Verander profielfoto</button></br></br>
-<button class="login" onclick="window.location.href='/verander_gebruikersnaam'">Verander gebruikersnaam</button></br></br>
-<button class="login" onclick="window.location.href='/verander_wachtwoord'">Verander wachtwoord</button><br> <br>
-
-
+    <h2>{{gebruiker}}</h2>
+    <br><br>
+    {% if profielfoto %}
+    <img src="{{profielfoto}}" class="rounded-circle" style="width:200px; height:200px;"><br><br>
+    {% endif %}
+    <button class="login" onclick="window.location.href='/verander_profielfoto'">Verander profielfoto</button></br></br>
+    <button class="login" onclick="window.location.href='/verander_gebruikersnaam'">Verander gebruikersnaam</button></br></br>
+    <button class="login" onclick="window.location.href='/verander_wachtwoord'">Verander wachtwoord</button><br> <br>
 {% endblock %}
