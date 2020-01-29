@@ -1,7 +1,3 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 {% extends "layout.html" %}
 
 {% block title %}
@@ -56,8 +52,10 @@
         document.getElementById("login").addEventListener("submit", function(event) {
             event.preventDefault();
 
-             if (!username.value || !password.value) {
+            // check of username of password niet is ingevuld
+            if (!username.value || !password.value) {
 
+                // checkt of username niet is ingevuld
                 if (!username.value) {
                     document.getElementById("username").style.borderColor = "red";
                     document.getElementById("user_name").innerHTML = "Vul een gebruikersnaam in";
@@ -67,6 +65,7 @@
                     document.getElementById("username").innerHTML = "";
                 }
 
+                // checkt of password niet is ingevuld
                 if (!password.value) {
                     document.getElementById("password").style.borderColor = "red";
                     document.getElementById("pass_word").innerHTML = "Vul een wachtwoord in";
@@ -78,10 +77,15 @@
                 return false;
              }
              else {
+                // vraag data op van server
                 $.get("/logincheck?gebruikersnaam=" + username.value + "&wachtwoord=" + password.value, function(data) {
+
+                    // waneer data false is alert gebruiker
                     if (data == false) {
                         Alert.render("Gebruikersnaam/wachtwoord incorrect");
                     }
+
+                    // submit login
                     else {
                         $("#login").submit();
                     }
@@ -94,8 +98,8 @@
         document.getElementById("quiz_zoek").addEventListener("submit", function(event) {
             event.preventDefault();
 
-
-             if (!quiz_zoek_input.value) {
+            // checkt of een input is gegeven
+            if (!quiz_zoek_input.value) {
 
                 document.getElementById("quiz_zoek_input").style.borderColor = "red";
                 document.getElementById("quiz_zoek_missing").innerHTML = "Geef de code van een quiz";
@@ -103,11 +107,16 @@
                 }
 
              else {
+
+                //vraagt data op van de server
                 $.get("/quizcheck/" + quiz_zoek_input.value, function(data) {
 
+                    // als data false is alert gebruiker
                     if (data == false) {
                         Alert.render("Die quiz bestaat niet");
                     }
+
+                    // submit quiz
                     else {
                         $("#quiz_zoek").submit();
                     }
