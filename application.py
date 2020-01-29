@@ -228,6 +228,10 @@ def register():
 @login_required
 def index():
 
+    profielfoto = db.execute("SELECT profielfoto FROM users WHERE user_id = :user_id", user_id=session["user_id"])[0]['profielfoto']
+
+    gebruikersnaam = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id=session["user_id"])[0]['username']
+
     mijn_quizes = db.execute("SELECT * FROM quizes WHERE user_id = :username",username=session["user_id"])
 
     participanten_lijst = []
@@ -244,7 +248,7 @@ def index():
     top_participanten = sorted(participanten_lijst, key=lambda x:x["score"])
     top_participanten.reverse()
 
-    return render_template("index.html", participanten_lijst=percentage(participanten_lijst), top_participanten=top_participanten[:5])
+    return render_template("index.html", participanten_lijst=percentage(participanten_lijst), top_participanten=top_participanten[:5], profielfoto=profielfoto, gebruikersnaam=gebruikersnaam)
 
 
 
@@ -598,13 +602,15 @@ def gallerij():
 
 # de route die de pagina waarop je je gegevens kan aanpassen laat zien
 @app.route("/mijn_account", methods=["GET", "POST"])
-@login_required
 def mijn_account():
 
     # haal de gebruikersnaam van de gebruiker op
     gebruiker = db.execute("SELECT username FROM users WHERE user_id=:user_id", user_id=session['user_id'])[0]["username"]
 
-    return render_template("mijn_account.html", gebruiker=gebruiker)
+    profielfoto = db.execute("SELECT profielfoto FROM users WHERE user_id=:user_id", user_id=session['user_id'])[0]['profielfoto']
+
+    return render_template("mijn_account.html", gebruiker=gebruiker, profielfoto=profielfoto)
+
 
 
 
@@ -637,6 +643,34 @@ def verander_gebruikersnaam():
 #  GEREFACTORD  #
 #               #
 #################
+
+# de route waarin je je profielfoto kan aanpassen
+@app.route("/verander_profielfoto", methods=["GET", "POST"])
+def verander_profielfoto():
+    if request.method == "POST":
+
+        # haal het geüploade bestand op
+        file = request.files["profielfoto"]
+        if file and allowed_file(file.filename):
+            profielfoto = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], profielfoto))
+            profielfoto = (url_for('uploaded_file', filename=profielfoto))
+
+        # update de database met de nieuwe profielfoto
+        db.execute("UPDATE users SET profielfoto=:profielfoto WHERE user_id=:user_id", user_id = session["user_id"], profielfoto=profielfoto)
+
+        return redirect("/mijn_account")
+
+    else:
+        return render_template("verander_profielfoto.html")
+
+
+#################
+#               #
+#  GEREFACTORD  #
+#               #
+#################
+
 
 # de route waarin je je wachtwoord kan aanpassen
 @app.route("/verander_wachtwoord", methods=["GET", "POST"])
