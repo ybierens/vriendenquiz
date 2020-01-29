@@ -35,14 +35,14 @@ def get_gif(zoekwoord):
             response = requests.get(endpoint)
             giphy = response.json()
             if len(giphy['data']) < 25:
-                return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+                return "https://media.giphy.com/media/f4JSklKJmHMhsf2w2d/giphy.gif"
             else:
                 gif = giphy['data'][randomnummer]['images']['fixed_width_small']['url']
                 return gif
         if not zoekwoord:
-            return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+            return "https://media.giphy.com/media/f4JSklKJmHMhsf2w2d/giphy.gif"
     except requests.RequestException:
-        return "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif"
+        return "https://media.giphy.com/media/f4JSklKJmHMhsf2w2d/giphy.gif"
 
 
 # zet een commagetal om naar een percentage
