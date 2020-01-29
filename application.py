@@ -332,7 +332,7 @@ def verwijder_quiz():
 def vul_in(quiz_id):
 
     # haal alle data van de quiz op
-    quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord, user_id FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     vragen = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     antwoorden = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
@@ -346,6 +346,9 @@ def vul_in(quiz_id):
 
     titel = quiz_data[0]["quiz_titel"]
     gif = quiz_data[0]["gif"]
+    user_id = quiz_data[0]["user_id"]
+    gebruikersnaam = db.execute("SELECT username FROM users WHERE user_id=:user_id", user_id = user_id)
+    gebruiker = gebruikersnaam[0]["username"]
     dankwoord = quiz_data[0]["dankwoord"]
 
 
@@ -403,7 +406,7 @@ def vul_in(quiz_id):
 
     else:
         return render_template("vul_in.html", vragen = vragen, titel = titel, antwoorden = antwoorden, quiz_id = quiz_id,
-                                aantal_vragen = len(vragen), eerste_id = eerste_id)
+                                aantal_vragen = len(vragen), eerste_id = eerste_id, gebruiker = gebruiker)
 
 
 #################
@@ -550,6 +553,7 @@ def antwoord(participant_id):
     # 2: antwoord is fout en geselecteerd door de user
     # 3: antwoord is goed en niet geselecteerd door de user
     # 4: antwoord is goed en geselecteerd door de user
+
 
     for mp_antwoord in mp_antwoorden:
         for user_antwoord in antwoorden:
