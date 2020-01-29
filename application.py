@@ -386,47 +386,50 @@ def voeg_vraag_toe():
 
     if request.method == "POST":
 
-        questions = request.form.get("getal_vragen")
-        for i in range(1, (int(questions) + 1)):
+        # haal het nummer vragen op om te bepalen hoevaak er wordt gelooped
+        vragen = request.form.get("getal_vragen")
+        for i in range(1, (int(vragen) + 1)):
 
+            # haal file op en check of deze file een fotobestand is
             file = request.files["card" + str(i) + "_file"]
             if not allowed_file(file.filename):
                 flash("Dat bestandstype wordt niet ondersteund!")
                 return redirect(request.url)
 
+            # slaat de file op een een upload folder
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                filename = (url_for('uploaded_file', filename=filename))
+                filenaam = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filenaam))
+                filenaam = (url_for('uploaded_file', filename=filenaam))
 
-            db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id, :question, :filename)",
-                        quiz_id=session["quiz_id"],
-                        question=request.form.get("card" + str(i) + "_question"),
-                        filename=filename)
-
-            rows = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
-            session["question_id"] = rows[-1]["question_id"]
-
-            db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id,:answer,:correct)",
+            # slaat data van elke vraag op in de database
+            db.execute("INSERT INTO questions (quiz_id, question, filename) VALUES (:quiz_id, :vraag, :filenaam)",
                         quiz_id = session["quiz_id"],
-                        question_id=session["question_id"],
-                        answer=request.form.get("card" + str(i) + "_answer1"),
-                        correct=True)
+                        vraag = request.form.get("card" + str(i) + "_question"),
+                        filenaam = filenaam)
 
-            getal = request.form.get("card" + str(i) + "_getal")
-            for j in range(2, int(getal) + 1):
+            # maakt een sessie aan voor de huidige vraag
+            rijen = db.execute("SELECT question_id FROM questions WHERE quiz_id = :quiz_id", quiz_id=session["quiz_id"])
+            session["vraag_id"] = rijen[-1]["question_id"]
 
-                db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :question_id, :answer, :correct)",
+            # slaat data van het goede antwoord op in de database
+            db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :vraag_id,:antwoord,:correct)",
+                        quiz_id = session["quiz_id"],
+                        vraag_id = session["vraag_id"],
+                        antwoord = request.form.get("card" + str(i) + "_answer1"),
+                        correct = True)
+
+            # haalt het nummer antwoorden op om te bepalen hoevaak er gelooped moet worden over foute antwoorden
+            antwoorden = request.form.get("card" + str(i) + "_getal")
+            for j in range(2, int(antwoorden) + 1):
+
+                # slaat data van de foute antwoorden op in de database
+                db.execute("INSERT INTO answers (quiz_id, question_id, answer, correct) VALUES(:quiz_id, :vraag_id, :antwoord, :correct)",
                             quiz_id = session["quiz_id"],
-                            question_id=session["question_id"],
-                            answer=request.form.get("card" + str(i) + "_answer" + str(j)),
-                            correct=False)
+                            vraag_id = session["vraag_id"],
+                            antwoord = request.form.get("card" + str(i) + "_answer" + str(j)),
+                            correct = False)
 
-
-        if "toevoegen" in request.form:
-            return redirect("/voeg_vraag_toe")
-
-        elif "beeindigen" in request.form:
             return redirect("/mijn_quizzes")
 
     else:
