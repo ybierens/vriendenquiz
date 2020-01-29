@@ -368,7 +368,7 @@ def vul_in(quiz_id):
                 participant_id = participant_id, answer_id = antwoord_input)
 
 
-        eindscore = eindscore / len(vragen)
+        eindscore = round(eindscore / len(vragen), 3)
 
 
         # zet de score in de database bij de participant
@@ -390,7 +390,7 @@ def vul_in(quiz_id):
         # bereken de positie van de huidige participant
         positie = scores_op_volgorde.index(nieuw_score_dict) + 1
 
-        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=eindscore*100, participant_id=participant_id)
+        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=round(eindscore*100, 1), participant_id=participant_id)
 
 
     else:
@@ -525,7 +525,6 @@ def results(quiz_id):
 
 # de route die laat zien wat een participant heeft ingevuld bij een quiz
 @app.route("/antwoord/<participant_id>", methods=["GET", "POST"])
-@login_required
 def antwoord(participant_id):
     # haal de quiz data en de ingevulde antwoorden van de participant op
     quiz = db.execute("SELECT quiz_id FROM participants WHERE participant_id = :pid", pid=participant_id)[0]["quiz_id"]
@@ -656,6 +655,7 @@ def verander_wachtwoord():
 
     else:
         return render_template("verander_wachtwoord.html")
+
 
 
 # handelt de errors af
