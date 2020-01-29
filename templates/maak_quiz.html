@@ -9,14 +9,26 @@
     <hr class="mt-2 mb-5">
     <p></p>
     <p></p>
-    <form action="/maak_quiz" method="post">
+    <form action="/maak_quiz" method="post" onsubmit="return check()">
         <div class="form-group">
-            <input autocomplete="off" autofocus class="voeg" name="quiz_titel" placeholder="Quiz titel" type="text">
+            <input autocomplete="off" autofocus class="voeg" name="quiz_titel" id="quiz_titel" placeholder="Quiz titel" type="text">
+            <p id="geen_titel"></p>
             <input autocomplete="off" autofocus class="voeg" name="zoekwoord" placeholder="Voeg een gif toe (optioneel)" type="text">
             <input autocomplete="off" autofocus class="voeg" name="dankwoord" placeholder="Voeg een dankwoord toe (optioneel)" type="text">
-
         </div>
         <button class="btn login" style=width:50%; type="submit">Voeg vragen toe</button>
     </form>
+
+    <script>
+
+    function check() {
+        if (!document.getElementById("quiz_titel").value) {
+            document.getElementById("quiz_titel").style.borderColor = "red";
+            document.getElementById("geen_titel").innerHTML = "vul een titel in";
+            Alert.render("Geef een titel aan je quiz");
+        return false;
+        }
+    }
+    </script>
 {% endblock %}
 
