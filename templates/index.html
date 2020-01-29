@@ -5,61 +5,64 @@
 {% endblock %}
 
 {% block main %}
+
     <form action="/index" method="post">
         <div class="form-group">
-            <table class="table table-hoverable">
-                {% if top_participanten %}
-                <h2>TOP 5</h2>
+            <div class="grid-container">
+                <div class="Account">
+                    <h2> Account </h2>
+                    <img src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy-downsized.gif" class="rounded-circle" style="width:200px; height:200px;">
+                </div>
+                <div class="Top-5">
+                    <table class="table table-hoverable">
+                        <h2 class="largefont">TOP 5</h2>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Quiz</th>
+                            <th>Score</th>
+                            <th>Tijd</th>
+                            <th>Opmerking</th>
+                        </tr>
+                        {% for part in top_participanten %}
+                        <tr>
+                            <td>{{part["name"]}}</td>
+                            <td>{{part["quizname"]}}</td>
+                            <td>{{part["score"]}}</td>
+                            <td>{{part["time"]}}</td>
+                            {% if part["comment"] == "" %}
+                            <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
+                            {% else%}
+                            <td>{{part["comment"]}}</td>
+                            {% endif %}
+                            <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Antwoorden</button></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="Alle-deelnemers">
+                    <table class="table table-hoverable smallfont">
+                <h2 class=smallfont>ALLE PARTICIPANTEN</h2>
                 <tr>
                     <th>Naam</th>
                     <th>Quiz</th>
                     <th>Score</th>
-                    <th>Tijd</th>
-                    <th>Opmerking</th>
+
                 </tr>
-                {% for participant in top_participanten %}
+                {% for part in participanten_lijst %}
                     <tr>
-                        <td>{{participant["name"]}}</td>
-                        <td>{{participant["quizname"]}}</td>
-                        <td>{{participant["score"]}}</td>
-                        <td>{{participant["time"]}}</td>
-                        {% if participant["comment"] == "" %}
-                            <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
-                        {% else%}
-                            <td>{{participant["comment"]}}</td>
-                        {% endif %}
-                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{participant['participant_id']}}'">Zie Antwoorden</button></td>
+                        <td>{{part["name"]}}</td>
+                        <td>{{part["quizname"]}}</td>
+                        <td>{{part["score"]}}</td>
+                        <td> <button type="button" class="resultaten" style="width: 100%; height: 80%" onclick="window.location.href='/antwoord/{{part['participant_id']}}'">Antwoorden</button></td>
                     </tr>
                 {% endfor %}
             </table>
-            <table class="table table-hoverable">
-                <h2>ALLE PARTICIPANTEN</h2>
-                <tr>
-                    <th>Naam</th>
-                    <th>Quiz</th>
-                    <th>Score</th>
-                    <th>Tijd</th>
-                    <th>Opmerking</th>
-                </tr>
-                {% for participant in participanten_lijst %}
-                    <tr>
-                        <td>{{participant["name"]}}</td>
-                        <td>{{participant["quizname"]}}</td>
-                        <td>{{participant["score"]}}</td>
-                        <td>{{participant["time"]}}</td>
-                        {% if participant["comment"] == "" %}
-                            <td><i><font color=#D1D1D1>Geen Opmerking</font></i></td>
-                        {% else%}
-                            <td>{{participant["comment"]}}</td>
-                        {% endif %}
-                        <td> <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/antwoord/{{participant['participant_id']}}'">Zie Antwoorden</button></td>
-                    </tr>
-                {% endfor %}
-            </table>
-        </div>
-    </form>
-    {% else %}
-        <br><br><br><br><h2>Je hebt nog geen participanten</h2><br>
-        <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
-    {% endif %}
+                </div>
+            </div>
+                </div>
+                </form>
+
+
 {% endblock %}
+
+
