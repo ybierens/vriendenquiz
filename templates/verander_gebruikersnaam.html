@@ -12,21 +12,27 @@
 </form>
 
 <script>
-        document.getElementById("username").addEventListener("submit", function(event) {
-            event.preventDefault();
+    document.getElementById("username").addEventListener("submit", function(event) {
+        event.preventDefault();
 
+        if (!nieuw_id.value) {
 
-             if (!nieuw_id.value) {
+            document.getElementById("nieuw_id").style.borderColor = "red";
+            document.getElementById("leeg").innerHTML = "Vul je nieuwe gebruikersnaam in";
 
-                document.getElementById("nieuw_id").style.borderColor = "red";
-                document.getElementById("leeg").innerHTML = "Vul je nieuwe gebruikersnaam in";
+        }
+        else {
+            $.get("/check?username=" + nieuw_id.value, function(data) {
 
+                if (data == false){
+                    Alert.render("username already taken");
                 }
-
-             else {
-                $("#username").submit();
-            }
-        });
-    </script>
+                else {
+                    $("#username").submit();
+                }
+            });
+        }
+    });
+</script>
 
 {% endblock %}
