@@ -52,8 +52,10 @@
   {% endif %}
 
 <script>
+
   function check() {
 
+    // checkt of gebruiker een naam heeft ingevuld
     if (!document.getElementById("participantnaam").value) {
       document.getElementById("participantnaam").style.borderColor = "red";
       document.getElementById("geen_naam").innerHTML = "Vul je naam in";
@@ -61,16 +63,27 @@
       return false;
     }
 
+    // haalt het totaal aantal vragen op en het id van de eerste vraag
     var aantal_vragen = parseInt(document.getElementById("aantal_vragen").value, 10);
     var eerste_vraag = parseInt(document.getElementById("eerste_vraag").value, 10);
+
+    // loop over alle vragen van quiz
     for (var i = eerste_vraag; i < (eerste_vraag + aantal_vragen); i++) {
+
+      // haal het aantal antwoorden per vraag op
       var aantal_ant = document.getElementsByName(i).length;
       var count = 0;
+
+      //loop over alle antwoorden van de vraag
       for (var j = 0; j < aantal_ant; j++) {
+
+        // check of een antwoord is ingevuld
         if (document.getElementsByName(i)[j].checked) {
           count += 1;
         }
       }
+
+      // als geen antwoord van de vraag is ingevuld alert gebruiker
       if (count == 0) {
         Alert.render("Beantwoord alle vragen");
         return false;
