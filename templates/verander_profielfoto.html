@@ -6,7 +6,10 @@
 
 {% block main %}
 <form action="/verander_profielfoto" method="post" enctype="multipart/form-data" onsubmit="return check()">
-    <img scr="" id="profiel"/> </br> </br>
+    <div>
+        <img scr="" style="height: 250px;" id="profiel"/>
+    </div>
+    <br>
     <label class="custom-file-upload">
         <input type=file name="profielfoto" id="profielfoto" accept="image/*" onchange="preview_image('event')"/>
         Klik om een profielfoto toe te voegen
