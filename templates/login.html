@@ -78,7 +78,7 @@
              }
              else {
                 // vraag data op van server
-                $.get("/logincheck?gebruikersnaam=" + username.value + "&wachtwoord=" + password.value, function(data) {
+                $.get("/login_check?gebruikersnaam=" + username.value + "&wachtwoord=" + password.value, function(data) {
 
                     // waneer data false is alert gebruiker
                     if (data == false) {
@@ -109,7 +109,7 @@
              else {
 
                 //vraagt data op van de server
-                $.get("/quizcheck/" + quiz_zoek_input.value, function(data) {
+                $.get("/quiz_check/" + quiz_zoek_input.value, function(data) {
 
                     // als data false is alert gebruiker
                     if (data == false) {

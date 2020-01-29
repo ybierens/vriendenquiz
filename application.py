@@ -80,8 +80,8 @@ def check():
 
 
 # check of iemand kan inloggen met wat is ingevuld
-@app.route("/logincheck", methods=["GET"])
-def logincheck():
+@app.route("/login_check", methods=["GET"])
+def login_check():
 
     gebruikersnaam = request.args.get("gebruikersnaam")
     wachtwoord= request.args.get("wachtwoord")
@@ -216,8 +216,8 @@ def index():
 
 
 # route die checkt of de quiz waarnaar gezocht wordt bestaat
-@app.route("/quizcheck/<quiz>", methods=["GET", "POST"])
-def quizcheck(quiz):
+@app.route("/quiz_check/<quiz>", methods=["GET", "POST"])
+def quiz_check(quiz):
 
     # check of de quiz in onze database zit
     quiz_db = db.execute("SELECT * FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz)
