@@ -63,10 +63,15 @@
     </div>
     </form>
     {% else %}
-    <div class="form-group">
-        <br><br><br><br><h2>Je hebt nog geen participanten</h2><br>
-        <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ</button></td>
+    <h2> {{gebruikersnaam}} </h2> <br>
+    <img src="{{profielfoto}}" class="rounded-circle">
+        <div class="form-group">
+            <br><br><br><br><h style=size:1em;color:grey;font-weight:500;>Je quizzes moeten nog ingevuld worden door vrienden!</h><br><br>
+            <button type="button" class="btn login" style=width:160px; onclick="window.location.href='/maak_quiz'">MAAK QUIZ AAN</button></td>
+        </div>
     </div>
+
+
     {% endif %}
 
 
