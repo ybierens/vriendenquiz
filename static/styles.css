@@ -564,3 +564,9 @@ input[type="radio"]:checked ~ div.antwoord
   color: white;
   background-color: #2EB5E0;
 }
+
+.slogan {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  color: DarkOliveGreen;
+  margin-top: 150px;
+}
