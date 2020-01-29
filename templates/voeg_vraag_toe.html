@@ -49,13 +49,23 @@
 </form>
 
 <script>
- function antwoord() {
 
+  // overkoepelende functie om antwoordvelden van een vraag toe te voegen en te verwijderen
+  function antwoord() {
+
+    // deze functie verwijderd antwoordvelden
     this.weg = function(card, param) {
+
+      // selecteert en verwijdert het veld
       var weg = document.getElementById(card + "_group" + param);
       weg.remove();
+
+      // selecteert het nummer met aantal antwoorden en kijkt daarmee of het verwijderde antwoord de laatste is
       var number = parseInt(document.getElementById(card + "_getal").value, 10);
       if (number > Number(param)) {
+
+        // loop over het aantal antwoorden tussen de verwijderde antwoord en het aantal totale antwoorden
+        // en update alle attributen (id, naam, en funties)
         for (var i = (Number(param) + 1); i <= number; i++) {
           var groep = document.getElementById(card + "_group" + i);
           groep.setAttribute("id", card + "_group" + (i-1));
@@ -67,23 +77,31 @@
           button.setAttribute("id", card + "_button" + (i-1));
         }
       }
+
+      // haal 1 van het aantal antwoorden af en update dit
       number -= 1;
       document.getElementById(card + "_getal").value = number;
     };
 
+    // deze functie voegt antwoord velden toe
     this.erbij = function(card) {
-      var number = parseInt(document.getElementById(card + "_getal").value, 10);
 
+      // als het aantal antwoorden 8 is, kunnen er geen antwoord velden meer bij
+      var number = parseInt(document.getElementById(card + "_getal").value, 10);
       if (number == 8) {
         Alert.render("Het maximum aantal antwoord mogelijkheden is 8");
       }
 
       else {
+        // verhoogt het totaal aantal antwoorden met + 1
         number += 1;
+
+        // creert niew list item
         var nieuw = document.createElement("LI");
         nieuw.setAttribute("id", card + "_group" + number);
         nieuw.setAttribute("class", "list-group-item form group");
 
+        // creert nieuw input veld binnen list element
         var tekst = document.createElement("input");
         tekst.setAttribute("type", "text");
         tekst.setAttribute("id", card + "_answer" + number);
@@ -94,6 +112,7 @@
         tekst.setAttribute("style", "margin-left:63px;background-color:#F8AFA6;border-color:#F8AFA6;color:grey;");
         nieuw.appendChild(tekst);
 
+        // creert nieuwe button binnen list element
         var button = document.createElement("button");
         button.setAttribute("type", "button");
         button.setAttribute("onclick", "ant.weg('" + card + "', '" + number + "')");
@@ -104,34 +123,48 @@
         nieuw.appendChild(button);
         document.getElementById(card + "_list").appendChild(nieuw);
 
+        // update het totaal aantal antwoorden
         document.getElementById(card + "_getal").value = number;
       }
     };
   }
   var ant = new antwoord();
 
+  // functie om vragen te verwijderen
   function verwijder(param) {
+
+    // selecteert en verwijdert een vraag
     var verwijder = document.getElementById("card" + param);
     verwijder.remove();
-    var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
 
+    // selecteert het nummer met aantal vragen en kijkt daarmee of de verwijderde vraag de laatste is
+    var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
     if (card_number > Number(param)){
+
+      // loop over het vragen tussen de verwijderde vraag en het aantal totale vragen
+      // en update alle attributen (id, naam, en funties)
       for (var i = (Number(param) + 1); i <= card_number; i++) {
         var card = document.getElementById("card" + i);
         card.setAttribute("id", "card" + (i-1));
+
         var img = document.getElementById("card" + i + "_output_image");
         img.setAttribute("name", "card" + (i-1) + "_output_image");
         img.setAttribute("id", "card" + (i-1) + "_output_image");
+
         var file = documengt.getElementById("card" + i + "_file");
         file.setAttribute("name", "card" + (i-1) + "_file");
         img.setAttribute("onchange", "preview_image('event', '" + i + "')");
         file.setAttribute("id", "card" + (i-1) + "_file");
+
         var vraag = document.getElementById("card" + i + "_question");
         vraag.setAttribute("name", "card" + (i-1) + "_question");
         vraag.setAttribute("name", "id" + (i-1) + "_question");
+
         var lijst = document.getElementById("card" + i + "_list");
         lijst.setAttribute("id", "card" + (i-1) + "_list");
 
+        // selecteert het aantal antwoorden per vraag
+        // loop over dit aantal en update attributen (id, naam, functies)
         var number = parseInt(document.getElementById("card" + param + "_getal").value, 10);
         for (var j = 1; j <= number; j++); {
           var groep = document.getElementById("card" + i + "_group" + j);
@@ -157,49 +190,72 @@
         del.setAttribute("id", "card" + (i-1) + "_verwijder");
       }
     }
+
+    // haal 1 af van het totaal aantal vragen en update dit
     card_number -= 1;
     document.getElementById("getal_vragen").value = card_number;
   }
 
+  // deze functie kijkt of alle input velden juist zijn ingevuld
   function check() {
+
+    // pak het totaal aantal vragen
     var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
     var check = 0;
 
+    // geef een alert wanneer het totaal aantal vragen 0 is
     if (card_number == 0) {
       Alert.render("Elke quiz moet minimaal 1 vraag hebben");
       return false;
     }
 
+    // loop over het totaal aantal vragen
     for (var i = 1; i <= card_number; i++) {
+
+      // geef een alert wanneer er geen foto is toegevoegd bij een vraag
       if (!document.getElementById("card" + i + "_file").value) {
         Alert.render("Voeg een foto bij elke vraag");
         return false;
       }
+
+      // check of vraag is ingevuld
       if (!document.getElementById("card" + i + "_question").value) {
         document.getElementById("card" + i + "_question").borderColor = "red";
         check += 1;
       }
 
+      // loop over het totaal aantal antwoorden van deze vraag
       var number = parseInt(document.getElementById("card" + i + "_getal").value, 10);
       for (var j = 1; j <= number; j++) {
+
+        // check of antwoorden zijn ingevuld
         if (!document.getElementById("card" + i + "_answer" + j).value) {
           document.getElementById("card" + i + "_answer" + j).borderColor = "red";
           check += 1;
         }
       }
     }
+
+    // wanneer alle vragen en antwoorden zijn ingevuld return true
     if (check == 0) {
       return true;
     }
+
+    // geef een alert wanneer niet alle antwoorden zijn ingevuld
     else {
       Alert.render("vul alle vragen/antwoorden in");
       return false;
     }
   }
+
+  // deze functie laat foto's zien
   function preview_image(event, param) {
+
+    // selecteer de foto
     var input = document.getElementById("card" + param + "_file");
     var file = input.files[0];
 
+    // als de foto bestaat, laat de foto zien aan de user
     if (file) {
       var reader = new FileReader();
       reader.addEventListener("load", function() {
@@ -210,16 +266,24 @@
     }
   }
 
+  // deze functie zorgt ervoor dat er automatisch een vraag wordt toegevoegd
   function load() {
     document.getElementById("extra_question").click();
   }
 
 
+  // deze functie voegt vragen toe
   $(document).ready(function() {
     $("#extra_question").click(function() {
+
+      // kopieert html van de eerste vraag
       var clone = $("#card0").clone();
+
+      // selecteert het totaal aantal vragen en telt er een bij op
       var card_number = parseInt(document.getElementById("getal_vragen").value, 10);
       card_number += 1;
+
+      // update alle attribute van oude vraag
       clone.removeAttr("style");
       clone.attr("id", "card" + card_number);
       clone.find("#card0_output_image").attr("name", "card" + card_number + "_output_image");
@@ -231,6 +295,7 @@
       clone.find("#card0_question").attr("id", "card" + card_number + "_question");
       clone.find("#card0_list").attr("id", "card" + card_number + "_list");
 
+      // loop over alle antwoorden en update attributen
       for (var i = 1; i < 5; i++) {
         clone.find("#card0_group" + i).attr("id", "card" + card_number + "_group" + i);
         clone.find("#card0_answer" + i).attr("name", "card" + card_number + "_answer" + i);
@@ -246,6 +311,7 @@
       clone.find("#card0_verwijder").attr("onclick", "verwijder('" + card_number + "')");
       clone.find("#card0_verwijder").attr("id", "card" + card_number + "_verwijder");
 
+      // update het totaal aantal vragen en voeg de vraag toe aan de form
       document.getElementById("getal_vragen").value = card_number;
       $("#questions").append(clone);
     });
