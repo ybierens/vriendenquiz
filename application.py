@@ -329,12 +329,12 @@ def vul_in(quiz_id):
 
     # haal alle data van de quiz op
     quiz_data = db.execute("SELECT quiz_titel, gif, dankwoord FROM quizes WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
-    questions = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
-    answers = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    vragen = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
+    antwoorden = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
 
     # doe de antwoorden in random volgorde
-    random.shuffle(answers)
+    random.shuffle(antwoorden)
 
     titel = quiz_data[0]["quiz_titel"]
     gif = quiz_data[0]["gif"]
@@ -348,39 +348,39 @@ def vul_in(quiz_id):
         opmerking = request.form.get("opmerking")
 
         # zet de participant in de database
-        db.execute("INSERT INTO participants (quiz_id, name, comment) VALUES (:quiz_id, :name, :comment)",
-        quiz_id = quiz_id, name = participant_name, comment=opmerking)
+        db.execute("INSERT INTO participants (quiz_id, name, comment) VALUES (:quiz_id, :naam, :opmerking)",
+        quiz_id = quiz_id, naam = participant_name, opmerking=opmerking)
 
         # haal het toegewezen participant_id op
-        participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :name AND quiz_id = :quiz_id",
-        name = participant_name, quiz_id = quiz_id)[0]["participant_id"]
+        participant_id = db.execute("SELECT participant_id FROM participants WHERE name = :naam AND quiz_id = :quiz_id",
+            naam = participant_name, quiz_id = quiz_id)[0]["participant_id"]
 
         # zet de ingevulde antwoorden in de database, en bereken de score
-        final_score = 0
+        eindscore = 0
 
-        for question in questions:
-            answer_input = request.form[str(question['question_id'])]
-            for answer in answers:
-                if answer['answer_id'] == int(answer_input):
-                    final_score += answer["correct"]
+        for vraag in vragen:
+            antwoord_input = request.form[str(vraag['question_id'])]
+            for antwoord in antwoorden:
+                if antwoord['answer_id'] == int(antwoord_input):
+                    eindscore += antwoord["correct"]
 
             db.execute("INSERT INTO responses (participant_id, answer_id) VALUES (:participant_id, :answer_id)",
-                participant_id = participant_id, answer_id = answer_input)
+                participant_id = participant_id, answer_id = antwoord_input)
 
 
-        final_score = final_score / len(questions)
+        eindscore = eindscore / len(vragen)
 
 
         # zet de score in de database bij de participant
         db.execute("UPDATE participants SET score = :score WHERE participant_id = :participant_id",
-            score = final_score, participant_id = participant_id)
+            score = eindscore, participant_id = participant_id)
 
 
         # haal de score van de andere participanten van deze quiz op
         alle_scores = db.execute("SELECT score FROM participants WHERE  quiz_id = :quiz", quiz=quiz_id)
 
         # voeg een dictionary met de score van de participant toe aan een lijst van alle scores
-        nieuw_score_dict = {"score":final_score, "name":participant_name}
+        nieuw_score_dict = {"score":eindscore, "name":participant_name}
         alle_scores.append(nieuw_score_dict)
 
         # sorteer de lijst op score
@@ -390,12 +390,12 @@ def vul_in(quiz_id):
         # bereken de positie van de huidige participant
         positie = scores_op_volgorde.index(nieuw_score_dict) + 1
 
-        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=final_score*100)
+        return render_template("eindscherm.html", gif=gif, dankwoord=dankwoord, positie=positie, score=eindscore*100, participant_id=participant_id)
 
 
     else:
-        return render_template("vul_in.html", questions = questions, titel = titel, answers = answers, quiz_id = quiz_id,
-                                aantal_vragen = len(questions), eerste_id = questions[0]['question_id'])
+        return render_template("vul_in.html", vragen = vragen, titel = titel, antwoorden = antwoorden, quiz_id = quiz_id,
+                                aantal_vragen = len(vragen), eerste_id = vragen[0]['question_id'])
 
 
 
@@ -598,6 +598,7 @@ def gallerij():
 
 # de route die de pagina waarop je je gegevens kan aanpassen laat zien
 @app.route("/mijn_account", methods=["GET", "POST"])
+@login_required
 def mijn_account():
 
     # haal de gebruikersnaam van de gebruiker op
@@ -615,6 +616,7 @@ def mijn_account():
 
 # de route waarin je je gebruikersnaam kan aanpassen
 @app.route("/verander_gebruikersnaam", methods=["GET", "POST"])
+@login_required
 def verander_gebruikersnaam():
     if request.method == "POST":
 
@@ -638,6 +640,7 @@ def verander_gebruikersnaam():
 
 # de route waarin je je wachtwoord kan aanpassen
 @app.route("/verander_wachtwoord", methods=["GET", "POST"])
+@login_required
 def verander_wachtwoord():
     if request.method == "POST":
 
