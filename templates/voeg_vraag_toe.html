@@ -172,7 +172,7 @@
     for (var i = 1; i <= card_number; i++) {
       if (!document.getElementById("card" + i + "_file").value) {
         Alert.render("Voeg een foto bij elke vraag");
-        return flase;
+        return false;
       }
       if (!document.getElementById("card" + i + "_question").value) {
         document.getElementById("card" + i + "_question").borderColor = "red";
