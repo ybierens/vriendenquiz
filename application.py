@@ -193,9 +193,7 @@ def register():
 def index():
 
     profielfoto = db.execute("SELECT profielfoto FROM users WHERE user_id = :user_id", user_id=session["user_id"])[0]['profielfoto']
-
     gebruikersnaam = db.execute("SELECT username FROM users WHERE user_id = :user_id", user_id=session["user_id"])[0]['username']
-
     mijn_quizes = db.execute("SELECT * FROM quizes WHERE user_id = :username",username=session["user_id"])
 
     participanten_lijst = []
@@ -379,7 +377,7 @@ def maak_quiz():
         return render_template("maak_quiz.html")
 
 
-
+# de route waarmee een vraag wordt toegevoegd aan een quiz
 @app.route("/voeg_vraag_toe", methods=["GET", "POST"])
 @login_required
 def voeg_vraag_toe():
