@@ -336,6 +336,10 @@ def vul_in(quiz_id):
     vragen = db.execute("SELECT * FROM questions WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
     antwoorden = db.execute("SELECT * FROM answers WHERE quiz_id = :quiz_id", quiz_id = quiz_id)
 
+    if len(vragen) == 0:
+        eerste_id = 0
+    else:
+        eerste_id = vragen[0]['question_id']
 
     # doe de antwoorden in random volgorde
     random.shuffle(antwoorden)
@@ -399,8 +403,7 @@ def vul_in(quiz_id):
 
     else:
         return render_template("vul_in.html", vragen = vragen, titel = titel, antwoorden = antwoorden, quiz_id = quiz_id,
-                                aantal_vragen = len(vragen), eerste_id = vragen[0]['question_id'])
-
+                                aantal_vragen = len(vragen), eerste_id = eerste_id)
 
 
 #################
