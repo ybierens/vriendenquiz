@@ -34,7 +34,7 @@
 
                 if (!username.value) {
                     document.getElementById("username").style.borderColor = "red";
-                    document.getElementById("user_name").innerHTML = "Please fill in username";
+                    document.getElementById("user_name").innerHTML = "Vul een gebruikersnaam in";
                 }
                 else {
                     document.getElementById("username").style.borderColor = "green";
@@ -42,7 +42,7 @@
                 }
                 if (!password.value) {
                     document.getElementById("password").style.borderColor = "red";
-                    document.getElementById("pass_word").innerHTML = "Please fill in password";
+                    document.getElementById("pass_word").innerHTML = "Vul een wachtwoord in";
                 }
                 else {
                     document.getElementById("password").style.borderColor = "green";
@@ -50,7 +50,7 @@
                 }
                 if (!confirmation.value) {
                     document.getElementById("confirmation").style.borderColor = "red";
-                    document.getElementById("confirm").innerHTML = "Please confirm password";
+                    document.getElementById("confirm").innerHTML = "Bevestig wachtwoord";
                 }
                 else {
                     document.getElementById("confirmation").style.borderColor = "green";
@@ -60,13 +60,13 @@
             }
 
             else if (password.value != confirmation.value) {
-                Alert.render("passwords don't match");
+                Alert.render("Wachtwoorden komen niet overeen");
                 return false;
             }
             else {
                 $.get("/check?username=" + username.value, function(data) {
                     if (data == false){
-                        Alert.render("username already taken");
+                        Alert.render("Gebruikersnaam is al genomen");
                     }
                     else {
                         $("#register").submit();
