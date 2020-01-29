@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Verander profielfoto
+{% endblock %}
+
+{% block main %}
+<form action="/verander_profielfoto" method="post" enctype="multipart/form-data">
+    <img scr="" id="profiel"/> </br> </br>
+    <label class="custom-file-upload">
+        <input type=file name="profielfoto" id="profielfoto" accept="image/*" onchange="preview_image('event')"/>
+        Klik om een profielfoto toe te voegen
+    </label> <br><br>
+    <button class="login" type="submit" name="verander">Verander</button>
+</form>
+
+<script>
+    function preview_image(event) {
+    var input = document.getElementById("profielfoto");
+    var file = input.files[0];
+
+    if (file) {
+      var reader = new FileReader();
+      reader.addEventListener("load", function() {
+        var img = document.getElementById("profiel");
+        img.setAttribute("src", this.result);
+      });
+      reader.readAsDataURL(file);
+    }
+  }
+
+
+</script>
+
+{% endblock %}
