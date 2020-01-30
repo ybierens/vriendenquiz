@@ -28,7 +28,7 @@ Er is niets uniekers dan jijzelf. Met onze webapplicatie maak je een quiz over j
 1. je kan quizzen verwijderen
 1. Je kan je gebruikersnaam en wachtwoord aanpassen
 1. Je kan een profielfoto aan je gebruiker toevoegen
-1. Je kan een quiz delen via Whatsapp
+1. Je kan een quiz delen via Whatsapp, dit kan echter alleen door web.whatsapp.com al open te hebben in je browser
 
 ## Minimum viable product features
 1. Quiz creëren door foto's te uploaden en hierbij passende vragen en antwoorden in te voeren
