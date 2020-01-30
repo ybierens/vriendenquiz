@@ -150,7 +150,7 @@
         img.setAttribute("name", "card" + (i-1) + "_output_image");
         img.setAttribute("id", "card" + (i-1) + "_output_image");
 
-        var file = documengt.getElementById("card" + i + "_file");
+        var file = document.getElementById("card" + i + "_file");
         file.setAttribute("name", "card" + (i-1) + "_file");
         img.setAttribute("onchange", "preview_image('event', '" + i + "')");
         file.setAttribute("id", "card" + (i-1) + "_file");

@@ -428,7 +428,7 @@ def voeg_vraag_toe():
                             antwoord = request.form.get("card" + str(i) + "_answer" + str(j)),
                             correct = False)
 
-            return redirect("/mijn_quizzes")
+        return redirect("/mijn_quizzes")
 
     else:
         return render_template("voeg_vraag_toe.html")
