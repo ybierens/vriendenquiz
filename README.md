@@ -67,3 +67,7 @@ Moeilijkste punten realisatie applicatie:
 * Uitzoeken hoe de database-structuur van de quiz ingedeeld gaat worden
 * De opgehaalde data (GIFs) integreren in de quiz
 * Een consistente en flowende user experience bewerkstelligen
+
+## website demo video link
+
+https://www.youtube.com/watch?v=oKJcdWNj1kU
